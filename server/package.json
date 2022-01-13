@@ -1,0 +1,21 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "apollo-server-core": "^3.6.1",
+        "apollo-server-express": "^3.6.1",
+        "cors": "^2.8.5",
+        "express": "^4.17.2",
+        "firebase-admin": "^10.0.1",
+        "graphql": "^16.2.0",
+        "mongoose": "^6.1.5"
+    }
+}

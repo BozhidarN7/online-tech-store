@@ -1,4 +1,4 @@
-# Onlin tech store
+# Online tech store
 
 ## The application is currently in development.
 

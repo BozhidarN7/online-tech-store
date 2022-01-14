@@ -4,4 +4,4 @@
 
 ## The documentation will be updated later
 
-### The goal of this application is to build a real world project and practicing new technologies like graphql and redux
+### The goal of this project is to practice new technologies such as graphql and redux by building a real world web app

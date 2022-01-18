@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -10,6 +11,8 @@ import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
+
+import { changedCategory, addedBrand, removedBrand } from '../../../features/filteringsSlice';
 
 const valuetext = (value) => {
     return `${value}lv.`;
@@ -39,6 +42,26 @@ const RangeSlider = () => {
 };
 
 const ProductsFilteringMenu = () => {
+    const dispatch = useDispatch();
+
+    const category = useSelector((state) => state.filterings.category);
+    const brands = useSelector((state) => state.filterings.brands);
+
+    const changeCategoryHandler = (e) => {
+        dispatch(changedCategory({ category: e.target.value }));
+    };
+
+    const toggleBrandHandler = (e) => {
+        const brand = e.target.value;
+        const isChecked = e.target.checked;
+
+        if (isChecked) {
+            dispatch(addedBrand({ brand }));
+        } else {
+            dispatch(removedBrand({ brand }));
+        }
+    };
+
     return (
         <Box>
             <Typography sx={{ mb: 2 }} variant="h5" component="div">
@@ -47,18 +70,42 @@ const ProductsFilteringMenu = () => {
 
             <FormControl sx={{ mb: 2 }} component="fieldset">
                 <FormLabel component="legend">Category</FormLabel>
-                <RadioGroup aria-label="category" defaultValue="laptops" name="radio-buttons-group">
-                    <FormControlLabel value="Laptops" control={<Radio />} label="Laptops" />
-                    <FormControlLabel value="Monitors" control={<Radio />} label="Monitors" />
+                <RadioGroup
+                    onChange={changeCategoryHandler}
+                    aria-label="category"
+                    value={category}
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel value="all" control={<Radio />} label="All" />
+                    <FormControlLabel value="laptops" control={<Radio />} label="Laptops" />
+                    <FormControlLabel value="monitors" control={<Radio />} label="Monitors" />
                     <FormControlLabel value="drones" control={<Radio />} label="Drones" />
                 </RadioGroup>
             </FormControl>
 
             <FormGroup sx={{ mb: 2 }}>
                 <FormLabel component="legend">Brand</FormLabel>
-                <FormControlLabel control={<Checkbox />} label="Lenovo" />
-                <FormControlLabel control={<Checkbox />} label="Acer" />
-                <FormControlLabel control={<Checkbox />} label="Dell" />
+                <FormControlLabel
+                    checked={brands.find((brand) => brand === 'lenovo') ? true : false}
+                    onChange={toggleBrandHandler}
+                    control={<Checkbox />}
+                    label="Lenovo"
+                    value="lenovo"
+                />
+                <FormControlLabel
+                    checked={brands.find((brand) => brand === 'acer') ? true : false}
+                    onChange={toggleBrandHandler}
+                    control={<Checkbox />}
+                    label="Acer"
+                    value="acer"
+                />
+                <FormControlLabel
+                    checked={brands.find((brand) => brand === 'dell') ? true : false}
+                    onChange={toggleBrandHandler}
+                    control={<Checkbox />}
+                    label="Dell"
+                    value="dell"
+                />
             </FormGroup>
 
             <RangeSlider />

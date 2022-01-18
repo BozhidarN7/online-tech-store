@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -6,15 +7,27 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 
-const sortingOptions = ['Lowest price first', 'Highest price first', 'Newest', 'Oldest'];
+import { changedSorting, changedView } from '../../../features/filteringsSlice.js';
+
+const sortingOptions = {
+    lowest: '',
+    highest: 'Highest price first',
+    newest: 'Newest',
+    oldest: 'Oldest',
+};
 const viewOptions = [10, 25, 50, 100];
 
 const SelectMenu = ({ type }) => {
-    const [option, setOption] = useState('');
+    const dispatch = useDispatch();
+    const option = useSelector((state) => state.filterings[type]);
+
     const [open, setOpen] = useState(false);
 
-    const handleChange = (event) => {
-        setOption(event.target.value);
+    const handleChange = (e) => {
+        const value = e.target.value;
+        type === 'sorting'
+            ? dispatch(changedSorting({ sorting: value }))
+            : dispatch(changedView({ view: value }));
     };
 
     const handleClose = () => {
@@ -41,11 +54,11 @@ const SelectMenu = ({ type }) => {
                     onChange={handleChange}
                 >
                     {type === 'sorting'
-                        ? sortingOptions.map((so, index) => {
+                        ? Object.values(sortingOptions).map((so, index) => {
                               if (index === 0) {
                                   return (
                                       <MenuItem key={index} value="">
-                                          <em>{so}</em>
+                                          <em>Lowest price first</em>
                                       </MenuItem>
                                   );
                               }

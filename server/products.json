@@ -2,7 +2,7 @@
     {
         "brand": "Lenovo",
         "model": "Legion y520",
-        "category": "Laptops",
+        "category": "laptops",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
@@ -11,7 +11,7 @@
     {
         "brand": "Drone",
         "model": "YFLY512",
-        "category": "Drones",
+        "category": "drones",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
@@ -20,7 +20,7 @@
     {
         "brand": "Lenovo",
         "model": "Legion y520",
-        "category": "Laptops",
+        "category": "laptops",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
@@ -29,7 +29,7 @@
     {
         "brand": "Dell",
         "model": "MaxVision",
-        "category": "Monitors",
+        "category": "monitors",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
@@ -38,7 +38,7 @@
     {
         "brand": "Lenovo",
         "model": "Legion y520",
-        "category": "Drones",
+        "category": "drones",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
@@ -47,7 +47,7 @@
     {
         "brand": "Lenovo",
         "model": "Legion y520",
-        "category": "Laptops",
+        "category": "laptops",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
@@ -56,7 +56,7 @@
     {
         "brand": "Lenovo",
         "model": "Legion y520",
-        "category": "Monitors",
+        "category": "monitors",
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,

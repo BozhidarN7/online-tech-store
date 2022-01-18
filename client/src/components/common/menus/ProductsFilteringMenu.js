@@ -12,7 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 
-import { changedCategory, addedBrand, removedBrand } from '../../../features/filteringsSlice';
+import { categoryChanged, brandAdded, brandRemoved } from '../../../features/filteringsSlice';
 
 const valuetext = (value) => {
     return `${value}lv.`;
@@ -48,7 +48,7 @@ const ProductsFilteringMenu = () => {
     const brands = useSelector((state) => state.filterings.brands);
 
     const changeCategoryHandler = (e) => {
-        dispatch(changedCategory({ category: e.target.value }));
+        dispatch(categoryChanged({ category: e.target.value }));
     };
 
     const toggleBrandHandler = (e) => {
@@ -56,9 +56,9 @@ const ProductsFilteringMenu = () => {
         const isChecked = e.target.checked;
 
         if (isChecked) {
-            dispatch(addedBrand({ brand }));
+            dispatch(brandAdded({ brand }));
         } else {
-            dispatch(removedBrand({ brand }));
+            dispatch(brandRemoved({ brand }));
         }
     };
 

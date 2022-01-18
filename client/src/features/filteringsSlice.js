@@ -12,25 +12,25 @@ const filteringsSlice = createSlice({
     name: 'filterings',
     initialState,
     reducers: {
-        changedCategory(state, action) {
+        categoryChanged(state, action) {
             state.category = action.payload.category;
         },
-        addedBrand(state, action) {
+        brandAdded(state, action) {
             state.brands.push(action.payload.brand);
         },
-        removedBrand(state, action) {
+        brandRemoved(state, action) {
             state.brands = state.brands.filter((brand) => brand !== action.payload.brand);
         },
-        changedView(state, action) {
+        viewChanged(state, action) {
             state.view = action.payload.view;
         },
-        changedSorting(state, action) {
+        sortingChanged(state, action) {
             state.sorting = action.payload.sorting;
         },
     },
 });
 
-export const { changedCategory, addedBrand, removedBrand, changedView, changedSorting } =
+export const { categoryChanged, brandAdded, brandRemoved, viewChanged, sortingChanged } =
     filteringsSlice.actions;
 
 export default filteringsSlice.reducer;

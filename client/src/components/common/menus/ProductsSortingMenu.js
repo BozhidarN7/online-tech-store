@@ -7,13 +7,13 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 
-import { changedSorting, changedView } from '../../../features/filteringsSlice.js';
+import { sortingChanged, viewChanged } from '../../../features/filteringsSlice.js';
 
 const sortingOptions = {
-    lowest: '',
-    highest: 'Highest price first',
-    newest: 'Newest',
+    newest: '',
     oldest: 'Oldest',
+    lowest: 'Lowest price first',
+    highest: 'Highest price first',
 };
 const viewOptions = [10, 25, 50, 100];
 
@@ -26,8 +26,8 @@ const SelectMenu = ({ type }) => {
     const handleChange = (e) => {
         const value = e.target.value;
         type === 'sorting'
-            ? dispatch(changedSorting({ sorting: value }))
-            : dispatch(changedView({ view: value }));
+            ? dispatch(sortingChanged({ sorting: value }))
+            : dispatch(viewChanged({ view: value }));
     };
 
     const handleClose = () => {
@@ -58,7 +58,7 @@ const SelectMenu = ({ type }) => {
                               if (index === 0) {
                                   return (
                                       <MenuItem key={index} value="">
-                                          <em>Lowest price first</em>
+                                          <em>Newest</em>
                                       </MenuItem>
                                   );
                               }

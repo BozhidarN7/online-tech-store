@@ -44,22 +44,30 @@ const SelectMenu = ({ type }) => {
                         ? sortingOptions.map((so, index) => {
                               if (index === 0) {
                                   return (
-                                      <MenuItem value="">
+                                      <MenuItem key={index} value="">
                                           <em>{so}</em>
                                       </MenuItem>
                                   );
                               }
-                              return <MenuItem value={so.split(' ')[0].toLowerCase()}>{so}</MenuItem>;
+                              return (
+                                  <MenuItem key={index} value={so.split(' ')[0].toLowerCase()}>
+                                      {so}
+                                  </MenuItem>
+                              );
                           })
                         : viewOptions.map((vo, index) => {
                               if (index === 0) {
                                   return (
-                                      <MenuItem value="">
+                                      <MenuItem key={index} value="">
                                           <em>{vo}</em>
                                       </MenuItem>
                                   );
                               }
-                              return <MenuItem value={vo}>{vo}</MenuItem>;
+                              return (
+                                  <MenuItem key={index} value={vo}>
+                                      {vo}
+                                  </MenuItem>
+                              );
                           })}
                 </Select>
             </FormControl>

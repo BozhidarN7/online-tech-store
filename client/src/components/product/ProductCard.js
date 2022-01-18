@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
     const openProductInfoHandler = () => {
         console.log('here');
     };
@@ -18,36 +18,31 @@ const ProductCard = () => {
     return (
         <Card sx={{ maxWidth: 345, minWidth: 345 }}>
             <CardActionArea onClick={openProductInfoHandler}>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image="https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg"
-                    alt="green iguana"
-                />
+                <CardMedia component="img" height="140" image={product.image} alt="green iguana" />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        Drone YFLY512
+                        {`${product.brand} ${product.model}`}
                     </Typography>
 
                     <Grid container rowSpacing={2}>
                         <Grid item xs={6}>
                             <Typography variant="body2" component="span">
-                                Category: Drone
+                                Category: {product.category}
                             </Typography>
                         </Grid>
                         <Grid sx={{ textAlign: 'right' }} item xs={6}>
                             <Typography variant="body2" component="span">
-                                Price: 15 lv.
+                                Price: {product.price} lv.
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <Typography variant="body2" component="span">
-                                <Rating name="read-only" value={2} readOnly />
+                                <Rating name="read-only" value={product.rating} readOnly />
                             </Typography>
                         </Grid>
                         <Grid sx={{ textAlign: 'right' }} item xs={6}>
                             <Typography variant="body2" component="span">
-                                Quantity: 5
+                                Quantity: {product.quantity}
                             </Typography>
                         </Grid>
                     </Grid>

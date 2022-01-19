@@ -1,9 +1,9 @@
 import Grid from '@mui/material/Grid';
 
-import PageWrapper from '../../components/wrappers/pageWrapper/PageWrapper';
-import ProductsFilteringMenu from '../../components/common/menus/ProductsFilteringMenu';
-import ProductsSortingMenu from '../../components/common/menus/ProductsSortingMenu';
-import ProductsList from '../../components/product/ProductsList';
+import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
+import ProductsFilteringMenu from '../components/common/menus/ProductsFilteringMenu';
+import ProductsSortingMenu from '../components/common/menus/ProductsSortingMenu';
+import ProductsList from '../components/product/ProductsList';
 
 const ProductsPage = () => {
     return (

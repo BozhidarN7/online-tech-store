@@ -1,4 +1,4 @@
-import NavBar from '../../components/common/navBar/NavBar';
+import NavBar from '../components/common/navBar/NavBar';
 
 const HomePage = () => {
     return <NavBar />;

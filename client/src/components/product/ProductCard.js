@@ -5,14 +5,18 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
+import { useNavigate } from 'react-router-dom';
+
 import Rating from '@mui/material/Rating';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const ProductCard = ({ product }) => {
+    const navigate = useNavigate();
+
     const openProductInfoHandler = () => {
-        console.log('here');
+        navigate('/product/1');
     };
 
     return (

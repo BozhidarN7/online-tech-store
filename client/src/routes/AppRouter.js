@@ -1,11 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import HomePage from '../pages/homePage/HomePage';
+import HomePage from '../pages/HomePage';
 
 import isGuest from '../guards/isGuest';
 
-import LoginPage from '../pages/loginPage/LoginPage';
-import ProductsPage from '../pages/productsPage/ProductsPage';
-import RegisterPage from '../pages/registerPage/RegisterPage';
+import LoginPage from '../pages/LoginPage';
+import ProductsPage from '../pages/ProductsPage';
+import RegisterPage from '../pages/RegisterPage';
+import ProductInfoPage from '../pages/ProductInfoPage';
 
 const AppRouter = () => {
     return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
             <Route path="/login" element={isGuest(LoginPage)} />
             <Route path="/register" element={isGuest(RegisterPage)} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/product/:id" element={<ProductInfoPage />} />
         </Routes>
     );
 };

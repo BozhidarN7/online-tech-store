@@ -2,11 +2,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import UserAccountForm from '../../components/common/navBar/forms/UserAccountForm';
+import UserAccountForm from '../components/common/navBar/forms/UserAccountForm';
 
 const theme = createTheme();
 
-const RegisterPage = () => {
+const LoginPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -26,10 +26,10 @@ const RegisterPage = () => {
                         backgroundPosition: 'center',
                     }}
                 />
-                <UserAccountForm formType={'register'} />
+                <UserAccountForm formType={'login'} />
             </Grid>
         </ThemeProvider>
     );
 };
 
-export default RegisterPage;
+export default LoginPage;

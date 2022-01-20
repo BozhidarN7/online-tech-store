@@ -1,3 +1,8 @@
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+
 import {
     CardMedia,
     Grid,
@@ -20,27 +25,58 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import { useTheme } from '@mui/material/styles';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
+import { GET_PRODUCT } from '../graphql/queries';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
-import { border } from '@mui/system';
+import Spinner from '../components/common/Spinner';
 
 const ProductInfoPage = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const theme = useTheme();
+
+    const userId = localStorage.getItem('userInfo');
+
+    const { loading, data } = useQuery(GET_PRODUCT, {
+        variables: {
+            id,
+        },
+    });
+
+    if (loading) {
+        return (
+            <PageWrapper>
+                <Grid container justifyContent="center">
+                    <Grid item>
+                        <Spinner />;
+                    </Grid>
+                </Grid>
+            </PageWrapper>
+        );
+    }
+
+    const product = data.product;
+    const isAddedToFavorites = product.favoriteTo.find((user) => user._id === userId) ? true : false;
 
     return (
         <PageWrapper>
-            <Grid container spacing={10}>
+            <Grid container spacing={4}>
+                <Grid item xs={12}>
+                    <IconButton onClick={() => navigate('/products')}>
+                        <KeyboardBackspaceIcon />
+                    </IconButton>
+                </Grid>
                 <Grid item xs={5}>
                     <Box>
                         <Typography variant="h4" component="h1">
-                            Drone YFLY512
+                            {`${product.brand} ${product.model}`}
                         </Typography>
                         <CardMedia
                             sx={{ boxShadow: 1 }}
                             component="img"
                             height="400"
-                            image="https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg"
+                            image={product.image}
                             alt="drone"
                         />
                     </Box>
@@ -78,11 +114,11 @@ const ProductInfoPage = () => {
                     <Box sx={{ mt: 2 }}>
                         <Typography component="span">Quantity:</Typography>
                         <IconButton component="span">
-                            <AddCircleIcon />
+                            <RemoveCircleIcon />
                         </IconButton>
                         <Typography component="span">1</Typography>
                         <IconButton component="span">
-                            <RemoveCircleIcon />
+                            <AddCircleIcon />
                         </IconButton>
                     </Box>
                 </Grid>
@@ -105,8 +141,10 @@ const ProductInfoPage = () => {
                                             color: `${theme.palette.info.dark}`,
                                             variant: 'h4',
                                         }}
-                                        primary="$1222.00"
-                                        secondary={<Rating name="read-only" value={2} readOnly />}
+                                        primary={`$${product.price}`}
+                                        secondary={
+                                            <Rating name="read-only" value={product.rating} readOnly />
+                                        }
                                     />
                                 </ListItem>
                                 <ListItem sx={{ height: 100, borderBottom: 1 }}>
@@ -142,7 +180,12 @@ const ProductInfoPage = () => {
                             <Button sx={{ m: 2 }} variant="contained" startIcon={<ShoppingCartIcon />}>
                                 Add to cart
                             </Button>
-                            <Button sx={{ m: 2 }} variant="contained" startIcon={<FavoriteIcon />}>
+                            <Button
+                                sx={{ m: 2 }}
+                                variant="contained"
+                                startIcon={<FavoriteIcon />}
+                                disabled={isAddedToFavorites}
+                            >
                                 Add to favorite
                             </Button>
                         </Grid>
@@ -175,14 +218,14 @@ const ProductInfoPage = () => {
                         obcaecati, commodi nam ad quasi harum modi enim sapiente!
                     </Box>
                     <Box component="p">
-                        Lorem ipsum <dol></dol>or sit amet consectetur adipisicing elit. Numquam adipisci
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci tempora odit
+                        neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis, obcaecati, commodi
+                        nam ad quasi harum modi enim sapiente! Lorem ipsum dolor sit amet consectetur
+                        adipisicing elit. Numquam adipisci tempora odit neque fugit tenetur. Vel fugiat
+                        repellat corrupti ducimus officiis, obcaecati, commodi nam ad quasi harum modi enim
+                        sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci
                         tempora odit neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis,
-                        obcaecati, commodi nam ad quasi harum modi enim sapiente! Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati, commodi nam ad quasi harum modi
-                        enim sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-                        adipisci tempora odit neque fugit tenetur. Vel fugiat repellat corrupti ducimus
-                        officiis, obcaecati, commodi nam ad quasi harum modi enim sapiente!
+                        obcaecati, commodi nam ad quasi harum modi enim sapiente!
                     </Box>
                 </Box>
             </Box>

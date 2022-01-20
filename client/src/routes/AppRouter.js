@@ -15,7 +15,7 @@ const AppRouter = () => {
             <Route path="/login" element={isGuest(LoginPage)} />
             <Route path="/register" element={isGuest(RegisterPage)} />
             <Route path="/products" element={<ProductsPage />} />
-            <Route path="/product/:id" element={<ProductInfoPage />} />
+            <Route path="/products/:id" element={<ProductInfoPage />} />
         </Routes>
     );
 };

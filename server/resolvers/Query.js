@@ -6,7 +6,12 @@ const products = async () => {
     return await productService.getAllProducts();
 };
 
+const product = async (parent, args, context, info) => {
+    return await productService.getProductById(args.id);
+};
+
 export default {
     info,
     products,
+    product,
 };

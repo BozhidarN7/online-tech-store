@@ -47,7 +47,9 @@ export const AuthProvider = ({ children }) => {
             variables: { email, firstName, lastName },
             context: { headers: { 'x-authorization': idToken } },
         });
-        const userDetails = data.signUp;
+        const userDetails = data.data.signUp;
+
+        localStorage.setItem('userInfo', userDetails._id);
 
         return userDetails;
     };
@@ -55,17 +57,19 @@ export const AuthProvider = ({ children }) => {
     const signIn = async (email, password) => {
         const firebaseUserCredentials = await signInWithEmailAndPassword(auth, email, password);
         const idToken = await firebaseUserCredentials.user.getIdToken();
-        console.log(idToken);
         const data = await login({
             variables: { email },
             context: { headers: { 'x-authorization': idToken } },
         });
-        const userDetails = data.signIn;
+        const userDetails = data.data.signIn;
+
+        localStorage.setItem('userInfo', userDetails._id);
 
         return userDetails;
     };
 
     const logout = async () => {
+        localStorage.removeItem('userInfo');
         return await authService.signOut(auth);
     };
 

@@ -30,6 +30,18 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a image!'],
     },
+    favoriteTo: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
+    inCartTo: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
 });
 
 const Product = mongoose.model('Product', ProductSchema);

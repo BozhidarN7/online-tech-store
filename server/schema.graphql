@@ -1,11 +1,13 @@
 type Query {
     info: String!
     products: [Product!]
+    product(id: ID!): Product
 }
 
 type Mutation {
     signUp(firstName: String!, lastName: String!, email: String!): User!
     signIn(email: String!): User!
+    addToFavorites(userId: ID!, productId: ID!): AddToFavoritesMutationResponse!
 }
 
 type Product {
@@ -18,6 +20,7 @@ type Product {
     rating: Int!
     quantity: Int!
     image: String!
+    favoriteTo: [User!]
 }
 
 type User {
@@ -26,4 +29,19 @@ type User {
     lastName: String!
     email: String!
     createdAt: String!
+    favorites: [Product!]
+}
+
+interface MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+}
+
+type AddToFavoritesMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    user: User
+    product: Product
 }

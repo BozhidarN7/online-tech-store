@@ -6,7 +6,8 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg"
+        "image": "https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg",
+        "favoriteTo": []
     },
     {
         "brand": "Drone",
@@ -15,7 +16,8 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg"
+        "image": "https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg",
+        "favoriteTo": []
     },
     {
         "brand": "Lenovo",
@@ -24,7 +26,8 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg"
+        "image": "https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg",
+        "favoriteTo": []
     },
     {
         "brand": "Dell",
@@ -33,7 +36,8 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://p1.akcdn.net/full/510997041.dell-p2219h.jpg"
+        "image": "https://p1.akcdn.net/full/510997041.dell-p2219h.jpg",
+        "favoriteTo": []
     },
     {
         "brand": "Lenovo",
@@ -42,7 +46,8 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg"
+        "image": "https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg",
+        "favoriteTo": []
     },
     {
         "brand": "Lenovo",
@@ -51,7 +56,8 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg"
+        "image": "https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg",
+        "favoriteTo": []
     },
     {
         "brand": "Lenovo",
@@ -60,6 +66,7 @@
         "description": "The best laptop of the year",
         "price": 1212.99,
         "quantity": 3,
-        "image": "https://p1.akcdn.net/full/510997041.dell-p2219h.jpg"
+        "image": "https://p1.akcdn.net/full/510997041.dell-p2219h.jpg",
+        "favoriteTo": []
     }
 ]

@@ -21,3 +21,28 @@ export const LOGIN_USER = gql`
         }
     }
 `;
+
+export const ADD_TO_FAVORITES = gql`
+    mutation AddToFavorites($productId: ID!, $userId: ID!) {
+        addToFavorites(productId: $productId, userId: $userId) {
+            code
+            success
+            message
+            user {
+                _id
+                email
+                favorites {
+                    _id
+                }
+            }
+            product {
+                _id
+                brand
+                model
+                favoriteTo {
+                    _id
+                }
+            }
+        }
+    }
+`;

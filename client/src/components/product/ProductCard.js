@@ -1,3 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+
+import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -5,18 +9,38 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
-import { useNavigate } from 'react-router-dom';
-
 import Rating from '@mui/material/Rating';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+import { useAuth } from '../../contexts/AuthCtx';
+import { ADD_TO_FAVORITES } from '../../graphql/mutations';
+
 const ProductCard = ({ product }) => {
+    const theme = useTheme();
+
     const navigate = useNavigate();
 
+    const { currentUser } = useAuth();
+    const userId = localStorage.getItem('userInfo');
+
+    const [addToFavorites] = useMutation(ADD_TO_FAVORITES, {
+        context: { headers: { 'x-authorization': currentUser.accessToken } },
+        variables: {
+            userId,
+            productId: product._id,
+        },
+    });
+
+    const isAddedToFavorites = product.favoriteTo.find((user) => user._id === userId) ? true : false;
+
     const openProductInfoHandler = () => {
-        navigate('/product/1');
+        navigate(`/products/${product._id}`);
+    };
+
+    const addToFavoritesHandler = () => {
+        addToFavorites();
     };
 
     return (
@@ -52,14 +76,20 @@ const ProductCard = ({ product }) => {
                     </Grid>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="add to shopping cart">
-                    <ShoppingCartIcon />
-                </IconButton>
-            </CardActions>
+            {currentUser ? (
+                <CardActions>
+                    <IconButton
+                        disabled={isAddedToFavorites}
+                        onClick={addToFavoritesHandler}
+                        aria-label="add to favorites"
+                    >
+                        <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="add to shopping cart">
+                        <ShoppingCartIcon />
+                    </IconButton>
+                </CardActions>
+            ) : null}
         </Card>
     );
 };

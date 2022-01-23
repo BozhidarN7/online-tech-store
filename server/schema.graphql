@@ -2,12 +2,14 @@ type Query {
     info: String!
     products: [Product!]
     product(id: ID!): Product
+    user(id: ID!): User
 }
 
 type Mutation {
     signUp(firstName: String!, lastName: String!, email: String!): User!
     signIn(email: String!): User!
-    addToFavorites(userId: ID!, productId: ID!): AddToFavoritesMutationResponse!
+    addToFavorites(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
+    addToCart(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
 }
 
 type Product {
@@ -21,6 +23,7 @@ type Product {
     quantity: Int!
     image: String!
     favoriteTo: [User!]
+    inCartTo: [User!]
 }
 
 type User {
@@ -30,6 +33,7 @@ type User {
     email: String!
     createdAt: String!
     favorites: [Product!]
+    cart: [Product!]
 }
 
 interface MutationResponse {
@@ -38,7 +42,7 @@ interface MutationResponse {
     message: String!
 }
 
-type AddToFavoritesMutationResponse implements MutationResponse {
+type AddToFavoritesOrCartMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!

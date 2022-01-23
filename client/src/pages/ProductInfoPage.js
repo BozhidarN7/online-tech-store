@@ -58,6 +58,7 @@ const ProductInfoPage = () => {
 
     const product = data.product;
     const isAddedToFavorites = product.favoriteTo.find((user) => user._id === userId) ? true : false;
+    const isAddedToCart = product.inCartTo.find((user) => user._id === userId) ? true : false;
 
     return (
         <PageWrapper>
@@ -177,7 +178,12 @@ const ProductInfoPage = () => {
                                     />
                                 </ListItem>
                             </List>
-                            <Button sx={{ m: 2 }} variant="contained" startIcon={<ShoppingCartIcon />}>
+                            <Button
+                                sx={{ m: 2 }}
+                                variant="contained"
+                                startIcon={<ShoppingCartIcon />}
+                                disabled={isAddedToCart}
+                            >
                                 Add to cart
                             </Button>
                             <Button

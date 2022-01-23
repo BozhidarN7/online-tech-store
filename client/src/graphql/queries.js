@@ -14,6 +14,9 @@ export const GET_All_PRODUCTS = gql`
             favoriteTo {
                 _id
             }
+            inCartTo {
+                _id
+            }
         }
     }
 `;
@@ -29,6 +32,9 @@ export const GET_PRODUCT = gql`
             image
             _id
             favoriteTo {
+                _id
+            }
+            inCartTo {
                 _id
             }
         }

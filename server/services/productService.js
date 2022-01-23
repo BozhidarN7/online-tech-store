@@ -15,3 +15,9 @@ export const addUserToFavoritesTo = async (userId, productId) => {
 
     return await Product.findByIdAndUpdate(productId, { $push: { favoriteTo: mongoUserId } }, { new: true });
 };
+
+export const addUserToInCartTo = async (userId, productId) => {
+    const mongoUserId = mongoose.Types.ObjectId(userId);
+
+    return await Product.findByIdAndUpdate(productId, { $push: { inCartTo: mongoUserId } }, { new: true });
+};

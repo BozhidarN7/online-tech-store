@@ -15,18 +15,23 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { useAuth } from '../../contexts/AuthCtx';
-import { ADD_TO_FAVORITES } from '../../graphql/mutations';
+import { ADD_TO_FAVORITES, ADD_TO_CART } from '../../graphql/mutations';
 
 const ProductCard = ({ product }) => {
-    const theme = useTheme();
-
     const navigate = useNavigate();
 
-    const { currentUser } = useAuth();
+    const { firebaseUser } = useAuth();
     const userId = localStorage.getItem('userInfo');
 
     const [addToFavorites] = useMutation(ADD_TO_FAVORITES, {
-        context: { headers: { 'x-authorization': currentUser.accessToken } },
+        context: { headers: { 'x-authorization': firebaseUser.accessToken } },
+        variables: {
+            userId,
+            productId: product._id,
+        },
+    });
+    const [addToCart] = useMutation(ADD_TO_CART, {
+        context: { headers: { 'x-authorization': firebaseUser.accessToken } },
         variables: {
             userId,
             productId: product._id,
@@ -34,6 +39,7 @@ const ProductCard = ({ product }) => {
     });
 
     const isAddedToFavorites = product.favoriteTo.find((user) => user._id === userId) ? true : false;
+    const isAddedToCart = product.inCartTo.find((user) => user._id === userId) ? true : false;
 
     const openProductInfoHandler = () => {
         navigate(`/products/${product._id}`);
@@ -41,6 +47,9 @@ const ProductCard = ({ product }) => {
 
     const addToFavoritesHandler = () => {
         addToFavorites();
+    };
+    const addToCartHandler = () => {
+        addToCart();
     };
 
     return (
@@ -76,7 +85,7 @@ const ProductCard = ({ product }) => {
                     </Grid>
                 </CardContent>
             </CardActionArea>
-            {currentUser ? (
+            {firebaseUser ? (
                 <CardActions>
                     <IconButton
                         disabled={isAddedToFavorites}
@@ -85,7 +94,11 @@ const ProductCard = ({ product }) => {
                     >
                         <FavoriteIcon />
                     </IconButton>
-                    <IconButton aria-label="add to shopping cart">
+                    <IconButton
+                        disabled={isAddedToCart}
+                        onClick={addToCartHandler}
+                        aria-label="add to shopping cart"
+                    >
                         <ShoppingCartIcon />
                     </IconButton>
                 </CardActions>

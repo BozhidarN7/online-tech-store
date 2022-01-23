@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,14 +14,21 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { useAuth } from '../../../contexts/AuthCtx';
+import { selectCurrentUser } from '../../../features/usersSlice';
 
 const pages = ['Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 const NavBar = () => {
-    const { currentUser, logout } = useAuth();
+    const currentUser = useSelector(selectCurrentUser);
+    console.log(currentUser);
+    const { logout } = useAuth();
+    const navigate = useNavigate();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -151,6 +159,24 @@ const NavBar = () => {
 
                     {currentUser ? (
                         <Box sx={{ flexGrow: 0 }}>
+                            <IconButton
+                                onClick={() => navigate('/favortes')}
+                                arial-label="cart"
+                                sx={{ mr: 3, pb: 0 }}
+                            >
+                                <Badge badgeContent={currentUser.favorites.length} color="secondary">
+                                    <FavoriteIcon sx={{ color: 'white', fontSize: 30 }} />
+                                </Badge>
+                            </IconButton>
+                            <IconButton
+                                onClick={() => navigate('/cart')}
+                                arial-label="cart"
+                                sx={{ mr: 3, pb: 0 }}
+                            >
+                                <Badge badgeContent={currentUser.cart.length} color="secondary">
+                                    <ShoppingCartIcon sx={{ color: 'white', fontSize: 30 }} />
+                                </Badge>
+                            </IconButton>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                     <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

@@ -3,9 +3,9 @@ import { useAuth } from '../contexts/AuthCtx';
 
 const isGuest = (WrappedComponent) => {
     const ComponentWrapper = (props) => {
-        const { currentUser } = useAuth();
+        const { firebaseUser } = useAuth();
 
-        if (currentUser) {
+        if (firebaseUser) {
             return <Navigate to="/products" replace={true} />;
         }
 

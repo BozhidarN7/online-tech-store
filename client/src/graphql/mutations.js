@@ -18,6 +18,12 @@ export const LOGIN_USER = gql`
             email
             firstName
             lastName
+            cart {
+                _id
+            }
+            favorites {
+                _id
+            }
         }
     }
 `;
@@ -30,16 +36,35 @@ export const ADD_TO_FAVORITES = gql`
             message
             user {
                 _id
-                email
                 favorites {
                     _id
                 }
             }
             product {
                 _id
-                brand
-                model
                 favoriteTo {
+                    _id
+                }
+            }
+        }
+    }
+`;
+
+export const ADD_TO_CART = gql`
+    mutation AddToCart($productId: ID!, $userId: ID!) {
+        addToCart(productId: $productId, userId: $userId) {
+            code
+            success
+            message
+            user {
+                _id
+                cart {
+                    _id
+                }
+            }
+            product {
+                _id
+                inCartTo {
                     _id
                 }
             }

@@ -1,11 +1,9 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useContext, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useDispatch } from 'react-redux';
 
 import { auth, authService } from '../config/firebaseConfig';
 import { REGISTER_USER, LOGIN_USER } from '../graphql/mutations';
-import { currentUserAdded, currentUserLogout } from '../features/usersSlice';
 
 const AuthCtx = React.createContext();
 
@@ -15,8 +13,6 @@ export const AuthProvider = ({ children }) => {
     const [register] = useMutation(REGISTER_USER);
     const [login] = useMutation(LOGIN_USER);
 
-    const dispatch = useDispatch();
-
     const [firebaseUser, setFirebaseUser] = useState();
     const [userRole, setUserRole] = useState('');
     const [isAuthLoading, setIsAuthLoading] = useState(true);
@@ -24,6 +20,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = authService.onAuthStateChanged(auth, (user) => {
             setFirebaseUser(user);
+
             if (user) {
                 user.getIdTokenResult(true)
                     .then((idTokenResult) => {
@@ -55,8 +52,6 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.setItem('userInfo', userDetails._id);
 
-        dispatch(currentUserAdded(userDetails));
-
         return userDetails;
     };
 
@@ -71,14 +66,11 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.setItem('userInfo', userDetails._id);
 
-        dispatch(currentUserAdded(userDetails));
-
         return userDetails;
     };
 
     const logout = async () => {
         localStorage.removeItem('userInfo');
-        dispatch(currentUserLogout);
         return await authService.signOut(auth);
     };
 

@@ -2,7 +2,7 @@ type Query {
     info: String!
     products: [Product!]
     product(id: ID!): Product
-    user(id: ID!): User
+    user(id: ID): User
 }
 
 type Mutation {

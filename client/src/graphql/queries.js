@@ -40,3 +40,17 @@ export const GET_PRODUCT = gql`
         }
     }
 `;
+
+export const GET_USER_BY_ID = gql`
+    query GetUserById($id: ID) {
+        user(id: $id) {
+            _id
+            cart {
+                _id
+            }
+            favorites {
+                _id
+            }
+        }
+    }
+`;

@@ -12,6 +12,12 @@ const product = async (parent, args, context, info) => {
 };
 
 const user = async (parent, args, context, info) => {
+    const id = args.id;
+
+    if (!id) {
+        return null;
+    }
+
     return await userService.getUserById(args.id);
 };
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useQuery } from '@apollo/client';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,19 +19,30 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { useAuth } from '../../../contexts/AuthCtx';
-import { selectCurrentUser } from '../../../features/usersSlice';
+import { GET_USER_BY_ID } from '../../../graphql/queries.js';
 
 const pages = ['Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 const NavBar = () => {
-    const currentUser = useSelector(selectCurrentUser);
-    console.log(currentUser);
-    const { logout } = useAuth();
+    const userId = localStorage.getItem('userInfo');
+
+    const { data, loading } = useQuery(GET_USER_BY_ID, {
+        variables: {
+            id: userId || undefined,
+        },
+    });
+
     const navigate = useNavigate();
+    const { firebaseUser, logout } = useAuth();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+
+    if (loading) {
+        return null;
+    }
+    const currentUser = data.user;
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -136,7 +147,7 @@ const NavBar = () => {
                             </Button>
                         ))}
                     </Box>
-                    {!currentUser ? (
+                    {!firebaseUser ? (
                         <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
                             <Button sx={{ my: 2, color: 'white', display: 'block' }}>
                                 <NavLink
@@ -157,14 +168,14 @@ const NavBar = () => {
                         </Box>
                     ) : null}
 
-                    {currentUser ? (
+                    {firebaseUser ? (
                         <Box sx={{ flexGrow: 0 }}>
                             <IconButton
                                 onClick={() => navigate('/favortes')}
                                 arial-label="cart"
                                 sx={{ mr: 3, pb: 0 }}
                             >
-                                <Badge badgeContent={currentUser.favorites.length} color="secondary">
+                                <Badge badgeContent={currentUser?.favorites.length} color="secondary">
                                     <FavoriteIcon sx={{ color: 'white', fontSize: 30 }} />
                                 </Badge>
                             </IconButton>
@@ -173,7 +184,7 @@ const NavBar = () => {
                                 arial-label="cart"
                                 sx={{ mr: 3, pb: 0 }}
                             >
-                                <Badge badgeContent={currentUser.cart.length} color="secondary">
+                                <Badge badgeContent={currentUser?.cart.length} color="secondary">
                                     <ShoppingCartIcon sx={{ color: 'white', fontSize: 30 }} />
                                 </Badge>
                             </IconButton>

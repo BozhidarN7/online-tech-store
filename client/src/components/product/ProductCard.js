@@ -18,19 +18,20 @@ import { useAuth } from '../../contexts/AuthCtx';
 import { ADD_TO_FAVORITES, ADD_TO_CART } from '../../graphql/mutations';
 
 const ProductCard = ({ product }) => {
+    const theme = useTheme();
     const navigate = useNavigate();
 
     const { firebaseUser } = useAuth();
     const userId = localStorage.getItem('userInfo');
 
-    const [addToFavorites] = useMutation(ADD_TO_FAVORITES, {
+    const [addRemoveToFavorites] = useMutation(ADD_TO_FAVORITES, {
         context: { headers: { 'x-authorization': firebaseUser.accessToken } },
         variables: {
             userId,
             productId: product._id,
         },
     });
-    const [addToCart] = useMutation(ADD_TO_CART, {
+    const [addRemoveToCart] = useMutation(ADD_TO_CART, {
         context: { headers: { 'x-authorization': firebaseUser.accessToken } },
         variables: {
             userId,
@@ -46,10 +47,10 @@ const ProductCard = ({ product }) => {
     };
 
     const addToFavoritesHandler = () => {
-        addToFavorites();
+        addRemoveToFavorites();
     };
     const addToCartHandler = () => {
-        addToCart();
+        addRemoveToCart();
     };
 
     return (
@@ -88,14 +89,14 @@ const ProductCard = ({ product }) => {
             {firebaseUser ? (
                 <CardActions>
                     <IconButton
-                        disabled={isAddedToFavorites}
+                        sx={{ color: isAddedToFavorites ? `${theme.palette.secondary.main}` : '' }}
                         onClick={addToFavoritesHandler}
                         aria-label="add to favorites"
                     >
                         <FavoriteIcon />
                     </IconButton>
                     <IconButton
-                        disabled={isAddedToCart}
+                        sx={{ color: isAddedToCart ? `${theme.palette.secondary.main}` : '' }}
                         onClick={addToCartHandler}
                         aria-label="add to shopping cart"
                     >

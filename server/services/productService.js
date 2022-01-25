@@ -11,13 +11,17 @@ export const getProductById = async (id) => {
 };
 
 export const addUserToFavoritesTo = async (userId, productId) => {
-    const mongoUserId = mongoose.Types.ObjectId(userId);
+    return await Product.findByIdAndUpdate(productId, { $push: { favoriteTo: userId } }, { new: true });
+};
 
-    return await Product.findByIdAndUpdate(productId, { $push: { favoriteTo: mongoUserId } }, { new: true });
+export const removeUserFromFavoritesTo = async (userId, productId) => {
+    return await Product.findByIdAndUpdate(productId, { $pull: { favoriteTo: userId } }, { new: true });
 };
 
 export const addUserToInCartTo = async (userId, productId) => {
-    const mongoUserId = mongoose.Types.ObjectId(userId);
+    return await Product.findByIdAndUpdate(productId, { $push: { inCartTo: userId } }, { new: true });
+};
 
-    return await Product.findByIdAndUpdate(productId, { $push: { inCartTo: mongoUserId } }, { new: true });
+export const removeUserFromCartTo = async (userId, productId) => {
+    return await Product.findByIdAndUpdate(productId, { $pull: { inCartTo: userId } }, { new: true });
 };

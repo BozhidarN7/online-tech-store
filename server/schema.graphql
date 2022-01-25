@@ -8,8 +8,8 @@ type Query {
 type Mutation {
     signUp(firstName: String!, lastName: String!, email: String!): User!
     signIn(email: String!): User!
-    addToFavorites(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
-    addToCart(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
+    addRemoveToFavorites(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
+    addRemoveToCart(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
 }
 
 type Product {

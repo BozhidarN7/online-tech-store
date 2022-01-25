@@ -29,8 +29,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_TO_FAVORITES = gql`
-    mutation AddToFavorites($productId: ID!, $userId: ID!) {
-        addToFavorites(productId: $productId, userId: $userId) {
+    mutation AddRemoveToFavorites($productId: ID!, $userId: ID!) {
+        addRemoveToFavorites(productId: $productId, userId: $userId) {
             code
             success
             message
@@ -51,8 +51,8 @@ export const ADD_TO_FAVORITES = gql`
 `;
 
 export const ADD_TO_CART = gql`
-    mutation AddToCart($productId: ID!, $userId: ID!) {
-        addToCart(productId: $productId, userId: $userId) {
+    mutation AddRemoveToCart($productId: ID!, $userId: ID!) {
+        addRemoveToCart(productId: $productId, userId: $userId) {
             code
             success
             message

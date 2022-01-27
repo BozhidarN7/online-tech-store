@@ -24,7 +24,7 @@ const CartPage = () => {
     return (
         <PageWrapper>
             <Grid container>
-                <Grid sx={{ bgcolor: 'lightblue', p: 2 }} item xs={9}>
+                <Grid sx={{ bgcolor: 'lightblue', p: 2, mr: 2 }} item xs={8}>
                     <Typography sx={{ mb: 2 }} variant="h4" component="h1">
                         Shopping Cart
                     </Typography>
@@ -220,8 +220,9 @@ const CartPage = () => {
                     sx={{
                         boxShadow: 3,
                         borderRadius: 3,
+                        minHeight: 350,
                         maxHeight: 350,
-                        bgcolor: 'pink',
+                        ml: 2,
                     }}
                     item
                     xs={3}
@@ -229,7 +230,7 @@ const CartPage = () => {
                     <Typography sx={{ m: 2 }} variant="h5" component="h2">
                         Information about the order
                     </Typography>
-                    <Box sx={{ borderBottom: 1, p: 2 }}>
+                    <Box sx={{ borderBottom: 1, p: 2, textAlign: 'center' }}>
                         <Typography variant="h6" component="p">
                             Total:
                         </Typography>
@@ -244,15 +245,14 @@ const CartPage = () => {
                             Continue
                         </Button>
                     </Box>
-                    <Box sx={{ p: 2 }}>
+                    <Box sx={{ p: 2, textAlign: 'center' }}>
                         <Typography>Add promo code</Typography>
                         <TextField
-                            sx={{ display: 'block', mb: 1 }}
-                            id="outlined-basic"
-                            label="Outlined"
+                            id="standard-basic"
+                            label="Promo code"
                             variant="standard"
                         />
-                        <Button sx={{ width: 182 }} variant="outlined">
+                        <Button sx={{ width: 182, mt: 1 }} variant="outlined">
                             Add code
                         </Button>
                     </Box>

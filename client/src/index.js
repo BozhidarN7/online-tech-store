@@ -16,7 +16,38 @@ import '@fontsource/roboto/700.css';
 
 const client = new ApolloClient({
     uri: ' http://localhost:5000',
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+        typePolicies: {
+            Product: {
+                fields: {
+                    favoriteTo: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        },
+                    },
+                    inCartTo: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        },
+                    },
+                },
+            },
+            User: {
+                fields: {
+                    favorites: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        },
+                    },
+                    cart: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        },
+                    },
+                },
+            },
+        },
+    }),
 });
 
 ReactDOM.render(

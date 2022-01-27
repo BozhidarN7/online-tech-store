@@ -17,7 +17,9 @@ const resolvers = {
     Mutation,
 };
 
-const graphqlSchema = fs.readFileSync('./schema.graphql', { encoding: 'utf-8' });
+const graphqlSchema = fs.readFileSync('./schema.graphql', {
+    encoding: 'utf-8',
+});
 const typeDefs = gql`
     ${graphqlSchema}
 `;
@@ -43,7 +45,9 @@ async function startApp() {
     await server.start();
     server.applyMiddleware({ app, path: '/' });
 
-    httpServer.listen(config.PORT, () => console.log(`Server is listening on port ${config.PORT}`));
+    httpServer.listen(config.PORT, () =>
+        console.log(`Server is listening on port ${config.PORT}`)
+    );
 }
 
 startApp();

@@ -6,7 +6,7 @@ const PageWrapper = ({ children }) => {
     return (
         <>
             <NavBar />
-            <Box sx={{ mx: 27, mt: 10 }}>{children}</Box>
+            <Box sx={{ mx: { xl: 3, lg: 3 }, mt: 10 }}>{children}</Box>
         </>
     );
 };

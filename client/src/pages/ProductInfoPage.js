@@ -57,8 +57,14 @@ const ProductInfoPage = () => {
     }
 
     const product = data.product;
-    const isAddedToFavorites = product.favoriteTo.find((user) => user._id === userId) ? true : false;
-    const isAddedToCart = product.inCartTo.find((user) => user._id === userId) ? true : false;
+    const isAddedToFavorites = product.favoriteTo.find(
+        (user) => user._id === userId
+    )
+        ? true
+        : false;
+    const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
+        ? true
+        : false;
 
     return (
         <PageWrapper>
@@ -83,25 +89,29 @@ const ProductInfoPage = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={3}>
-                    <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+                    <Typography
+                        sx={{ mt: 4, mb: 2 }}
+                        variant="h6"
+                        component="div"
+                    >
                         Main characteristics
                     </Typography>
                     <List>
                         <ListItem sx={{ m: 0, p: 0 }}>
                             <ListItemIcon>
-                                <DoneIcon />
+                                <DoneIcon sx={{ color: 'blue' }} />
                             </ListItemIcon>
                             <ListItemText primary="Fast" />
                         </ListItem>
                         <ListItem sx={{ m: 0, p: 0 }}>
                             <ListItemIcon>
-                                <DoneIcon />
+                                <DoneIcon sx={{ color: 'blue' }} />
                             </ListItemIcon>
                             <ListItemText primary="Long distance" />
                         </ListItem>
                         <ListItem sx={{ m: 0, p: 0 }}>
                             <ListItemIcon>
-                                <DoneIcon />
+                                <DoneIcon sx={{ color: 'blue' }} />
                             </ListItemIcon>
                             <ListItemText primary="Higher attitude" />
                         </ListItem>
@@ -135,7 +145,13 @@ const ProductInfoPage = () => {
                         <Grid container direction="column">
                             <List>
                                 <ListItem
-                                    sx={{ m: 0, p: 0, height: 100, borderBottom: 1, textAlign: 'center' }}
+                                    sx={{
+                                        m: 0,
+                                        p: 0,
+                                        height: 100,
+                                        borderBottom: 1,
+                                        textAlign: 'center',
+                                    }}
                                 >
                                     <ListItemText
                                         primaryTypographyProps={{
@@ -144,14 +160,21 @@ const ProductInfoPage = () => {
                                         }}
                                         primary={`$${product.price}`}
                                         secondary={
-                                            <Rating name="read-only" value={product.rating} readOnly />
+                                            <Rating
+                                                name="read-only"
+                                                value={product.rating}
+                                                readOnly
+                                            />
                                         }
                                     />
                                 </ListItem>
                                 <ListItem sx={{ height: 100, borderBottom: 1 }}>
                                     <ListItemIcon>
                                         <CheckCircleIcon
-                                            sx={{ fontSize: 40, color: `${theme.palette.success.light}` }}
+                                            sx={{
+                                                fontSize: 40,
+                                                color: `${theme.palette.success.light}`,
+                                            }}
                                         />
                                     </ListItemIcon>
                                     <ListItemText
@@ -166,7 +189,10 @@ const ProductInfoPage = () => {
                                 <ListItem sx={{ height: 100, borderBottom: 1 }}>
                                     <ListItemIcon>
                                         <GppGoodIcon
-                                            sx={{ fontSize: 40, color: `${theme.palette.success.light}` }}
+                                            sx={{
+                                                fontSize: 40,
+                                                color: `${theme.palette.success.light}`,
+                                            }}
                                         />
                                     </ListItemIcon>
                                     <ListItemText
@@ -204,34 +230,46 @@ const ProductInfoPage = () => {
                 </Typography>
                 <Box sx={{ mt: 1, p: 2, boxShadow: 1 }}>
                     <Box component="p">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci tempora odit
-                        neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis, obcaecati, commodi
-                        nam ad quasi harum modi enim sapiente! Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Numquam adipisci tempora odit neque fugit tenetur. Vel fugiat
-                        repellat corrupti ducimus officiis, obcaecati, commodi nam ad quasi harum modi enim
-                        sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci
-                        tempora odit neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis,
-                        obcaecati, commodi nam ad quasi harum modi enim sapiente!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente! Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente! Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente!
                     </Box>
                     <Box component="p">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci tempora odit
-                        neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis, obcaecati, commodi
-                        nam ad quasi harum modi enim sapiente! Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Numquam adipisci tempora odit neque fugit tenetur. Vel fugiat
-                        repellat corrupti ducimus officiis, obcaecati, commodi nam ad quasi harum modi enim
-                        sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci
-                        tempora odit neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis,
-                        obcaecati, commodi nam ad quasi harum modi enim sapiente!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente! Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente! Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente!
                     </Box>
                     <Box component="p">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci tempora odit
-                        neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis, obcaecati, commodi
-                        nam ad quasi harum modi enim sapiente! Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Numquam adipisci tempora odit neque fugit tenetur. Vel fugiat
-                        repellat corrupti ducimus officiis, obcaecati, commodi nam ad quasi harum modi enim
-                        sapiente! Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci
-                        tempora odit neque fugit tenetur. Vel fugiat repellat corrupti ducimus officiis,
-                        obcaecati, commodi nam ad quasi harum modi enim sapiente!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente! Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente! Lorem
+                        ipsum dolor sit amet consectetur adipisicing elit.
+                        Numquam adipisci tempora odit neque fugit tenetur. Vel
+                        fugiat repellat corrupti ducimus officiis, obcaecati,
+                        commodi nam ad quasi harum modi enim sapiente!
                     </Box>
                 </Box>
             </Box>
@@ -239,16 +277,24 @@ const ProductInfoPage = () => {
                 <Typography sx={{ mb: 2 }} variant="h5" component="h2">
                     Opinions
                 </Typography>
-                <Grid sx={{ boxShadow: 1, borderRadius: 2, p: 1 }} container direction="column" spacing={3}>
+                <Grid
+                    sx={{ boxShadow: 1, borderRadius: 2, p: 1 }}
+                    container
+                    direction="column"
+                    spacing={3}
+                >
                     <Grid sx={{ boxShadow: 1, borderRadius: 2 }} item container>
                         <Grid item xs={1}>
                             <Avatar>H</Avatar>
                         </Grid>
                         <Grid item xs>
                             <Typography component="p">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta, error
-                                blanditiis enim pariatur illum nesciunt est minus sapiente reiciendis. Minus a
-                                reprehenderit maiores commodi velit laudantium labore ex nisi temporibus?
+                                Lorem ipsum dolor sit amet consectetur,
+                                adipisicing elit. Soluta, error blanditiis enim
+                                pariatur illum nesciunt est minus sapiente
+                                reiciendis. Minus a reprehenderit maiores
+                                commodi velit laudantium labore ex nisi
+                                temporibus?
                             </Typography>
                         </Grid>
                     </Grid>
@@ -258,9 +304,12 @@ const ProductInfoPage = () => {
                         </Grid>
                         <Grid item xs>
                             <Typography component="p">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta, error
-                                blanditiis enim pariatur illum nesciunt est minus sapiente reiciendis. Minus a
-                                reprehenderit maiores commodi velit laudantium labore ex nisi temporibus?
+                                Lorem ipsum dolor sit amet consectetur,
+                                adipisicing elit. Soluta, error blanditiis enim
+                                pariatur illum nesciunt est minus sapiente
+                                reiciendis. Minus a reprehenderit maiores
+                                commodi velit laudantium labore ex nisi
+                                temporibus?
                             </Typography>
                         </Grid>
                     </Grid>
@@ -270,9 +319,12 @@ const ProductInfoPage = () => {
                         </Grid>
                         <Grid item xs>
                             <Typography component="p">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta, error
-                                blanditiis enim pariatur illum nesciunt est minus sapiente reiciendis. Minus a
-                                reprehenderit maiores commodi velit laudantium labore ex nisi temporibus?
+                                Lorem ipsum dolor sit amet consectetur,
+                                adipisicing elit. Soluta, error blanditiis enim
+                                pariatur illum nesciunt est minus sapiente
+                                reiciendis. Minus a reprehenderit maiores
+                                commodi velit laudantium labore ex nisi
+                                temporibus?
                             </Typography>
                         </Grid>
                     </Grid>

@@ -8,20 +8,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import ProductSummary from './ProductSummary';
 
-const ProductCartItem = () => {
+const ProductCartItem = ({ product }) => {
     return (
         <Grid sx={{ bgcolor: 'white', p: 2, mb: 1 }} item container>
             <Grid item container spacing={3}>
                 <Grid item xs={3}>
-                    <Image
-                        src="https://www.laptop.bg/system/images/132581/original/Legion_Y520.jpg"
-                        height="10rem"
-                        duration={1000}
-                    />
+                    <Image src={product.image} height="10rem" duration={1000} />
                 </Grid>
                 <Grid item xs={3}>
                     <Typography variant="h5" component="h3">
-                        Lenovo Legion_Y520
+                        {`${product.brand} ${product.model}`}
                     </Typography>
                     <Typography variant="body2" component="p">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -31,7 +27,7 @@ const ProductCartItem = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                    <ProductSummary />
+                    <ProductSummary product={product} />
                 </Grid>
                 <Grid item xs={3}>
                     <Typography
@@ -39,7 +35,7 @@ const ProductCartItem = () => {
                         variant="h5"
                         component="span"
                     >
-                        1222 lv.
+                        {product.price} lv.
                     </Typography>
                     <Button variant="text" startIcon={<FavoriteIcon />}>
                         Add to favorites

@@ -1,3 +1,5 @@
+import { useQuery } from '@apollo/client';
+
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -8,8 +10,32 @@ import ShopIcon from '@mui/icons-material/Shop';
 
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import ProductCartItem from '../components/product/ProductCartItem';
+import { GET_USER_CART_ITEMS } from '../graphql/queries';
+import Spinner from '../components/common/Spinner';
 
 const CartPage = () => {
+    const { data, loading } = useQuery(GET_USER_CART_ITEMS, {
+        variables: {
+            id: localStorage.getItem('userInfo'),
+        },
+    });
+
+    if (loading) {
+        return (
+            <PageWrapper>
+                <Grid container justifyContent={'center'}>
+                    <Spinner />
+                </Grid>
+            </PageWrapper>
+        );
+    }
+
+    const products = data.user.cart;
+    const totalPrice = products.reduce(
+        (sum, product) => (sum += product.price),
+        0
+    );
+
     return (
         <PageWrapper>
             <Grid container>
@@ -17,7 +43,9 @@ const CartPage = () => {
                     <Typography sx={{ mb: 2 }} variant="h4" component="h1">
                         Shopping Cart
                     </Typography>
-                    <ProductCartItem />
+                    {products.map((product) => (
+                        <ProductCartItem key={product._id} product={product} />
+                    ))}
                 </Grid>
                 <Grid
                     sx={{
@@ -38,7 +66,7 @@ const CartPage = () => {
                             Total:
                         </Typography>
                         <Typography variant="h6" component="p">
-                            1550 lv.
+                            {totalPrice} lv.
                         </Typography>
                         <Button
                             sx={{ width: 182 }}

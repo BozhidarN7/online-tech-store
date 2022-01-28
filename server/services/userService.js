@@ -7,7 +7,7 @@ export const createUser = async (userData) => {
 };
 
 export const getUserById = async (id) => {
-    return await User.findById(id);
+    return await User.findById(id).populate('cart');
 };
 
 export const getUserByEmail = async (email) => {
@@ -15,19 +15,35 @@ export const getUserByEmail = async (email) => {
 };
 
 export const addProductToFavorites = async (userId, productId) => {
-    return await User.findByIdAndUpdate(userId, { $push: { favorites: productId } }, { new: true });
+    return await User.findByIdAndUpdate(
+        userId,
+        { $push: { favorites: productId } },
+        { new: true }
+    );
 };
 
 export const removeProductFromFavorites = async (userId, productId) => {
-    return await User.findByIdAndUpdate(userId, { $pull: { favorites: productId } }, { new: true });
+    return await User.findByIdAndUpdate(
+        userId,
+        { $pull: { favorites: productId } },
+        { new: true }
+    );
 };
 
 export const addProductToCart = async (userId, productId) => {
-    return await User.findByIdAndUpdate(userId, { $push: { cart: productId } }, { new: true });
+    return await User.findByIdAndUpdate(
+        userId,
+        { $push: { cart: productId } },
+        { new: true }
+    );
 };
 
 export const removeProductFromCart = async (userId, productId) => {
-    return await User.findByIdAndUpdate(userId, { $pull: { cart: productId } }, { new: true });
+    return await User.findByIdAndUpdate(
+        userId,
+        { $pull: { cart: productId } },
+        { new: true }
+    );
 };
 
 export const populateSpecificUserFields = async (userId, fields) => {

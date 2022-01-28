@@ -54,3 +54,20 @@ export const GET_USER_BY_ID = gql`
         }
     }
 `;
+
+export const GET_USER_CART_ITEMS = gql`
+    query GetCartItems($id: ID) {
+        user(id: $id) {
+            cart {
+                _id
+                model
+                brand
+                description
+                rating
+                price
+                image
+                quantity
+            }
+        }
+    }
+`;

@@ -7,7 +7,7 @@ export const createUser = async (userData) => {
 };
 
 export const getUserById = async (id) => {
-    return await User.findById(id).populate('cart');
+    return await User.findById(id).populate(['cart', 'favorites']);
 };
 
 export const getUserByEmail = async (email) => {

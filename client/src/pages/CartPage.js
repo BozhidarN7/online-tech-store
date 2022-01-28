@@ -10,11 +10,11 @@ import ShopIcon from '@mui/icons-material/Shop';
 
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import ProductCartItem from '../components/product/ProductCartItem';
-import { GET_USER_CART_ITEMS } from '../graphql/queries';
+import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import Spinner from '../components/common/Spinner';
 
 const CartPage = () => {
-    const { data, loading } = useQuery(GET_USER_CART_ITEMS, {
+    const { data, loading } = useQuery(GET_USER_CART_PRODUCTS, {
         variables: {
             id: localStorage.getItem('userInfo'),
         },
@@ -31,10 +31,9 @@ const CartPage = () => {
     }
 
     const products = data.user.cart;
-    const totalPrice = products.reduce(
-        (sum, product) => (sum += product.price),
-        0
-    );
+    const totalPrice = products
+        .reduce((sum, product) => (sum += product.price), 0)
+        .toFixed(2);
 
     return (
         <PageWrapper>
@@ -44,7 +43,11 @@ const CartPage = () => {
                         Shopping Cart
                     </Typography>
                     {products.map((product) => (
-                        <ProductCartItem key={product._id} product={product} />
+                        <ProductCartItem
+                            key={product._id}
+                            product={product}
+                            page="cart"
+                        />
                     ))}
                 </Grid>
                 <Grid

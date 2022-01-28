@@ -5,10 +5,11 @@ import Image from 'mui-image';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
 
 import ProductSummary from './ProductSummary';
 
-const ProductCartItem = ({ product }) => {
+const ProductCartItem = ({ product, page }) => {
     return (
         <Grid sx={{ bgcolor: 'white', p: 2, mb: 1 }} item container>
             <Grid item container spacing={3}>
@@ -27,7 +28,7 @@ const ProductCartItem = ({ product }) => {
                     </Typography>
                 </Grid>
                 <Grid item xs={3}>
-                    <ProductSummary product={product} />
+                    <ProductSummary product={product} page={page} />
                 </Grid>
                 <Grid item xs={3}>
                     <Typography
@@ -37,9 +38,15 @@ const ProductCartItem = ({ product }) => {
                     >
                         {product.price} lv.
                     </Typography>
-                    <Button variant="text" startIcon={<FavoriteIcon />}>
-                        Add to favorites
-                    </Button>
+                    {page === 'cart' ? (
+                        <Button variant="text" startIcon={<FavoriteIcon />}>
+                            Add to favorites
+                        </Button>
+                    ) : (
+                        <Button variant="text" startIcon={<ShoppingCart />}>
+                            Add to cart
+                        </Button>
+                    )}
                     <Button variant="text" startIcon={<DeleteIcon />}>
                         Remove
                     </Button>

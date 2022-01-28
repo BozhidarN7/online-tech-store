@@ -8,6 +8,7 @@ import ProductsPage from '../pages/ProductsPage';
 import RegisterPage from '../pages/RegisterPage';
 import ProductInfoPage from '../pages/ProductInfoPage';
 import CartPage from '../pages/CartPage';
+import FavoritesPage from '../pages/FavoritesPage';
 
 const AppRouter = () => {
     return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:id" element={<ProductInfoPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
     );
 };

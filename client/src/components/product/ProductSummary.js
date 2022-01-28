@@ -11,7 +11,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-const ProductSummary = ({ product }) => {
+const ProductSummary = ({ product, page }) => {
     return (
         <>
             <Typography sx={{ mb: 2 }} variant="h6" component="div">
@@ -40,16 +40,18 @@ const ProductSummary = ({ product }) => {
             <Box sx={{ mt: 2 }}>
                 <Rating name="read-only" value={product.rating} readOnly />
             </Box>
-            <Box sx={{ mt: 2 }}>
-                <Typography component="span">Quantity:</Typography>
-                <IconButton component="span">
-                    <RemoveCircleIcon />
-                </IconButton>
-                <Typography component="span">1</Typography>
-                <IconButton component="span">
-                    <AddCircleIcon />
-                </IconButton>
-            </Box>
+            {page === 'cart' ? (
+                <Box sx={{ mt: 2 }}>
+                    <Typography component="span">Quantity:</Typography>
+                    <IconButton component="span">
+                        <RemoveCircleIcon />
+                    </IconButton>
+                    <Typography component="span">1</Typography>
+                    <IconButton component="span">
+                        <AddCircleIcon />
+                    </IconButton>
+                </Box>
+            ) : null}
         </>
     );
 };

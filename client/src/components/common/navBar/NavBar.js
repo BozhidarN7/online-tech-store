@@ -79,7 +79,12 @@ const NavBar = () => {
                         </Typography>
                     </Link>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'flex', md: 'none' },
+                        }}
+                    >
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -110,12 +115,19 @@ const NavBar = () => {
                         >
                             <Link to="/products">
                                 <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">Shop</Typography>
+                                    <Typography textAlign="center">
+                                        Shop
+                                    </Typography>
                                 </MenuItem>
                             </Link>
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                <MenuItem
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                >
+                                    <Typography textAlign="center">
+                                        {page}
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -124,11 +136,19 @@ const NavBar = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'flex', md: 'none' },
+                        }}
                     >
                         LOGO
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'none', md: 'flex' },
+                        }}
+                    >
                         <Link to="/products">
                             <Button
                                 onClick={handleCloseNavMenu}
@@ -148,18 +168,31 @@ const NavBar = () => {
                         ))}
                     </Box>
                     {!firebaseUser ? (
-                        <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                        <Box
+                            sx={{
+                                flexGrow: 0,
+                                display: { xs: 'none', md: 'flex' },
+                            }}
+                        >
+                            <Button
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
                                 <NavLink
-                                    style={({ isActive }) => ({ color: isActive ? '#22ff00' : 'white' })}
+                                    style={({ isActive }) => ({
+                                        color: isActive ? '#22ff00' : 'white',
+                                    })}
                                     to="/login"
                                 >
                                     Login
                                 </NavLink>
                             </Button>
-                            <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                            <Button
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
                                 <NavLink
-                                    style={({ isActive }) => ({ color: isActive ? '#22ff00' : 'white' })}
+                                    style={({ isActive }) => ({
+                                        color: isActive ? '#22ff00' : 'white',
+                                    })}
                                     to="/register"
                                 >
                                     Register
@@ -171,12 +204,17 @@ const NavBar = () => {
                     {firebaseUser ? (
                         <Box sx={{ flexGrow: 0 }}>
                             <IconButton
-                                onClick={() => navigate('/favortes')}
+                                onClick={() => navigate('/favorites')}
                                 arial-label="cart"
                                 sx={{ mr: 3, pb: 0 }}
                             >
-                                <Badge badgeContent={currentUser?.favorites.length} color="secondary">
-                                    <FavoriteIcon sx={{ color: 'white', fontSize: 30 }} />
+                                <Badge
+                                    badgeContent={currentUser?.favorites.length}
+                                    color="secondary"
+                                >
+                                    <FavoriteIcon
+                                        sx={{ color: 'white', fontSize: 30 }}
+                                    />
                                 </Badge>
                             </IconButton>
                             <IconButton
@@ -184,13 +222,24 @@ const NavBar = () => {
                                 arial-label="cart"
                                 sx={{ mr: 3, pb: 0 }}
                             >
-                                <Badge badgeContent={currentUser?.cart.length} color="secondary">
-                                    <ShoppingCartIcon sx={{ color: 'white', fontSize: 30 }} />
+                                <Badge
+                                    badgeContent={currentUser?.cart.length}
+                                    color="secondary"
+                                >
+                                    <ShoppingCartIcon
+                                        sx={{ color: 'white', fontSize: 30 }}
+                                    />
                                 </Badge>
                             </IconButton>
                             <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <IconButton
+                                    onClick={handleOpenUserMenu}
+                                    sx={{ p: 0 }}
+                                >
+                                    <Avatar
+                                        alt="Remy Sharp"
+                                        src="/static/images/avatar/2.jpg"
+                                    />
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -210,12 +259,19 @@ const NavBar = () => {
                                 onClose={handleCloseUserMenu}
                             >
                                 {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                                    <MenuItem
+                                        key={setting}
+                                        onClick={handleCloseNavMenu}
+                                    >
+                                        <Typography textAlign="center">
+                                            {setting}
+                                        </Typography>
                                     </MenuItem>
                                 ))}
                                 <MenuItem onClick={logoutHandler}>
-                                    <Typography textAlign="center">Logout</Typography>
+                                    <Typography textAlign="center">
+                                        Logout
+                                    </Typography>
                                 </MenuItem>
                             </Menu>
                         </Box>

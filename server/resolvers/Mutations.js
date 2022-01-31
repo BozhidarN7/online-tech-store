@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
+import Stripe from 'stripe';
 
 import * as userService from '../services/userService.js';
 import * as productService from '../services/productService.js';
 import { setUserRole } from '../utils/setUserRole.js';
+
+const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 
 const signUp = async (parent, args, context, info) => {
     await setUserRole(context.user.uid);
@@ -29,7 +32,10 @@ const addRemoveToFavorites = async (parent, args, context, info) => {
     const mongoUserId = mongoose.Types.ObjectId(userId);
 
     try {
-        const { favorites } = await userService.populateSpecificUserFields(userId, { _id: 0, favorites: 1 });
+        const { favorites } = await userService.populateSpecificUserFields(
+            userId,
+            { _id: 0, favorites: 1 }
+        );
 
         const isProductInFavorites = favorites.includes(mongoProductId);
 
@@ -37,11 +43,23 @@ const addRemoveToFavorites = async (parent, args, context, info) => {
         let product = null;
 
         if (isProductInFavorites) {
-            user = await userService.removeProductFromFavorites(mongoUserId, mongoProductId);
-            product = await productService.removeUserFromFavoritesTo(mongoUserId, mongoProductId);
+            user = await userService.removeProductFromFavorites(
+                mongoUserId,
+                mongoProductId
+            );
+            product = await productService.removeUserFromFavoritesTo(
+                mongoUserId,
+                mongoProductId
+            );
         } else {
-            user = await userService.addProductToFavorites(mongoUserId, mongoProductId);
-            product = await productService.addUserToFavoritesTo(mongoUserId, mongoProductId);
+            user = await userService.addProductToFavorites(
+                mongoUserId,
+                mongoProductId
+            );
+            product = await productService.addUserToFavoritesTo(
+                mongoUserId,
+                mongoProductId
+            );
         }
 
         return {
@@ -72,7 +90,10 @@ const addRemoveToCart = async (parent, args, context, info) => {
     const mongoUserId = mongoose.Types.ObjectId(userId);
 
     try {
-        const { cart } = await userService.populateSpecificUserFields(userId, { _id: 0, cart: 1 });
+        const { cart } = await userService.populateSpecificUserFields(userId, {
+            _id: 0,
+            cart: 1,
+        });
 
         const isProductInCart = cart.includes(mongoProductId);
 
@@ -81,7 +102,10 @@ const addRemoveToCart = async (parent, args, context, info) => {
 
         if (isProductInCart) {
             user = await userService.removeProductFromCart(userId, productId);
-            product = await productService.removeUserFromCartTo(userId, productId);
+            product = await productService.removeUserFromCartTo(
+                userId,
+                productId
+            );
         } else {
             user = await userService.addProductToCart(userId, productId);
             product = await productService.addUserToInCartTo(userId, productId);
@@ -98,4 +122,26 @@ const addRemoveToCart = async (parent, args, context, info) => {
     }
 };
 
-export default { signUp, signIn, addRemoveToFavorites, addRemoveToCart };
+const buyProducts = async (parent, args, context, info) => {
+    const products = args.products;
+
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: 2 * 100,
+        currency: 'bgn',
+    });
+
+    return {
+        code: '200',
+        success: true,
+        message: 'Success',
+        clientSecret: paymentIntent.client_secret,
+    };
+};
+
+export default {
+    signUp,
+    signIn,
+    addRemoveToFavorites,
+    addRemoveToCart,
+    buyProducts,
+};

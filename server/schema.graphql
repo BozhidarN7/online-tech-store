@@ -8,8 +8,22 @@ type Query {
 type Mutation {
     signUp(firstName: String!, lastName: String!, email: String!): User!
     signIn(email: String!): User!
-    addRemoveToFavorites(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
-    addRemoveToCart(userId: ID!, productId: ID!): AddToFavoritesOrCartMutationResponse!
+    addRemoveToFavorites(
+        userId: ID!
+        productId: ID!
+    ): AddToFavoritesOrCartMutationResponse!
+    addRemoveToCart(
+        userId: ID!
+        productId: ID!
+    ): AddToFavoritesOrCartMutationResponse!
+    buyProducts(products: [OrderContent!]): PaymentResponse!
+}
+
+input OrderContent {
+    _id: ID
+    price: Float!
+    brand: String
+    model: String
 }
 
 type Product {
@@ -48,4 +62,11 @@ type AddToFavoritesOrCartMutationResponse implements MutationResponse {
     message: String!
     user: User
     product: Product
+}
+
+type PaymentResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    clientSecret: String!
 }

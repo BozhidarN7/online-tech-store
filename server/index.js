@@ -3,6 +3,7 @@ import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
 import fs from 'fs';
+import 'dotenv/config';
 
 import config from './config/config.js';
 import expressConfig from './config/expressConfig.js';

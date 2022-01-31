@@ -9,6 +9,7 @@ import RegisterPage from '../pages/RegisterPage';
 import ProductInfoPage from '../pages/ProductInfoPage';
 import CartPage from '../pages/CartPage';
 import FavoritesPage from '../pages/FavoritesPage';
+import PaymentPage from '../pages/PaymentPage';
 
 const AppRouter = () => {
     return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
             <Route path="/products/:id" element={<ProductInfoPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
         </Routes>
     );
 };

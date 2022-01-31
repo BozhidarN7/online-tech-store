@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -14,6 +15,7 @@ import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import Spinner from '../components/common/Spinner';
 
 const CartPage = () => {
+    const navigate = useNavigate();
     const { data, loading } = useQuery(GET_USER_CART_PRODUCTS, {
         variables: {
             id: localStorage.getItem('userInfo'),
@@ -75,6 +77,7 @@ const CartPage = () => {
                             sx={{ width: 182 }}
                             variant="contained"
                             startIcon={<ShopIcon />}
+                            onClick={() => navigate('/payment')}
                         >
                             Continue
                         </Button>

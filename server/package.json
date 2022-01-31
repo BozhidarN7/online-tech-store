@@ -13,9 +13,11 @@
         "apollo-server-core": "^3.6.1",
         "apollo-server-express": "^3.6.1",
         "cors": "^2.8.5",
+        "dotenv": "^14.3.2",
         "express": "^4.17.2",
         "firebase-admin": "^10.0.1",
         "graphql": "^16.2.0",
-        "mongoose": "^6.1.5"
+        "mongoose": "^6.1.5",
+        "stripe": "^8.201.0"
     }
 }

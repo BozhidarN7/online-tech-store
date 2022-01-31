@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { AuthProvider } from './contexts/AuthCtx';
 import AppRouter from './routes/AppRouter';
+import { BUY_PRODUCTS } from './graphql/mutations';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,9 +15,18 @@ const stripePromise = loadStripe(
 );
 
 function App() {
+    const [buyProducts, { data }] = useMutation(BUY_PRODUCTS);
+
+    useEffect(() => {
+        buyProducts();
+    }, [buyProducts]);
+
+    if (!data) {
+        return null;
+    }
+
     const options = {
-        clientSecret:
-            'sk_test_51KMwuhCMtBKRRxdEbdjl0h4vx3sm7aTRmo4KC2zxWvBggj2cJ09XIwDO96QXUqykoPDRyn00B11kwhaD7ONoVXoH00dfdA7sYk',
+        clientSecret: data.buyProducts.clientSecret,
     };
 
     return (

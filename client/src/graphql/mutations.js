@@ -71,3 +71,11 @@ export const ADD_TO_CART = gql`
         }
     }
 `;
+
+export const BUY_PRODUCTS = gql`
+    mutation BuyProducts($products: [OrderContent!]) {
+        buyProducts(products: $products) {
+            clientSecret
+        }
+    }
+`;

@@ -124,9 +124,12 @@ const addRemoveToCart = async (parent, args, context, info) => {
 
 const buyProducts = async (parent, args, context, info) => {
     const products = args.products;
+    const totalPrice = products
+        .reduce((sum, product) => (sum += product.price), 0)
+        .toFixed(2);
 
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: 2 * 100,
+        amount: totalPrice * 100,
         currency: 'bgn',
     });
 

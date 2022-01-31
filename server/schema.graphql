@@ -21,9 +21,7 @@ type Mutation {
 
 input OrderContent {
     _id: ID
-    price: Float!
-    brand: String
-    model: String
+    price: Float
 }
 
 type Product {

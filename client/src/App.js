@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ToastContainer } from 'react-toastify';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -7,6 +7,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { AuthProvider } from './contexts/AuthCtx';
 import AppRouter from './routes/AppRouter';
 import { BUY_PRODUCTS } from './graphql/mutations';
+import { GET_USER_CART_PRODUCTS } from './graphql/queries';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,11 +16,27 @@ const stripePromise = loadStripe(
 );
 
 function App() {
+    const { data: userData, loading } = useQuery(GET_USER_CART_PRODUCTS, {
+        variables: {
+            id: localStorage.getItem('userInfo'),
+        },
+    });
+
+    console.log(userData);
+
     const [buyProducts, { data }] = useMutation(BUY_PRODUCTS);
 
     useEffect(() => {
-        buyProducts();
-    }, [buyProducts]);
+        if (!loading) {
+            buyProducts({
+                variables: {
+                    products: userData.user.cart.map((product) => {
+                        return { _id: product._id, price: product.price };
+                    }),
+                },
+            });
+        }
+    }, [buyProducts, userData, loading]);
 
     if (!data) {
         return null;

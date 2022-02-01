@@ -45,15 +45,7 @@ const ProductInfoPage = () => {
     });
 
     if (loading) {
-        return (
-            <PageWrapper>
-                <Grid container justifyContent="center">
-                    <Grid item>
-                        <Spinner />;
-                    </Grid>
-                </Grid>
-            </PageWrapper>
-        );
+        return <Spinner />;
     }
 
     const product = data.product;

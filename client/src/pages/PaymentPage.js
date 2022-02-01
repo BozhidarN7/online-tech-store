@@ -1,73 +1,58 @@
 import { useEffect } from 'react';
-import {
-    PaymentElement,
-    useStripe,
-    useElements,
-} from '@stripe/react-stripe-js';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { useMutation, gql } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
-import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
+import PaymentForm from '../components/common/navBar/forms/PaymentForm';
+import Spinner from '../components/common/Spinner';
+import { BUY_PRODUCTS } from '../graphql/mutations';
+import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
+
+const stripePromise = loadStripe(
+    'pk_test_51KMwuhCMtBKRRxdEknJZbAvHcpa3EieAk3r9qefohnBxEx5g7dXrBAzcQEeNvHrTsRcXFN1r5gYnWbrZlb4T3sVN00U9sQ17Td'
+);
 
 const PaymentPage = () => {
-    const stripe = useStripe();
-    const elements = useElements();
+    const client = useApolloClient();
+    const { cart } = client.readFragment({
+        id: `User:${localStorage.getItem('userInfo')}`,
+        fragment: gql`
+            fragment LoggedUser on User {
+                _id
+                cart {
+                    _id
+                    price
+                }
+            }
+        `,
+    });
+    const [buyProducts, { data }] = useMutation(BUY_PRODUCTS);
 
     useEffect(() => {
-        if (!stripe) {
-            return;
-        }
-
-        const clientSecret = new URLSearchParams(window.location.search).get(
-            'payment_intent_client_secret'
-        );
-
-        if (!clientSecret) {
-            return;
-        }
-
-        stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-            switch (paymentIntent.status) {
-                case 'succeeded':
-                    console.log('Payment succeeded!');
-                    break;
-                case 'processing':
-                    console.log('Your payment is processing.');
-                    break;
-                case 'requires_payment_method':
-                    console.log(
-                        'Your payment was not successful, please try again.'
-                    );
-                    break;
-                default:
-                    console.log('Something went wrong.');
-                    break;
-            }
-        });
-    }, [stripe]);
-
-    const payHandler = async (e) => {
-        e.preventDefault();
-
-        if (!stripe || !elements) {
-            return;
-        }
-
-        await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-                return_url: 'http://localhost:3000/products',
+        buyProducts({
+            variables: {
+                products: cart.map((product) => {
+                    return { _id: product._id, price: product.price };
+                }),
             },
         });
+    }, [buyProducts, cart]);
+
+    if (!data) {
+        return <Spinner />;
+    }
+
+    const options = {
+        clientSecret: data.buyProducts.clientSecret,
     };
 
     return (
-        <PageWrapper>
-            <Box component="form" onSubmit={payHandler}>
-                <PaymentElement />
-                <Button type="submit">Pay</Button>
-            </Box>
-        </PageWrapper>
+        <>
+            {/* <Elements stripe={stripePromise} options={options}> */}
+            <PaymentForm></PaymentForm>
+            {/* </Elements> */}
+        </>
     );
 };
 

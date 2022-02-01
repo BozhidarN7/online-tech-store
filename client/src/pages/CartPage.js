@@ -23,13 +23,7 @@ const CartPage = () => {
     });
 
     if (loading) {
-        return (
-            <PageWrapper>
-                <Grid container justifyContent={'center'}>
-                    <Spinner />
-                </Grid>
-            </PageWrapper>
-        );
+        return <Spinner />;
     }
 
     const products = data.user.cart;

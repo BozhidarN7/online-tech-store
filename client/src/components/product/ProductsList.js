@@ -15,11 +15,7 @@ const ProductsList = () => {
     const sorting = useSelector((state) => state.filterings.sorting);
 
     if (loading) {
-        return (
-            <Grid item sx={{ mx: 'auto' }}>
-                <Spinner />
-            </Grid>
-        );
+        return <Spinner />;
     }
 
     let products = data.products;
@@ -29,7 +25,9 @@ const ProductsList = () => {
     }
 
     if (brands.length) {
-        products = products.filter((product) => brands.includes(product.brand.toLowerCase()));
+        products = products.filter((product) =>
+            brands.includes(product.brand.toLowerCase())
+        );
     }
 
     return (

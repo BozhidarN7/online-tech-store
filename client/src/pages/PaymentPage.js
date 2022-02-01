@@ -31,45 +31,43 @@ const stripePromise = loadStripe(
 
 const PaymentPage = () => {
     const [deliveryMethod, setDeliveryMethod] = useState('toAddress');
+
     const client = useApolloClient();
-    // const { cart } = client.readFragment({
-    //     id: `User:${localStorage.getItem('userInfo')}`,
-    //     fragment: gql`
-    //         fragment LoggedUser on User {
-    //             _id
-    //             cart {
-    //                 _id
-    //                 price
-    //             }
-    //         }
-    //     `,
-    // });
-    // const [buyProducts, { data }] = useMutation(BUY_PRODUCTS);
+    const { cart } = client.readFragment({
+        id: `User:${localStorage.getItem('userInfo')}`,
+        fragment: gql`
+            fragment LoggedUser on User {
+                _id
+                cart {
+                    _id
+                    price
+                }
+            }
+        `,
+    });
+    const [buyProducts, { data }] = useMutation(BUY_PRODUCTS);
 
-    // useEffect(() => {
-    //     buyProducts({
-    //         variables: {
-    //             products: cart.map((product) => {
-    //                 return { _id: product._id, price: product.price };
-    //             }),
-    //         },
-    //     });
-    // }, [buyProducts, cart]);
+    useEffect(() => {
+        buyProducts({
+            variables: {
+                products: cart.map((product) => {
+                    return { _id: product._id, price: product.price };
+                }),
+            },
+        });
+    }, [buyProducts, cart]);
 
-    // if (!data) {
-    //     return <Spinner />;
-    // }
+    if (!data) {
+        return <Spinner />;
+    }
 
-    // const options = {
-    //     clientSecret: data.buyProducts.clientSecret,
-    // };
+    const options = {
+        clientSecret: data.buyProducts.clientSecret,
+    };
 
     return (
         <PageWrapper>
-            {/* <Elements stripe={stripePromise} options={options}> */}
-            {/* <PaymentForm></PaymentForm> */}
-            {/* </Elements> */}
-            <Grid container>
+            <Grid container spacing={2}>
                 <Grid
                     sx={{ boxShadow: 1, borderRadius: 3, p: 2 }}
                     item
@@ -161,7 +159,11 @@ const PaymentPage = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item></Grid>
+                <Grid item>
+                    <Elements stripe={stripePromise} options={options}>
+                        <PaymentForm></PaymentForm>
+                    </Elements>
+                </Grid>
             </Grid>
         </PageWrapper>
     );

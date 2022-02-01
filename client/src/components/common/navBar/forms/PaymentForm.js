@@ -7,8 +7,6 @@ import {
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-import PageWrapper from '../../../wrappers/pageWrapper/PageWrapper';
-
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
@@ -64,12 +62,10 @@ const PaymentForm = () => {
     return (
         <>
             {stripe && elements && (
-                <PageWrapper>
-                    <Box component="form" onSubmit={payHandler}>
-                        <PaymentElement />
-                        <Button type="submit">Pay</Button>
-                    </Box>
-                </PageWrapper>
+                <Box component="form" onSubmit={payHandler}>
+                    <PaymentElement />
+                    <Button type="submit">Pay</Button>
+                </Box>
             )}
         </>
     );

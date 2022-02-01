@@ -39,8 +39,14 @@ const ProductCard = ({ product }) => {
         },
     });
 
-    const isAddedToFavorites = product.favoriteTo.find((user) => user._id === userId) ? true : false;
-    const isAddedToCart = product.inCartTo.find((user) => user._id === userId) ? true : false;
+    const isAddedToFavorites = product.favoriteTo.find(
+        (user) => user._id === userId
+    )
+        ? true
+        : false;
+    const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
+        ? true
+        : false;
 
     const openProductInfoHandler = () => {
         navigate(`/products/${product._id}`);
@@ -56,7 +62,12 @@ const ProductCard = ({ product }) => {
     return (
         <Card sx={{ maxWidth: 345, minWidth: 345 }}>
             <CardActionArea onClick={openProductInfoHandler}>
-                <CardMedia component="img" height="140" image={product.image} alt="green iguana" />
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={product.image}
+                    alt="green iguana"
+                />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {`${product.brand} ${product.model}`}
@@ -75,7 +86,11 @@ const ProductCard = ({ product }) => {
                         </Grid>
                         <Grid item xs={6}>
                             <Typography variant="body2" component="span">
-                                <Rating name="read-only" value={product.rating} readOnly />
+                                <Rating
+                                    name="read-only"
+                                    value={product.rating}
+                                    readOnly
+                                />
                             </Typography>
                         </Grid>
                         <Grid sx={{ textAlign: 'right' }} item xs={6}>
@@ -89,14 +104,22 @@ const ProductCard = ({ product }) => {
             {firebaseUser ? (
                 <CardActions>
                     <IconButton
-                        sx={{ color: isAddedToFavorites ? `${theme.palette.secondary.main}` : '' }}
+                        sx={{
+                            color: isAddedToFavorites
+                                ? `${theme.palette.secondary.main}`
+                                : '',
+                        }}
                         onClick={addToFavoritesHandler}
                         aria-label="add to favorites"
                     >
                         <FavoriteIcon />
                     </IconButton>
                     <IconButton
-                        sx={{ color: isAddedToCart ? `${theme.palette.secondary.main}` : '' }}
+                        sx={{
+                            color: isAddedToCart
+                                ? `${theme.palette.secondary.main}`
+                                : '',
+                        }}
                         onClick={addToCartHandler}
                         aria-label="add to shopping cart"
                     >

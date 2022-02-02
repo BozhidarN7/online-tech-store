@@ -26,7 +26,10 @@ export const AuthProvider = ({ children }) => {
                     .then((idTokenResult) => {
                         setUserRole(idTokenResult.claims['role']);
                     })
-                    .catch((err) => console.log(err.message))
+                    .catch((err) => {
+                        console.log(err);
+                        throw err;
+                    })
                     .finally(() => setIsAuthLoading(false));
             } else {
                 setIsAuthLoading(false);

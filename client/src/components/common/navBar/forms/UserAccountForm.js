@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
+import { FirebaseError } from 'firebase/app';
 
 const Copyright = () => {
     return (
@@ -48,23 +49,48 @@ const UserAccountForm = ({ formType }) => {
             rePassword = e.target.rePassword.value;
         }
 
-        if (!email || !password || (formType === 'register' && (!firstName || !lastName || !rePassword))) {
+        if (
+            !email ||
+            !password ||
+            (formType === 'register' &&
+                (!firstName || !lastName || !rePassword))
+        ) {
             toast.error('Please fill the form');
+            return;
         }
 
         if (rePassword && rePassword !== password) {
             toast.error('Password mismatch!');
+            return;
         }
 
         if (formType === 'register') {
-            await signUp(email, password, firstName, lastName);
-            navigate('/');
-            toast.success('Your registration is successful!');
-            toast.info('A verification email was sent to you!');
+            try {
+                await signUp(email, password, firstName, lastName);
+                navigate('/products');
+                toast.success('Your registration is successful!');
+                toast.info('A verification email was sent to you!');
+            } catch (err) {
+                if (err.message.includes('email-already-in-use')) {
+                    toast.error('Email is already in use!');
+                } else if (err.message.includes('weak-password')) {
+                    toast.error('Password must be at least 6 characters!');
+                } else {
+                    toast.error('Registration failed!');
+                }
+            }
         } else {
-            await signIn(email, password);
-            navigate('/');
-            toast.success('Login successfully!');
+            try {
+                await signIn(email, password);
+                navigate('/products');
+                toast.success('Login successfully!');
+            } catch (err) {
+                if (err instanceof FirebaseError) {
+                    toast.error('Invalid username or password!');
+                } else {
+                    toast.error('Login failed!');
+                }
+            }
         }
     };
     return (
@@ -84,7 +110,12 @@ const UserAccountForm = ({ formType }) => {
                 <Typography component="h1" variant="h5">
                     {formType === 'login' ? 'Sign in' : 'Sign Up'}
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                <Box
+                    component="form"
+                    noValidate
+                    onSubmit={handleSubmit}
+                    sx={{ mt: 1 }}
+                >
                     {formType === 'register' ? (
                         <>
                             <TextField
@@ -145,27 +176,44 @@ const UserAccountForm = ({ formType }) => {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
                         {formType === 'login' ? 'Sign In' : 'Sign Up'}
                     </Button>
 
                     <Grid container>
                         {formType === 'login' ? (
                             <Grid item xs>
-                                <Link component={RouterLink} to="/" variant="body2">
+                                <Link
+                                    component={RouterLink}
+                                    to="/"
+                                    variant="body2"
+                                >
                                     Forgot password?
                                 </Link>
                             </Grid>
                         ) : null}
                         {formType === 'login' ? (
                             <Grid item>
-                                <Link component={RouterLink} to="/register" variant="body2">
+                                <Link
+                                    component={RouterLink}
+                                    to="/register"
+                                    variant="body2"
+                                >
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         ) : (
                             <Grid item>
-                                <Link component={RouterLink} to="/login" variant="body2">
+                                <Link
+                                    component={RouterLink}
+                                    to="/login"
+                                    variant="body2"
+                                >
                                     {'Already have an account? Sign In'}
                                 </Link>
                             </Grid>

@@ -37,36 +37,48 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const signUp = async (email, password, firstName, lastName) => {
-        const firebaseUserCredentials = await authService.createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-        const idToken = await firebaseUserCredentials.user.getIdToken();
+        try {
+            const firebaseUserCredentials =
+                await authService.createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+            const idToken = await firebaseUserCredentials.user.getIdToken();
 
-        const data = await register({
-            variables: { email, firstName, lastName },
-            context: { headers: { 'x-authorization': idToken } },
-        });
-        const userDetails = data.data.signUp;
+            const data = await register({
+                variables: { email, firstName, lastName },
+                context: { headers: { 'x-authorization': idToken } },
+            });
+            const userDetails = data.data.signUp;
 
-        localStorage.setItem('userInfo', userDetails._id);
+            localStorage.setItem('userInfo', userDetails._id);
 
-        return userDetails;
+            return userDetails;
+        } catch (err) {
+            throw err;
+        }
     };
 
     const signIn = async (email, password) => {
-        const firebaseUserCredentials = await signInWithEmailAndPassword(auth, email, password);
-        const idToken = await firebaseUserCredentials.user.getIdToken();
-        const data = await login({
-            variables: { email },
-            context: { headers: { 'x-authorization': idToken } },
-        });
-        const userDetails = data.data.signIn;
+        try {
+            const firebaseUserCredentials = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            const idToken = await firebaseUserCredentials.user.getIdToken();
+            const data = await login({
+                variables: { email },
+                context: { headers: { 'x-authorization': idToken } },
+            });
+            const userDetails = data.data.signIn;
 
-        localStorage.setItem('userInfo', userDetails._id);
-
-        return userDetails;
+            localStorage.setItem('userInfo', userDetails._id);
+            return userDetails;
+        } catch (err) {
+            throw err;
+        }
     };
 
     const logout = async () => {
@@ -74,7 +86,18 @@ export const AuthProvider = ({ children }) => {
         return await authService.signOut(auth);
     };
 
-    const value = { signUp, signIn, logout, firebaseUser, userRole, isAuthLoading };
+    const value = {
+        signUp,
+        signIn,
+        logout,
+        firebaseUser,
+        userRole,
+        isAuthLoading,
+    };
 
-    return <AuthCtx.Provider value={value}>{!isAuthLoading && children}</AuthCtx.Provider>;
+    return (
+        <AuthCtx.Provider value={value}>
+            {!isAuthLoading && children}
+        </AuthCtx.Provider>
+    );
 };

@@ -29,7 +29,12 @@ async function startApp() {
     const app = express();
     expressConfig(app);
     firebaseConfig();
-    await dataBaseConfig();
+
+    try {
+        await dataBaseConfig();
+    } catch (err) {
+        console.log(err);
+    }
 
     const httpServer = http.createServer(app);
     const server = new ApolloServer({
@@ -37,9 +42,12 @@ async function startApp() {
         resolvers,
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         context: async ({ req }) => {
-            const user = await preloadUserData(req);
-
-            return { user };
+            try {
+                const user = await preloadUserData(req);
+                return { user };
+            } catch (err) {
+                console.log(err);
+            }
         },
     });
 

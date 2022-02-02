@@ -1,14 +1,23 @@
 import * as productService from '../services/productService.js';
 import * as userService from '../services/userService.js';
+import buildError from '../utils/buildError.js';
 
 const info = () => 'Hello from the server!';
 
 const products = async () => {
-    return await productService.getAllProducts();
+    try {
+        return await productService.getAllProducts();
+    } catch (err) {
+        throw buildError(err);
+    }
 };
 
 const product = async (parent, args, context, info) => {
-    return await productService.getProductById(args.id);
+    try {
+        return await productService.getProductById(args.id);
+    } catch (err) {
+        throw buildError(err);
+    }
 };
 
 const user = async (parent, args, context, info) => {
@@ -17,8 +26,11 @@ const user = async (parent, args, context, info) => {
     if (!id) {
         return null;
     }
-
-    return await userService.getUserById(args.id);
+    try {
+        return await userService.getUserById(args.id);
+    } catch (err) {
+        throw buildError(err);
+    }
 };
 
 export default {

@@ -4,16 +4,26 @@ import Stripe from 'stripe';
 import * as userService from '../services/userService.js';
 import * as productService from '../services/productService.js';
 import { setUserRole } from '../utils/setUserRole.js';
+import buildError from '../utils/buildError.js';
 
 const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
 
 const signUp = async (parent, args, context, info) => {
-    await setUserRole(context.user.uid);
-    return await userService.createUser(args);
+    try {
+        await setUserRole(context.user.uid);
+        return await userService.createUser(args);
+    } catch (err) {
+        throw buildError(err);
+    }
 };
 
 const signIn = async (parent, args, context, info) => {
-    return await userService.getUserByEmail(args.email);
+    try {
+        return await userService.getUserByEmail(args.email);
+    } catch (err) {
+        console.log(err);
+        throw buildError(err);
+    }
 };
 
 const addRemoveToFavorites = async (parent, args, context, info) => {
@@ -71,6 +81,7 @@ const addRemoveToFavorites = async (parent, args, context, info) => {
         };
     } catch (err) {
         console.log(err);
+        throw buildError(err);
     }
 };
 
@@ -119,6 +130,7 @@ const addRemoveToCart = async (parent, args, context, info) => {
         };
     } catch (err) {
         console.log(err);
+        throw buildError(err);
     }
 };
 
@@ -127,18 +139,21 @@ const buyProducts = async (parent, args, context, info) => {
     const totalPrice = products
         .reduce((sum, product) => (sum += product.price), 0)
         .toFixed(2);
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: totalPrice * 100,
+            currency: 'bgn',
+        });
 
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: totalPrice * 100,
-        currency: 'bgn',
-    });
-
-    return {
-        code: '200',
-        success: true,
-        message: 'Success',
-        clientSecret: paymentIntent.client_secret,
-    };
+        return {
+            code: '200',
+            success: true,
+            message: 'Success',
+            clientSecret: paymentIntent.client_secret,
+        };
+    } catch (err) {
+        throw buildError(err);
+    }
 };
 
 export default {

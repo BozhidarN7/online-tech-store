@@ -1,6 +1,6 @@
 type Query {
     info: String!
-    products: [Product!]
+    products: [Product]
     product(id: ID!): Product
     user(id: ID): User
 }
@@ -26,14 +26,14 @@ input OrderContent {
 
 type Product {
     _id: ID
-    brand: String!
-    model: String!
-    category: String!
-    description: String!
-    price: Float!
-    rating: Int!
-    quantity: Int!
-    image: String!
+    brand: String
+    model: String
+    category: String
+    description: String
+    price: Float
+    rating: Int
+    quantity: Int
+    image: String
     favoriteTo: [User!]
     inCartTo: [User!]
 }

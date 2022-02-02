@@ -25,14 +25,14 @@ const ProductCard = ({ product }) => {
     const userId = localStorage.getItem('userInfo');
 
     const [addRemoveToFavorites] = useMutation(ADD_TO_FAVORITES, {
-        context: { headers: { 'x-authorization': firebaseUser.accessToken } },
+        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
         variables: {
             userId,
             productId: product._id,
         },
     });
     const [addRemoveToCart] = useMutation(ADD_TO_CART, {
-        context: { headers: { 'x-authorization': firebaseUser.accessToken } },
+        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
         variables: {
             userId,
             productId: product._id,

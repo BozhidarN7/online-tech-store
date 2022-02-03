@@ -6,35 +6,36 @@ import Image from 'mui-image';
 
 import { useTheme } from '@mui/material/styles';
 
-import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
+import NavBar from '../components/common/navBar/NavBar';
 import './Pages.css';
 
 const HomePage = () => {
     const theme = useTheme();
 
     return (
-        <PageWrapper>
+        <>
+            <NavBar />
             <Grid container>
                 <Grid item container>
-                    <Grid item xs={5}>
-                        <Typography sx={{ mb: 2 }} variant="h3" component="h1">
+                    <Grid item xs={5} sx={{ p: 3 }}>
+                        <Typography
+                            sx={{ mb: 2, fontWeight: 'bold' }}
+                            variant="h2"
+                            component="h1"
+                        >
                             Welcome to{' '}
                             <Typography
                                 sx={{
                                     color: theme.palette.primary.main,
                                     fontWeight: 'bold',
                                 }}
-                                variant="h3"
+                                variant="h2"
                                 component="span"
                             >
                                 TechShop
                             </Typography>
                         </Typography>
-                        <Typography
-                            sx={{ mb: 2 }}
-                            variant="body1"
-                            component="p"
-                        >
+                        <Typography sx={{ mb: 2 }} variant="h6" component="p">
                             The online shop where you can buy the latest tech
                             gadgets on the lowest price and receive them in no
                             more then three working days.
@@ -59,23 +60,32 @@ const HomePage = () => {
                             ></Image>
                         </Box>
                     </Grid>
-                    <Grid item xs={5} sx={{ p: 2 }}>
-                        <Typography sx={{ mb: 2 }} variant="h4" component="h2">
+                    <Grid
+                        item
+                        xs={5}
+                        sx={{
+                            p: 3,
+                        }}
+                    >
+                        <Typography
+                            sx={{ mb: 2, fontWeight: 'bold' }}
+                            variant="h4"
+                            component="h2"
+                        >
                             The newest{' '}
                             <Typography
                                 variant="h4"
                                 component="span"
-                                sx={{ color: `${theme.palette.primary.main}` }}
+                                sx={{
+                                    fontWeight: 'bold',
+                                    color: `${theme.palette.primary.main}`,
+                                }}
                             >
                                 Laptops
                             </Typography>{' '}
                             on the market
                         </Typography>
-                        <Typography
-                            sx={{ mb: 2 }}
-                            variant="body1"
-                            component="p"
-                        >
+                        <Typography sx={{ mb: 2 }} variant="h6" component="p">
                             You can choose from wide range of brands and search
                             for the latest models. Ability to choose between
                             different hardware too.
@@ -85,18 +95,25 @@ const HomePage = () => {
                 </Grid>
             </Grid>
             <Grid item container>
-                <Grid item xs={5} sx={{ p: 2 }}>
-                    <Typography sx={{ mb: 2 }} variant="h4" component="h2">
+                <Grid item xs={5} sx={{ p: 3 }}>
+                    <Typography
+                        sx={{ mb: 2, fontWeight: 'bold' }}
+                        variant="h4"
+                        component="h2"
+                    >
                         Modern professional and none professional{' '}
                         <Typography
                             variant="h4"
                             component="span"
-                            sx={{ color: `${theme.palette.primary.main}` }}
+                            sx={{
+                                fontWeight: 'bold',
+                                color: `${theme.palette.primary.main}`,
+                            }}
                         >
                             Drones
                         </Typography>
                     </Typography>
-                    <Typography sx={{ mb: 2 }} variant="body1" component="p">
+                    <Typography sx={{ mb: 2 }} variant="h6" component="p">
                         You can find Drones suitable for everything like
                         competitions, photography, GPS Drones and much more.
                     </Typography>
@@ -119,22 +136,25 @@ const HomePage = () => {
                             />
                         </Box>
                     </Grid>
-                    <Grid item xs={5} sx={{ p: 2 }}>
-                        <Typography sx={{ mb: 2 }} variant="h4" component="h2">
+                    <Grid item xs={5} sx={{ p: 3 }}>
+                        <Typography
+                            sx={{ mb: 2, fontWeight: 'bold' }}
+                            variant="h4"
+                            component="h2"
+                        >
                             <Typography
                                 variant="h4"
                                 component="span"
-                                sx={{ color: `${theme.palette.primary.main}` }}
+                                sx={{
+                                    fontWeight: 'bold',
+                                    color: `${theme.palette.primary.main}`,
+                                }}
                             >
                                 Monitors
                             </Typography>{' '}
                             for everyone
                         </Typography>
-                        <Typography
-                            sx={{ mb: 2 }}
-                            variant="body1"
-                            component="p"
-                        >
+                        <Typography sx={{ mb: 2 }} variant="h6" component="p">
                             If your are searching for a new monitor this is the
                             place where you will find the best one suitable for
                             your goals.
@@ -143,7 +163,7 @@ const HomePage = () => {
                     </Grid>
                 </Grid>
             </Grid>
-        </PageWrapper>
+        </>
     );
 };
 

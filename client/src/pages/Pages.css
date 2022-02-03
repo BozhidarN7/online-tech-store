@@ -1,0 +1,10 @@
+.test {
+    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0% 100%);
+}
+.clip-path-right {
+    clip-path: polygon(36% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.clip-path-left {
+    clip-path: polygon(0 0, 64% 0, 100% 100%, 0% 100%);
+}

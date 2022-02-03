@@ -7,6 +7,7 @@ import 'dotenv/config';
 
 import config from './config/config.js';
 import expressConfig from './config/expressConfig.js';
+import router from './config/globalRouter.js';
 import dataBaseConfig from './config/dataBaseConfig.js';
 import { firebaseConfig } from './config/firebaseConfig.js';
 import Query from './resolvers/Query.js';
@@ -27,9 +28,9 @@ const typeDefs = gql`
 
 async function startApp() {
     const app = express();
-    expressConfig(app);
     firebaseConfig();
-
+    expressConfig(app);
+    router(app);
     try {
         await dataBaseConfig();
     } catch (err) {

@@ -12,7 +12,15 @@ class GlobalErrorBoundary extends React.Component {
         return { hasError: true };
     }
 
-    componentDidCatch(error, errorInfo) {
+    async componentDidCatch(error, errorInfo) {
+        await fetch('http://localhost:5000/errors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ errorInfo, message: error.message }),
+        });
+        console.log(errorInfo);
         console.log(error);
     }
 

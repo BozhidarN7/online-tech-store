@@ -9,9 +9,9 @@ const logConfiguration = {
                 winston.format.align(),
                 winston.format.printf(
                     (info) =>
-                        `${info.level}: ${[info.timestamp]}: ${
-                            info.err.message
-                        }`
+                        `${info.level}: ${[info.type]} | ${[
+                            info.timestamp,
+                        ]} | ${info.err.message}`
                 )
             ),
         }),

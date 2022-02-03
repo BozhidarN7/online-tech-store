@@ -6,12 +6,12 @@ export default (err) => {
         err instanceof mongoose.Error.CastError ||
         err instanceof mongoose.Error.ValidationError
     ) {
-        logger.log({ err, level: 'error' });
+        logger.log({ err, level: 'error', type: 'server' });
         err.message = 'Wrong input data!';
         return err;
     }
 
-    logger.log({ err, level: 'error' });
+    logger.log({ err, level: 'error', type: 'server' });
     err.message = 'Server error!';
     return err;
 };

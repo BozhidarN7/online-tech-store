@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 
 import { useAuth } from '../../../contexts/AuthCtx';
 import { GET_USER_BY_ID } from '../../../graphql/queries.js';
@@ -75,7 +76,9 @@ const NavBar = () => {
                             component="div"
                             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                         >
-                            LOGO
+                            <IconButton aria-label="logo">
+                                <DeviceHubIcon sx={{ fontSize: 40 }} />
+                            </IconButton>
                         </Typography>
                     </Link>
 

@@ -7,6 +7,7 @@ import Image from 'mui-image';
 import { useTheme } from '@mui/material/styles';
 
 import NavBar from '../components/common/navBar/NavBar';
+import Footer from '../components/common/Footer';
 import './Pages.css';
 
 const HomePage = () => {
@@ -163,6 +164,7 @@ const HomePage = () => {
                     </Grid>
                 </Grid>
             </Grid>
+            <Footer />
         </>
     );
 };

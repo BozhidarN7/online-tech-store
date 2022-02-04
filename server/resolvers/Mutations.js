@@ -134,6 +134,34 @@ const addRemoveToCart = async (parent, args, context, info) => {
     }
 };
 
+const rate = async (parent, args, context, info) => {
+    const userId = args.userId;
+    const mongoUserId = mongoose.Types.ObjectId(userId);
+
+    const productId = args.productId;
+    const mongoProductId = mongoose.Types.ObjectId(productId);
+
+    const rating = args.rating;
+
+    try {
+        const user = await userService.addRate(userId, productId, rating);
+        const product = await productService.addRate(productId, rating);
+        return {
+            res: 200,
+            success: true,
+            message: 'Operation successful',
+            user,
+            product: {
+                ...product,
+                rating: Math.round(product.rating / product.votes),
+            },
+        };
+    } catch (err) {
+        console.log(err);
+        throw buildError(err);
+    }
+};
+
 const buyProducts = async (parent, args, context, info) => {
     const products = args.products;
     const totalPrice = products
@@ -161,5 +189,6 @@ export default {
     signIn,
     addRemoveToFavorites,
     addRemoveToCart,
+    rate,
     buyProducts,
 };

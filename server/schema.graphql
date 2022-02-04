@@ -16,6 +16,7 @@ type Mutation {
         userId: ID!
         productId: ID!
     ): AddToFavoritesOrCartMutationResponse!
+    rate(userId: ID!, productId: ID!, rating: Int!): RateMutationResponse!
     buyProducts(products: [OrderContent!]): PaymentResponse!
 }
 
@@ -32,6 +33,7 @@ type Product {
     description: String
     price: Float
     rating: Int
+    votes: Int
     quantity: Int
     image: String
     favoriteTo: [User!]
@@ -45,7 +47,13 @@ type User {
     email: String!
     createdAt: String!
     favorites: [Product!]
+    ratings: [Rating]
     cart: [Product!]
+}
+
+type Rating {
+    product: ID
+    rating: Int
 }
 
 interface MutationResponse {
@@ -55,6 +63,14 @@ interface MutationResponse {
 }
 
 type AddToFavoritesOrCartMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    user: User
+    product: Product
+}
+
+type RateMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!

@@ -46,6 +46,14 @@ export const removeProductFromCart = async (userId, productId) => {
     );
 };
 
+export const addRate = async (userId, productId, rating) => {
+    return await User.findByIdAndUpdate(
+        userId,
+        { $push: { ratings: { product: productId, rating } } },
+        { new: true }
+    );
+};
+
 export const populateSpecificUserFields = async (userId, fields) => {
     return await User.findById(userId, fields);
 };

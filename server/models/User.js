@@ -26,6 +26,15 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    ratings: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'ProductId',
+            },
+            rating: Number,
+        },
+    ],
     favorites: [
         {
             type: mongoose.Schema.Types.ObjectId,

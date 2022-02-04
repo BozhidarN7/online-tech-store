@@ -41,3 +41,13 @@ export const removeUserFromCartTo = async (userId, productId) => {
         { new: true }
     );
 };
+
+export const addRate = async (productId, rating) => {
+    return await Product.findByIdAndUpdate(
+        productId,
+        {
+            $inc: { votes: 1, rating: rating },
+        },
+        { new: true }
+    );
+};

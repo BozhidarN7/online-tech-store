@@ -40,7 +40,7 @@ const ProductSummary = ({ product, page }) => {
             <Box sx={{ mt: 2 }}>
                 <Rating name="read-only" value={product.rating} readOnly />
             </Box>
-            {page === 'cart' ? (
+            {page === 'cart' || page === 'productInfo' ? (
                 <Box sx={{ mt: 2 }}>
                     <Typography component="span">Quantity:</Typography>
                     <IconButton component="span">

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,6 +28,8 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { GET_PRODUCT } from '../graphql/queries';
+import { ADD_TO_CART, ADD_TO_FAVORITES } from '../graphql/mutations';
+import { useAuth } from '../contexts/AuthCtx';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 
@@ -38,10 +40,19 @@ const ProductInfoPage = () => {
 
     const userId = localStorage.getItem('userInfo');
 
+    const { firebaseUser } = useAuth();
+
     const { loading, data } = useQuery(GET_PRODUCT, {
         variables: {
             id,
         },
+    });
+
+    const [addRemoveToFavorites] = useMutation(ADD_TO_FAVORITES, {
+        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
+    });
+    const [addRemoveToCart] = useMutation(ADD_TO_CART, {
+        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
     });
 
     if (loading) {
@@ -57,6 +68,23 @@ const ProductInfoPage = () => {
     const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
         ? true
         : false;
+
+    const addToFavoritesHandler = () => {
+        addRemoveToFavorites({
+            variables: {
+                userId,
+                productId: product._id,
+            },
+        });
+    };
+    const addToCartHandler = () => {
+        addRemoveToCart({
+            variables: {
+                userId,
+                productId: product._id,
+            },
+        });
+    };
 
     return (
         <PageWrapper>
@@ -197,18 +225,38 @@ const ProductInfoPage = () => {
                                 </ListItem>
                             </List>
                             <Button
-                                sx={{ m: 2 }}
+                                sx={{
+                                    m: 2,
+                                    bgcolor: isAddedToCart
+                                        ? `${theme.palette.secondary.main}`
+                                        : '',
+                                    '&:hover': {
+                                        bgcolor: isAddedToCart
+                                            ? `${theme.palette.secondary.dark}`
+                                            : '',
+                                    },
+                                }}
                                 variant="contained"
+                                onClick={addToCartHandler}
                                 startIcon={<ShoppingCartIcon />}
-                                disabled={isAddedToCart}
                             >
                                 Add to cart
                             </Button>
                             <Button
-                                sx={{ m: 2 }}
+                                sx={{
+                                    m: 2,
+                                    bgcolor: isAddedToFavorites
+                                        ? `${theme.palette.secondary.main}`
+                                        : '',
+                                    '&:hover': {
+                                        bgcolor: isAddedToFavorites
+                                            ? `${theme.palette.secondary.dark}`
+                                            : '',
+                                    },
+                                }}
                                 variant="contained"
+                                onClick={addToFavoritesHandler}
                                 startIcon={<FavoriteIcon />}
-                                disabled={isAddedToFavorites}
                             >
                                 Add to favorite
                             </Button>

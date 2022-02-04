@@ -151,10 +151,7 @@ const rate = async (parent, args, context, info) => {
             success: true,
             message: 'Operation successful',
             user,
-            product: {
-                ...product,
-                rating: Math.round(product.rating / product.votes),
-            },
+            product,
         };
     } catch (err) {
         console.log(err);

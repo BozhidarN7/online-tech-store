@@ -51,6 +51,10 @@ export const GET_USER_BY_ID = gql`
             favorites {
                 _id
             }
+            ratings {
+                product
+                rating
+            }
         }
     }
 `;

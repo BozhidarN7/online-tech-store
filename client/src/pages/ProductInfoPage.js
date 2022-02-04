@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
@@ -27,22 +28,38 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
-import { GET_PRODUCT } from '../graphql/queries';
-import { ADD_TO_CART, ADD_TO_FAVORITES } from '../graphql/mutations';
+import { GET_PRODUCT, GET_USER_BY_ID } from '../graphql/queries';
+import {
+    ADD_TO_CART,
+    ADD_TO_FAVORITES,
+    RATE_PRODUCT,
+} from '../graphql/mutations';
 import { useAuth } from '../contexts/AuthCtx';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 
 const ProductInfoPage = () => {
-    const { id } = useParams();
     const navigate = useNavigate();
     const theme = useTheme();
+    const { id } = useParams();
 
     const userId = localStorage.getItem('userInfo');
-
     const { firebaseUser } = useAuth();
+    const {
+        data: userData,
+        loading: loadingUser,
+        refetch: refetchUser,
+    } = useQuery(GET_USER_BY_ID, {
+        variables: {
+            id: userId,
+        },
+    });
 
-    const { loading, data } = useQuery(GET_PRODUCT, {
+    const {
+        data: productData,
+        loading: loadingProduct,
+        refetch: refetchProduct,
+    } = useQuery(GET_PRODUCT, {
         variables: {
             id,
         },
@@ -54,20 +71,29 @@ const ProductInfoPage = () => {
     const [addRemoveToCart] = useMutation(ADD_TO_CART, {
         context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
     });
+    const [rate] = useMutation(RATE_PRODUCT);
 
-    if (loading) {
+    if (loadingUser || loadingProduct) {
         return <Spinner />;
     }
 
-    const product = data.product;
+    const product = productData.product;
+    console.log(product);
     const isAddedToFavorites = product.favoriteTo.find(
         (user) => user._id === userId
     )
         ? true
         : false;
+
     const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
         ? true
         : false;
+
+    const productRating = userData.user.ratings.find(
+        (pr) => pr.product === product._id
+    );
+    const isRated = productRating ? true : false;
+    const rating = productRating ? productRating.rating : 0;
 
     const addToFavoritesHandler = () => {
         addRemoveToFavorites({
@@ -84,6 +110,19 @@ const ProductInfoPage = () => {
                 productId: product._id,
             },
         });
+    };
+
+    const rateHandler = (e) => {
+        const rating = Number(e.target.value);
+        rate({
+            variables: {
+                userId,
+                productId: product._id,
+                rating,
+            },
+        });
+        refetchProduct();
+        refetchUser();
     };
 
     return (
@@ -138,9 +177,14 @@ const ProductInfoPage = () => {
                     </List>
                     <Box sx={{ mt: 2 }}>
                         <Typography variant="h6" component="legend">
-                            Give your rating
+                            {isRated ? 'Your rating' : 'Give your rating'}
                         </Typography>
-                        <Rating name="no-value" value={null} />
+                        <Rating
+                            name="no-value"
+                            value={rating}
+                            onChange={rateHandler}
+                            readOnly={isRated ? true : false}
+                        />
                     </Box>
                     <Box sx={{ mt: 2 }}>
                         <Typography component="span">Quantity:</Typography>

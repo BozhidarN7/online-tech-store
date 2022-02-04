@@ -42,12 +42,12 @@ export const removeUserFromCartTo = async (userId, productId) => {
     );
 };
 
-export const addRate = async (productId, rating) => {
-    return await Product.findByIdAndUpdate(
-        productId,
-        {
-            $inc: { votes: 1, rating: rating },
-        },
-        { new: true }
-    );
+export const addRate = async (productId, userRating) => {
+    const product = await Product.findById(productId);
+    product.votes += 1;
+    product.ratingScore += userRating;
+    product.rating = Math.round(product.ratingScore / product.votes);
+
+    await product.save();
+    return product;
 };

@@ -72,6 +72,22 @@ export const ADD_TO_CART = gql`
     }
 `;
 
+export const RATE_PRODUCT = gql`
+    mutation rateProduct($userId: ID!, $productId: ID!, $rating: Int!) {
+        rate(userId: $userId, productId: $productId, rating: $rating) {
+            user {
+                ratings {
+                    product
+                    rating
+                }
+            }
+            product {
+                rating
+            }
+        }
+    }
+`;
+
 export const BUY_PRODUCTS = gql`
     mutation BuyProducts($products: [OrderContent!]) {
         buyProducts(products: $products) {

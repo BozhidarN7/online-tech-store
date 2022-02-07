@@ -40,6 +40,14 @@ const ProductCartItem = ({ product, page }) => {
         addRemoveToCart();
     };
 
+    const removeProductHandler = () => {
+        if (page === 'cart') {
+            addRemoveToCart();
+        } else {
+            addRemoveToFavorites();
+        }
+    };
+
     return (
         <Grid sx={{ bgcolor: 'white', p: 2, mb: 1 }} item container>
             <Grid item container spacing={3}>
@@ -90,12 +98,16 @@ const ProductCartItem = ({ product, page }) => {
                             }}
                             variant="text"
                             startIcon={<ShoppingCart />}
-                            onClick={addRemoveToCart}
+                            onClick={addRemoveToCartHandler}
                         >
                             Add to cart
                         </Button>
                     )}
-                    <Button variant="text" startIcon={<DeleteIcon />}>
+                    <Button
+                        variant="text"
+                        startIcon={<DeleteIcon />}
+                        onClick={removeProductHandler}
+                    >
                         Remove
                     </Button>
                 </Grid>

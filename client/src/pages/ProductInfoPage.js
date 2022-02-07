@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
@@ -226,7 +225,7 @@ const ProductInfoPage = () => {
                                         secondary={
                                             <Rating
                                                 name="read-only"
-                                                value={product.rating}
+                                                value={rating}
                                                 readOnly
                                             />
                                         }

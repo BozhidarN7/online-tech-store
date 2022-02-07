@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
@@ -41,6 +42,8 @@ const ProductInfoPage = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { id } = useParams();
+
+    const [quantity, setQuantiy] = useState(1);
 
     const userId = localStorage.getItem('userInfo');
     const { firebaseUser } = useAuth();
@@ -124,6 +127,21 @@ const ProductInfoPage = () => {
         refetchUser();
     };
 
+    const incrementQuantityHandler = () => {
+        if (quantity === product.quantity) {
+            return;
+        }
+
+        setQuantiy((prev) => prev + 1);
+    };
+    const decrementQuantityHandler = () => {
+        if (quantity === 1) {
+            return;
+        }
+
+        setQuantiy((prev) => prev - 1);
+    };
+
     return (
         <PageWrapper>
             <Grid container spacing={4}>
@@ -187,11 +205,17 @@ const ProductInfoPage = () => {
                     </Box>
                     <Box sx={{ mt: 2 }}>
                         <Typography component="span">Quantity:</Typography>
-                        <IconButton component="span">
+                        <IconButton
+                            onClick={decrementQuantityHandler}
+                            component="span"
+                        >
                             <RemoveCircleIcon />
                         </IconButton>
-                        <Typography component="span">1</Typography>
-                        <IconButton component="span">
+                        <Typography component="span">{quantity}</Typography>
+                        <IconButton
+                            onClick={incrementQuantityHandler}
+                            component="span"
+                        >
                             <AddCircleIcon />
                         </IconButton>
                     </Box>

@@ -34,18 +34,30 @@ const CartPage = () => {
     return (
         <PageWrapper>
             <Grid container>
-                <Grid sx={{ bgcolor: 'lightblue', p: 2, mr: 2 }} item xs={8}>
-                    <Typography sx={{ mb: 2 }} variant="h4" component="h1">
-                        Shopping Cart
-                    </Typography>
-                    {products.map((product) => (
-                        <ProductCartItem
-                            key={product._id}
-                            product={product}
-                            page="cart"
-                        />
-                    ))}
-                </Grid>
+                {products.length ? (
+                    <Grid
+                        sx={{ bgcolor: 'lightblue', p: 2, mr: 2 }}
+                        item
+                        xs={8}
+                    >
+                        <Typography sx={{ mb: 2 }} variant="h4" component="h1">
+                            Shopping Cart
+                        </Typography>
+                        {products.map((product) => (
+                            <ProductCartItem
+                                key={product._id}
+                                product={product}
+                                page="cart"
+                            />
+                        ))}
+                    </Grid>
+                ) : (
+                    <Grid item xs={8}>
+                        <Typography variant="h4" component="h2">
+                            You have not added any products yet.
+                        </Typography>
+                    </Grid>
+                )}
                 <Grid
                     sx={{
                         boxShadow: 3,
@@ -72,6 +84,7 @@ const CartPage = () => {
                             variant="contained"
                             startIcon={<ShopIcon />}
                             onClick={() => navigate('/payment')}
+                            disabled={products.length ? false : true}
                         >
                             Continue
                         </Button>
@@ -83,7 +96,11 @@ const CartPage = () => {
                             label="Promo code"
                             variant="standard"
                         />
-                        <Button sx={{ width: 182, mt: 1 }} variant="outlined">
+                        <Button
+                            sx={{ width: 182, mt: 1 }}
+                            variant="outlined"
+                            disabled={products.length ? false : true}
+                        >
                             Add code
                         </Button>
                     </Box>

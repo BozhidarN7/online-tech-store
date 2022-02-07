@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
 
 import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -15,7 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { useAuth } from '../../contexts/AuthCtx';
-import { ADD_TO_FAVORITES, ADD_TO_CART } from '../../graphql/mutations';
+import useAddRemoveToCart from '../../hooks/productsHooks/useAddRemoveToCart';
 
 const ProductCard = ({ product }) => {
     const theme = useTheme();
@@ -24,20 +23,11 @@ const ProductCard = ({ product }) => {
     const { firebaseUser } = useAuth();
     const userId = localStorage.getItem('userInfo');
 
-    const [addRemoveToFavorites] = useMutation(ADD_TO_FAVORITES, {
-        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
-        variables: {
-            userId,
-            productId: product._id,
-        },
-    });
-    const [addRemoveToCart] = useMutation(ADD_TO_CART, {
-        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
-        variables: {
-            userId,
-            productId: product._id,
-        },
-    });
+    const { addRemoveToCart, addRemoveToFavorites } = useAddRemoveToCart(
+        userId,
+        product._id,
+        firebaseUser?.accessToken
+    );
 
     const isAddedToFavorites = product.favoriteTo.find(
         (user) => user._id === userId

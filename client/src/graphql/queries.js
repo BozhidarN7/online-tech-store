@@ -71,6 +71,12 @@ export const GET_USER_CART_PRODUCTS = gql`
                 price
                 image
                 quantity
+                favoriteTo {
+                    _id
+                }
+                inCartTo {
+                    _id
+                }
             }
         }
     }
@@ -87,6 +93,12 @@ export const GET_USER_FAVORITES_PRODUCTS = gql`
                 rating
                 price
                 image
+                favoriteTo {
+                    _id
+                }
+                inCartTo {
+                    _id
+                }
             }
         }
     }

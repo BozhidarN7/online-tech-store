@@ -9,9 +9,9 @@ import TextField from '@mui/material/TextField';
 
 import ShopIcon from '@mui/icons-material/Shop';
 
+import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import ProductCartItem from '../components/product/ProductCartItem';
-import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import Spinner from '../components/common/Spinner';
 
 const CartPage = () => {

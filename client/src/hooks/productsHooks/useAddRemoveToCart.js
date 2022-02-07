@@ -21,7 +21,11 @@ const useAddRemoveToCartAndFavorites = (userId, productId, accessToken) => {
         },
     });
 
-    return { addRemoveToCart, addRemoveToFavorites };
+    return {
+        addRemoveToCart: (props = undefined) => addRemoveToCart(props),
+        addRemoveToFavorites: (props = undefined) =>
+            addRemoveToFavorites(props),
+    };
 };
 
 export default useAddRemoveToCartAndFavorites;

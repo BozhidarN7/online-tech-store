@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -7,9 +8,38 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 
+import { useAuth } from '../../contexts/AuthCtx';
 import ProductSummary from './ProductSummary';
+import useAddRemoveToCartAndFavorites from '../../hooks/productsHooks/useAddRemoveToCart';
 
 const ProductCartItem = ({ product, page }) => {
+    const theme = useTheme();
+    const { firebaseUser } = useAuth();
+    const userId = localStorage.getItem('userInfo');
+    const { addRemoveToFavorites, addRemoveToCart } =
+        useAddRemoveToCartAndFavorites(
+            userId,
+            product._id,
+            firebaseUser?.accessToken
+        );
+
+    const isAddedToFavorites = product.favoriteTo.find(
+        (user) => user._id === userId
+    )
+        ? true
+        : false;
+    const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
+        ? true
+        : false;
+
+    const addRemoveToFavoritesHandler = () => {
+        addRemoveToFavorites();
+    };
+
+    const addRemoveToCartHandler = () => {
+        addRemoveToCart();
+    };
+
     return (
         <Grid sx={{ bgcolor: 'white', p: 2, mb: 1 }} item container>
             <Grid item container spacing={3}>
@@ -39,11 +69,29 @@ const ProductCartItem = ({ product, page }) => {
                         {product.price} lv.
                     </Typography>
                     {page === 'cart' ? (
-                        <Button variant="text" startIcon={<FavoriteIcon />}>
+                        <Button
+                            sx={{
+                                color: isAddedToFavorites
+                                    ? `${theme.palette.secondary.main}`
+                                    : '',
+                            }}
+                            variant="text"
+                            startIcon={<FavoriteIcon />}
+                            onClick={addRemoveToFavoritesHandler}
+                        >
                             Add to favorites
                         </Button>
                     ) : (
-                        <Button variant="text" startIcon={<ShoppingCart />}>
+                        <Button
+                            sx={{
+                                color: isAddedToCart
+                                    ? `${theme.palette.secondary.main}`
+                                    : '',
+                            }}
+                            variant="text"
+                            startIcon={<ShoppingCart />}
+                            onClick={addRemoveToCart}
+                        >
                             Add to cart
                         </Button>
                     )}

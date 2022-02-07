@@ -26,15 +26,12 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { GET_PRODUCT, GET_USER_BY_ID } from '../graphql/queries';
-import {
-    ADD_TO_CART,
-    ADD_TO_FAVORITES,
-    RATE_PRODUCT,
-} from '../graphql/mutations';
+import { RATE_PRODUCT } from '../graphql/mutations';
 import { useAuth } from '../contexts/AuthCtx';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 import ProductQuantity from '../components/product/ProductQuatity';
+import useAddRemoveToCartAndFavorites from '../hooks/productsHooks/useAddRemoveToCart';
 
 const ProductInfoPage = () => {
     const navigate = useNavigate();
@@ -63,12 +60,8 @@ const ProductInfoPage = () => {
         },
     });
 
-    const [addRemoveToFavorites] = useMutation(ADD_TO_FAVORITES, {
-        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
-    });
-    const [addRemoveToCart] = useMutation(ADD_TO_CART, {
-        context: { headers: { 'x-authorization': firebaseUser?.accessToken } },
-    });
+    const { addRemoveToCart, addRemoveToFavorites } =
+        useAddRemoveToCartAndFavorites();
     const [rate] = useMutation(RATE_PRODUCT);
 
     if (loadingUser || loadingProduct) {
@@ -76,7 +69,6 @@ const ProductInfoPage = () => {
     }
 
     const product = productData.product;
-    console.log(product);
     const isAddedToFavorites = product.favoriteTo.find(
         (user) => user._id === userId
     )
@@ -95,16 +87,22 @@ const ProductInfoPage = () => {
 
     const addToFavoritesHandler = () => {
         addRemoveToFavorites({
+            context: {
+                headers: { 'x-authorization': firebaseUser?.accessToken },
+            },
             variables: {
-                userId,
+                userId: userId,
                 productId: product._id,
             },
         });
     };
     const addToCartHandler = () => {
         addRemoveToCart({
+            context: {
+                headers: { 'x-authorization': firebaseUser?.accessToken },
+            },
             variables: {
-                userId,
+                userId: userId,
                 productId: product._id,
             },
         });

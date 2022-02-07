@@ -11,6 +11,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
+import ProductQauntity from './ProductQuatity';
+
 const ProductSummary = ({ product, page }) => {
     return (
         <>
@@ -41,16 +43,7 @@ const ProductSummary = ({ product, page }) => {
                 <Rating name="read-only" value={product.rating} readOnly />
             </Box>
             {page === 'cart' || page === 'productInfo' ? (
-                <Box sx={{ mt: 2 }}>
-                    <Typography component="span">Quantity:</Typography>
-                    <IconButton component="span">
-                        <RemoveCircleIcon />
-                    </IconButton>
-                    <Typography component="span">1</Typography>
-                    <IconButton component="span">
-                        <AddCircleIcon />
-                    </IconButton>
-                </Box>
+                <ProductQauntity product={product} />
             ) : null}
         </>
     );

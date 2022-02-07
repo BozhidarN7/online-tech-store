@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { useTheme } from '@mui/material/styles';
@@ -24,8 +23,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import GppGoodIcon from '@mui/icons-material/GppGood';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import { GET_PRODUCT, GET_USER_BY_ID } from '../graphql/queries';
@@ -37,13 +34,12 @@ import {
 import { useAuth } from '../contexts/AuthCtx';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
+import ProductQuantity from '../components/product/ProductQuatity';
 
 const ProductInfoPage = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { id } = useParams();
-
-    const [quantity, setQuantiy] = useState(1);
 
     const userId = localStorage.getItem('userInfo');
     const { firebaseUser } = useAuth();
@@ -127,21 +123,6 @@ const ProductInfoPage = () => {
         refetchUser();
     };
 
-    const incrementQuantityHandler = () => {
-        if (quantity === product.quantity) {
-            return;
-        }
-
-        setQuantiy((prev) => prev + 1);
-    };
-    const decrementQuantityHandler = () => {
-        if (quantity === 1) {
-            return;
-        }
-
-        setQuantiy((prev) => prev - 1);
-    };
-
     return (
         <PageWrapper>
             <Grid container spacing={4}>
@@ -203,22 +184,7 @@ const ProductInfoPage = () => {
                             readOnly={isRated ? true : false}
                         />
                     </Box>
-                    <Box sx={{ mt: 2 }}>
-                        <Typography component="span">Quantity:</Typography>
-                        <IconButton
-                            onClick={decrementQuantityHandler}
-                            component="span"
-                        >
-                            <RemoveCircleIcon />
-                        </IconButton>
-                        <Typography component="span">{quantity}</Typography>
-                        <IconButton
-                            onClick={incrementQuantityHandler}
-                            component="span"
-                        >
-                            <AddCircleIcon />
-                        </IconButton>
-                    </Box>
+                    <ProductQuantity product={product} />
                 </Grid>
                 <Grid sx={{ mt: 4 }} item xs={4}>
                     <Box

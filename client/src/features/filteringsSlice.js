@@ -35,12 +35,12 @@ const initialState = {
         },
         {
             name: 'AirSpeed',
-            category: 'Drone',
+            category: 'Drones',
             id: 7,
         },
         {
             name: 'LG',
-            category: 'MOnitors',
+            category: 'Monitors',
             id: 8,
         },
         {

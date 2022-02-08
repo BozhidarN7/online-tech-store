@@ -11,8 +11,15 @@ import MoreFilteringOptionsMenu from './MoreFilteringOptionsMenu';
 const BrandMenu = () => {
     const dispatch = useDispatch();
 
-    const allBrands = useSelector((state) => state.filterings.allBrands);
+    let allBrands = useSelector((state) => state.filterings.allBrands);
     const selectedBrands = useSelector((state) => state.filterings.brands);
+    const selectedCategory = useSelector((state) => state.filterings.category);
+
+    if (selectedCategory !== 'all') {
+        allBrands = allBrands.filter(
+            (brand) => brand.category.toLowerCase() === selectedCategory
+        );
+    }
 
     const toggleBrandHandler = (e) => {
         const brand = e.target.value;

@@ -10,7 +10,6 @@ const MoreFilteringOptionsMenu = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const showMoreFilteringOptionsHandler = () => {
-        console.log('here');
         setIsOpen(!isOpen);
     };
 

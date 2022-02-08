@@ -58,7 +58,11 @@ const initialState = {
     view: '',
     sorting: '',
     brands: [],
-    price: [],
+    price: {
+        minPrice: 0,
+        maxPrice: 10000,
+        value: [0, 10000],
+    },
 };
 
 const filteringsSlice = createSlice({
@@ -82,6 +86,13 @@ const filteringsSlice = createSlice({
         sortingChanged(state, action) {
             state.sorting = action.payload.sorting;
         },
+        minMaxPriceChanged(state, action) {
+            state.price.minPrice = action.payload.minPrice;
+            state.price.maxPrice = action.payload.maxPrice;
+        },
+        priceValueChanged(state, action) {
+            state.price.value = action.payload.newValue;
+        },
     },
 });
 
@@ -91,6 +102,8 @@ export const {
     brandRemoved,
     viewChanged,
     sortingChanged,
+    priceChanged,
+    priceValueChanged,
 } = filteringsSlice.actions;
 
 export default filteringsSlice.reducer;

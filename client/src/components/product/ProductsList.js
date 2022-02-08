@@ -13,12 +13,16 @@ const ProductsList = () => {
     const category = useSelector((state) => state.filterings.category);
     const brands = useSelector((state) => state.filterings.brands);
     const sorting = useSelector((state) => state.filterings.sorting);
+    const price = useSelector((state) => state.filterings.price);
 
     if (loading) {
         return <Spinner />;
     }
 
-    let products = data.products;
+    let products = data.products.filter(
+        (product) =>
+            product.price >= price.value[0] && product.price <= price.value[1]
+    );
 
     if (category !== 'all') {
         products = products.filter((product) => product.category === category);

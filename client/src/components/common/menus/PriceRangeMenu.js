@@ -1,18 +1,25 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 
+import { priceValueChanged } from '../../../features/filteringsSlice';
+
 const PriceRangeMenu = () => {
+    const dispatch = useDispatch();
+
+    const { minPrice, maxPrice, value } = useSelector(
+        (state) => state.filterings.price
+    );
+
     const valuetext = (value) => {
         return `${value}lv.`;
     };
 
-    const [value, setValue] = useState([0, 1000]);
-
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        dispatch(priceValueChanged({ newValue }));
     };
 
     return (
@@ -24,8 +31,9 @@ const PriceRangeMenu = () => {
                 onChange={handleChange}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
-                min={0}
-                max={1000}
+                step={100}
+                min={minPrice}
+                max={maxPrice}
             />
         </Box>
     );

@@ -8,10 +8,13 @@ import Radio from '@mui/material/Radio';
 
 import { categoryChanged } from '../../../features/filteringsSlice';
 
-const ProductsMenu = () => {
+const CategoriesMenu = () => {
     const dispatch = useDispatch();
 
-    const category = useSelector((state) => state.filterings.category);
+    const allCategories = useSelector(
+        (state) => state.filterings.allCategories
+    );
+    const selectedCategory = useSelector((state) => state.filterings.category);
 
     const changeCategoryHandler = (e) => {
         dispatch(categoryChanged({ category: e.target.value }));
@@ -23,28 +26,20 @@ const ProductsMenu = () => {
             <RadioGroup
                 onChange={changeCategoryHandler}
                 aria-label="category"
-                value={category}
+                value={selectedCategory}
                 name="radio-buttons-group"
             >
-                <FormControlLabel value="all" control={<Radio />} label="All" />
-                <FormControlLabel
-                    value="laptops"
-                    control={<Radio />}
-                    label="Laptops"
-                />
-                <FormControlLabel
-                    value="monitors"
-                    control={<Radio />}
-                    label="Monitors"
-                />
-                <FormControlLabel
-                    value="drones"
-                    control={<Radio />}
-                    label="Drones"
-                />
+                {allCategories.map((category, index) => (
+                    <FormControlLabel
+                        value={category.toLowerCase()}
+                        control={<Radio />}
+                        label={category}
+                        key={index}
+                    />
+                ))}
             </RadioGroup>
         </FormControl>
     );
 };
 
-export default ProductsMenu;
+export default CategoriesMenu;

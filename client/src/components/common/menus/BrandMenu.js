@@ -6,11 +6,13 @@ import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 import { brandAdded, brandRemoved } from '../../../features/filteringsSlice';
+import MoreFilteringOptionsMenu from './MoreFilteringOptionsMenu';
 
 const BrandMenu = () => {
     const dispatch = useDispatch();
 
-    const brands = useSelector((state) => state.filterings.brands);
+    const allBrands = useSelector((state) => state.filterings.allBrands);
+    const selectedBrands = useSelector((state) => state.filterings.brands);
 
     const toggleBrandHandler = (e) => {
         const brand = e.target.value;
@@ -24,35 +26,44 @@ const BrandMenu = () => {
     };
 
     return (
-        <FormGroup sx={{ mb: 2 }}>
+        <FormGroup onChange={toggleBrandHandler} sx={{ mb: 2 }}>
             <FormLabel component="legend">Brand</FormLabel>
-            <FormControlLabel
-                checked={
-                    brands.find((brand) => brand === 'lenovo') ? true : false
-                }
-                onChange={toggleBrandHandler}
-                control={<Checkbox />}
-                label="Lenovo"
-                value="lenovo"
-            />
-            <FormControlLabel
-                checked={
-                    brands.find((brand) => brand === 'acer') ? true : false
-                }
-                onChange={toggleBrandHandler}
-                control={<Checkbox />}
-                label="Acer"
-                value="acer"
-            />
-            <FormControlLabel
-                checked={
-                    brands.find((brand) => brand === 'dell') ? true : false
-                }
-                onChange={toggleBrandHandler}
-                control={<Checkbox />}
-                label="Dell"
-                value="dell"
-            />
+            {allBrands.slice(0, 3).map((brand) => (
+                <FormControlLabel
+                    control={<Checkbox />}
+                    label={brand.name}
+                    value={brand.name.toLowerCase()}
+                    key={brand.id}
+                    checked={
+                        selectedBrands.find(
+                            (selectedBrand) =>
+                                selectedBrand === brand.name.toLowerCase()
+                        )
+                            ? true
+                            : false
+                    }
+                />
+            ))}
+
+            <MoreFilteringOptionsMenu>
+                {allBrands.slice(3).map((brand) => (
+                    <FormControlLabel
+                        sx={{ display: 'block' }}
+                        control={<Checkbox />}
+                        label={brand.name}
+                        value={brand.name.toLowerCase()}
+                        key={brand.id}
+                        checked={
+                            selectedBrands.find(
+                                (selectedBrand) =>
+                                    selectedBrand === brand.name.toLowerCase()
+                            )
+                                ? true
+                                : false
+                        }
+                    />
+                ))}
+            </MoreFilteringOptionsMenu>
         </FormGroup>
     );
 };

@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import BrandMenu from './BrandMenu';
-import ProductsMenu from './ProductsMenu';
+import CategoriesMenu from './CategoriesMenu';
 import PriceRangeMenu from './PriceRangeMenu';
 
 const ProductsFilteringMenu = () => {
@@ -12,7 +12,7 @@ const ProductsFilteringMenu = () => {
                 Options menu
             </Typography>
 
-            <ProductsMenu />
+            <CategoriesMenu />
             <BrandMenu />
             <PriceRangeMenu />
         </Box>

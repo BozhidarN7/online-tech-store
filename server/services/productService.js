@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 import Product from '../models/Product.js';
 
-export const getAllProducts = async () => {
-    return await Product.find({});
+export const getAllProducts = async (limit) => {
+    return await Product.find({}).limit(limit);
 };
 
 export const getProductById = async (id) => {

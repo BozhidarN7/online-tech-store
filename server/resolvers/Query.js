@@ -4,9 +4,10 @@ import buildError from '../utils/buildError.js';
 
 const info = () => 'Hello from the server!';
 
-const products = async () => {
+const products = async (parent, args, context, info) => {
+    const limit = args.limit;
     try {
-        return await productService.getAllProducts();
+        return await productService.getAllProducts(limit);
     } catch (err) {
         throw buildError(err);
     }

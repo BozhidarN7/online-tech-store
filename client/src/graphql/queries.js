@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_All_PRODUCTS = gql`
-    query GetAllProducts {
-        products {
+    query GetAllProducts($limit: Int) {
+        products(limit: $limit) {
             brand
             model
             category

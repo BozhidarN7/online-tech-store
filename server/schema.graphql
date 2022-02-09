@@ -1,6 +1,6 @@
 type Query {
     info: String!
-    products: [Product]
+    products(limit: Int): [Product]
     product(id: ID!): Product
     user(id: ID): User
 }

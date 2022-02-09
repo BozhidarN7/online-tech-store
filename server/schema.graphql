@@ -39,6 +39,7 @@ type Product {
     image: String
     favoriteTo: [User!]
     inCartTo: [User!]
+    createdAt: String
 }
 
 type User {

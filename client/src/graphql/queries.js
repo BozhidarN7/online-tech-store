@@ -10,6 +10,7 @@ export const GET_All_PRODUCTS = gql`
             rating
             quantity
             image
+            createdAt
             _id
             favoriteTo {
                 _id

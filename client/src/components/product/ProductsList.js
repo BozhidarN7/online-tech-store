@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useSelector } from 'react-redux';
 
 import Grid from '@mui/material/Grid';
@@ -33,6 +33,25 @@ const ProductsList = () => {
             brands.includes(product.brand.toLowerCase())
         );
     }
+
+    if (sorting === '') {
+        products.sort(
+            (a, b) => new Date(+a.createdAt) - new Date(+b.createdAt)
+        );
+    }
+    if (sorting === 'newest') {
+        products.sort(
+            (a, b) => new Date(+b.createdAt) - new Date(+a.createdAt)
+        );
+    }
+    if (sorting === 'lowest') {
+        products.sort((a, b) => a.price - b.price);
+    }
+    if (sorting === 'highest') {
+        products.sort((a, b) => b.price - a.price);
+    }
+
+    console.log(new Date(+products[0].createdAt));
 
     return (
         <>

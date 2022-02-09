@@ -3,8 +3,6 @@ import { useState } from 'react';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 
 const MoreFilteringOptionsMenu = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +13,7 @@ const MoreFilteringOptionsMenu = ({ children }) => {
 
     return (
         <Box>
-            {!isOpen ? (
+            {!isOpen && children.length ? (
                 <Typography
                     sx={{ cursor: 'pointer' }}
                     variant="body1"

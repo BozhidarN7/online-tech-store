@@ -50,6 +50,10 @@ const ProductSchema = new mongoose.Schema({
             ref: 'User',
         },
     ],
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const Product = mongoose.model('Product', ProductSchema);

@@ -7,17 +7,28 @@ type Query {
 
 type Mutation {
     signUp(firstName: String!, lastName: String!, email: String!): User!
+
     signIn(email: String!): User!
+
     addRemoveToFavorites(
         userId: ID!
         productId: ID!
     ): AddToFavoritesOrCartMutationResponse!
+
     addRemoveToCart(
         userId: ID!
         productId: ID!
     ): AddToFavoritesOrCartMutationResponse!
+
     rate(userId: ID!, productId: ID!, rating: Int!): RateMutationResponse!
+
     buyProducts(products: [OrderContent!]): PaymentResponse!
+
+    addOpinion(
+        userId: ID!
+        productId: ID!
+        opinion: String!
+    ): addOpinionResponse
 }
 
 input OrderContent {
@@ -40,6 +51,7 @@ type Product {
     favoriteTo: [User!]
     inCartTo: [User!]
     createdAt: String
+    opinions: [Opinion]
 }
 
 type User {
@@ -56,6 +68,11 @@ type User {
 type Rating {
     product: ID
     rating: Int
+}
+
+type Opinion {
+    user: ID
+    opinion: String
 }
 
 interface MutationResponse {
@@ -85,4 +102,11 @@ type PaymentResponse implements MutationResponse {
     success: Boolean!
     message: String!
     clientSecret: String!
+}
+
+type addOpinionResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    product: Product
 }

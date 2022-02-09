@@ -50,6 +50,15 @@ const ProductSchema = new mongoose.Schema({
             ref: 'User',
         },
     ],
+    opinions: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+            },
+            opinion: String,
+        },
+    ],
     createdAt: {
         type: Date,
         default: Date.now,

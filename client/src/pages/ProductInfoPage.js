@@ -15,7 +15,6 @@ import {
     Button,
     Rating,
     IconButton,
-    Avatar,
     TextField,
 } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
@@ -31,6 +30,8 @@ import { useAuth } from '../contexts/AuthCtx';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 import ProductQuantity from '../components/product/ProductQuatity';
+import ProductOpinionsList from '../components/product/ProductOpinionsList';
+import UserOpinionForm from '../components/common/navBar/forms/UserOpinionForm';
 import useAddRemoveToCartAndFavorites from '../hooks/productsHooks/useAddRemoveToCart';
 
 const ProductInfoPage = () => {
@@ -344,73 +345,8 @@ const ProductInfoPage = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box sx={{ mt: 5 }}>
-                <Typography sx={{ mb: 2 }} variant="h5" component="h2">
-                    Opinions
-                </Typography>
-                <Grid
-                    sx={{ boxShadow: 1, borderRadius: 2, p: 1 }}
-                    container
-                    direction="column"
-                    spacing={3}
-                >
-                    <Grid sx={{ boxShadow: 1, borderRadius: 2 }} item container>
-                        <Grid item xs={1}>
-                            <Avatar>H</Avatar>
-                        </Grid>
-                        <Grid item xs>
-                            <Typography component="p">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Soluta, error blanditiis enim
-                                pariatur illum nesciunt est minus sapiente
-                                reiciendis. Minus a reprehenderit maiores
-                                commodi velit laudantium labore ex nisi
-                                temporibus?
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid sx={{ boxShadow: 1, borderRadius: 2 }} item container>
-                        <Grid item xs={1}>
-                            <Avatar>H</Avatar>
-                        </Grid>
-                        <Grid item xs>
-                            <Typography component="p">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Soluta, error blanditiis enim
-                                pariatur illum nesciunt est minus sapiente
-                                reiciendis. Minus a reprehenderit maiores
-                                commodi velit laudantium labore ex nisi
-                                temporibus?
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid sx={{ boxShadow: 1, borderRadius: 2 }} item container>
-                        <Grid item xs={1}>
-                            <Avatar>H</Avatar>
-                        </Grid>
-                        <Grid item xs>
-                            <Typography component="p">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Soluta, error blanditiis enim
-                                pariatur illum nesciunt est minus sapiente
-                                reiciendis. Minus a reprehenderit maiores
-                                commodi velit laudantium labore ex nisi
-                                temporibus?
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Box sx={{ mt: 2 }}>
-                    <TextField
-                        id="filled-textarea"
-                        label="Write your opinion"
-                        placeholder="What do you think?"
-                        rows={10}
-                        multiline
-                        sx={{ width: '100%' }}
-                    />
-                </Box>
-            </Box>
+            <ProductOpinionsList product={product} />
+            <UserOpinionForm />
         </PageWrapper>
     );
 };

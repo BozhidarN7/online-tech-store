@@ -22,10 +22,6 @@ const UserSchema = new mongoose.Schema({
             message: (props) => `${props.value} is not a valid email`,
         },
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
     ratings: [
         {
             product: {
@@ -47,6 +43,10 @@ const UserSchema = new mongoose.Schema({
             ref: 'Product',
         },
     ],
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const User = mongoose.model('User', UserSchema);

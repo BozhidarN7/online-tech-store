@@ -51,3 +51,13 @@ export const addRate = async (productId, userRating) => {
     await product.save();
     return product;
 };
+
+export const addOpinion = async (userId, productId, opinion) => {
+    return await Product.findByIdAndUpdate(
+        productId,
+        {
+            $push: { opinions: { user: userId, opinion } },
+        },
+        { new: true }
+    );
+};

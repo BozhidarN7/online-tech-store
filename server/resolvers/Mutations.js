@@ -181,6 +181,29 @@ const buyProducts = async (parent, args, context, info) => {
     }
 };
 
+const addOpinion = async (parent, args, context, info) => {
+    const mongoProductId = mongoose.Types.ObjectId(args.productId);
+    const mongoUserId = mongoose.Types.ObjectId(args.userId);
+    const opinion = args.opinion;
+
+    try {
+        const product = await productService.addOpinion(
+            mongoUserId,
+            mongoProductId,
+            opinion
+        );
+
+        return {
+            code: '200',
+            success: true,
+            message: 'Success',
+            product,
+        };
+    } catch (err) {
+        throw buildError(err);
+    }
+};
+
 export default {
     signUp,
     signIn,
@@ -188,4 +211,5 @@ export default {
     addRemoveToCart,
     rate,
     buyProducts,
+    addOpinion,
 };

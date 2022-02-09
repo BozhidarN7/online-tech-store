@@ -125,7 +125,7 @@ const ProductInfoPage = () => {
         <PageWrapper>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
-                    <IconButton onClick={() => navigate('/products')}>
+                    <IconButton onClick={() => navigate(-1)}>
                         <KeyboardBackspaceIcon />
                     </IconButton>
                 </Grid>

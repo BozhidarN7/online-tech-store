@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -55,9 +57,11 @@ const ProductCartItem = ({ product, page }) => {
                     <Image src={product.image} height="10rem" duration={1000} />
                 </Grid>
                 <Grid item xs={3}>
-                    <Typography variant="h5" component="h3">
-                        {`${product.brand} ${product.model}`}
-                    </Typography>
+                    <Link to={`/products/${product._id}`}>
+                        <Typography variant="h5" component="h2">
+                            {`${product.brand} ${product.model}`}
+                        </Typography>
+                    </Link>
                     <Typography variant="body2" component="p">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Tempore alias eaque, amet commodi illo eius optio

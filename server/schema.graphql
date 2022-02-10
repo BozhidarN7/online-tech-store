@@ -45,7 +45,7 @@ type Product {
     price: Float
     rating: Int
     votes: Int
-    ratingScore: Int
+    ratingScore: [RatingScore]
     quantity: Int
     image: String
     favoriteTo: [User!]
@@ -65,14 +65,23 @@ type User {
     cart: [Product!]
 }
 
+type RatingScore {
+    user: ID
+    rating: Int
+    _id: ID
+}
+
 type Rating {
     product: ID
     rating: Int
+    _id: ID
 }
 
 type Opinion {
     user: ID
+    userInfo: User
     opinion: String
+    _id: ID
 }
 
 interface MutationResponse {

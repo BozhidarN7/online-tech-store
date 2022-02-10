@@ -9,6 +9,7 @@ const products = async (parent, args, context, info) => {
     try {
         return await productService.getAllProducts(limit);
     } catch (err) {
+        console.log(err);
         throw buildError(err);
     }
 };
@@ -17,6 +18,7 @@ const product = async (parent, args, context, info) => {
     try {
         return await productService.getProductById(args.id);
     } catch (err) {
+        console.log(err);
         throw buildError(err);
     }
 };

@@ -32,11 +32,36 @@ export const GET_PRODUCT = gql`
             quantity
             image
             _id
+            ratingScore {
+                rating
+                user
+            }
             favoriteTo {
                 _id
             }
             inCartTo {
                 _id
+            }
+            opinions {
+                user
+                opinion
+                _id
+            }
+        }
+    }
+`;
+
+export const GET_PRODUCT_OPINIONS = gql`
+    query getProductsOpinion($id: ID!) {
+        product(id: $id) {
+            opinions {
+                user
+                opinion
+                _id
+            }
+            ratingScore {
+                rating
+                user
             }
         }
     }

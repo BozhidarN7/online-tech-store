@@ -136,16 +136,12 @@ const addRemoveToCart = async (parent, args, context, info) => {
 
 const rate = async (parent, args, context, info) => {
     const userId = args.userId;
-    const mongoUserId = mongoose.Types.ObjectId(userId);
-
     const productId = args.productId;
-    const mongoProductId = mongoose.Types.ObjectId(productId);
-
     const rating = args.rating;
 
     try {
         const user = await userService.addRate(userId, productId, rating);
-        const product = await productService.addRate(productId, rating);
+        const product = await productService.addRate(userId, productId, rating);
         return {
             res: 200,
             success: true,

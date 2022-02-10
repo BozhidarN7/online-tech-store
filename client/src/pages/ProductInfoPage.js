@@ -15,7 +15,6 @@ import {
     Button,
     Rating,
     IconButton,
-    TextField,
 } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -214,7 +213,7 @@ const ProductInfoPage = () => {
                                         secondary={
                                             <Rating
                                                 name="read-only"
-                                                value={rating}
+                                                value={product.rating}
                                                 readOnly
                                             />
                                         }
@@ -345,7 +344,7 @@ const ProductInfoPage = () => {
                     </Box>
                 </Box>
             </Box>
-            <ProductOpinionsList product={product} />
+            <ProductOpinionsList productId={product._id} />
             <UserOpinionForm />
         </PageWrapper>
     );

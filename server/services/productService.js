@@ -7,7 +7,7 @@ export const getAllProducts = async (limit) => {
 };
 
 export const getProductById = async (id) => {
-    return await Product.findById(id);
+    return await Product.findById(id).populate('opinions.user');
 };
 
 export const addUserToFavoritesTo = async (userId, productId) => {
@@ -42,11 +42,16 @@ export const removeUserFromCartTo = async (userId, productId) => {
     );
 };
 
-export const addRate = async (productId, userRating) => {
+export const addRate = async (userId, productId, userRating) => {
     const product = await Product.findById(productId);
     product.votes += 1;
-    product.ratingScore += userRating;
-    product.rating = Math.round(product.ratingScore / product.votes);
+    product.ratingScore.push({ rating: userRating, user: userId });
+
+    const totalRatingScore = product.ratingScore.reduce(
+        (score, x) => (score += x.rating),
+        0
+    );
+    product.rating = Math.round(totalRatingScore / product.votes);
 
     await product.save();
     return product;

@@ -19,44 +19,56 @@ const ProductOpinionsList = ({ productId }) => {
         return <Spinner />;
     }
     const product = data.product;
-
     const opinions = product.opinions;
     const userRatings = product.ratingScore;
-    const opinionsAndRatings = userRatings
-        .map((userRating) => {
-            const opinion = opinions.find(
-                (opinion) => opinion.user === userRating.user
+    const opinionsAndRatings = opinions
+        .map((opinion) => {
+            const userRating = userRatings.find(
+                (ur) => opinion.user === ur.user
             );
-            if (opinion) {
+            if (userRating) {
                 return {
                     rating: userRating.rating,
                     opinion: opinion.opinion,
                     _id: opinion._id,
                 };
             } else {
-                return null;
+                return {
+                    rating: 0,
+                    opinion: opinion.opinion,
+                    _id: opinion._id,
+                };
             }
         })
         .filter((opinion) => opinion);
+
     return (
         <Box sx={{ mt: 5 }}>
-            <Typography sx={{ mb: 2 }} variant="h5" component="h2">
-                Opinions
-            </Typography>
-            <Grid
-                sx={{ boxShadow: 1, borderRadius: 2, p: 2 }}
-                container
-                direction="column"
-                spacing={3}
-            >
-                {opinionsAndRatings.map((or) => (
-                    <ProductOpinionsListItem
-                        opinion={or.opinion}
-                        rating={or.rating}
-                        key={or._id}
-                    />
-                ))}
-            </Grid>
+            {opinionsAndRatings.length ? (
+                <>
+                    <Typography sx={{ mb: 2 }} variant="h5" component="h2">
+                        Opinions
+                    </Typography>
+                    <Grid
+                        sx={{ boxShadow: 1, borderRadius: 2, p: 2 }}
+                        container
+                        direction="column"
+                        spacing={3}
+                    >
+                        {opinionsAndRatings.map((or) => (
+                            <ProductOpinionsListItem
+                                opinion={or.opinion}
+                                rating={or.rating}
+                                key={or._id}
+                            />
+                        ))}
+                    </Grid>
+                </>
+            ) : (
+                <Typography sx={{ mb: 2 }} variant="h5" component="h2">
+                    Currently there are no opinions. Be the first one to share!
+                </Typography>
+            )}
         </Box>
     );
 };

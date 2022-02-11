@@ -95,3 +95,15 @@ export const BUY_PRODUCTS = gql`
         }
     }
 `;
+
+export const ADD_OPPINION = gql`
+    mutation addOpinion($userId: ID!, $productId: ID!, $opinion: String!) {
+        addOpinion(userId: $userId, productId: $productId, opinion: $opinion) {
+            product {
+                opinions {
+                    opinion
+                }
+            }
+        }
+    }
+`;

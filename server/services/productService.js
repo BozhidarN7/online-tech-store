@@ -7,7 +7,7 @@ export const getAllProducts = async (limit) => {
 };
 
 export const getProductById = async (id) => {
-    return await Product.findById(id).populate('opinions.user');
+    return await Product.findById(id);
 };
 
 export const addUserToFavoritesTo = async (userId, productId) => {

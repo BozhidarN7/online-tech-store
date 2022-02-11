@@ -345,7 +345,7 @@ const ProductInfoPage = () => {
                 </Box>
             </Box>
             <ProductOpinionsList productId={product._id} />
-            <UserOpinionForm />
+            <UserOpinionForm productId={product._id} />
         </PageWrapper>
     );
 };

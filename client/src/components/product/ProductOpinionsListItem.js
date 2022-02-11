@@ -6,12 +6,11 @@ import Rating from '@mui/material/Rating';
 const ProductOpinionsListItem = ({ opinion, rating }) => {
     return (
         <Grid
-            sx={
-                {
-                    // boxShadow: 1,
-                    // borderRadius: 2,
-                }
-            }
+            sx={{
+                boxShadow: 3,
+                borderRadius: 2,
+                mb: 2,
+            }}
             item
             container
             alignItems="center"

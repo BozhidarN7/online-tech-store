@@ -30,6 +30,7 @@ import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 import ProductQuantity from '../components/product/ProductQuatity';
 import ProductOpinionsList from '../components/product/ProductOpinionsList';
+import ProductSpecification from '../components/product/ProductSpecification';
 import UserOpinionForm from '../components/common/navBar/forms/UserOpinionForm';
 import useAddRemoveToCartAndFavorites from '../hooks/productsHooks/useAddRemoveToCart';
 
@@ -295,55 +296,7 @@ const ProductInfoPage = () => {
                     </Box>
                 </Grid>
             </Grid>
-            <Box>
-                <Typography variant="h5" component="h2">
-                    Full description
-                </Typography>
-                <Box sx={{ mt: 1, p: 2, boxShadow: 1 }}>
-                    <Box component="p">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente!
-                    </Box>
-                    <Box component="p">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente!
-                    </Box>
-                    <Box component="p">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente! Lorem
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Numquam adipisci tempora odit neque fugit tenetur. Vel
-                        fugiat repellat corrupti ducimus officiis, obcaecati,
-                        commodi nam ad quasi harum modi enim sapiente!
-                    </Box>
-                </Box>
-            </Box>
+            <ProductSpecification product={product} />
             <ProductOpinionsList productId={product._id} />
             <UserOpinionForm productId={product._id} />
         </PageWrapper>

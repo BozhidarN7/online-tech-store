@@ -7,8 +7,8 @@ const ProductOpinionsListItem = ({ opinion, rating }) => {
     return (
         <Grid
             sx={{
-                boxShadow: 3,
-                borderRadius: 2,
+                // boxShadow: 3,
+                // borderRadius: 2,
                 mb: 2,
             }}
             item

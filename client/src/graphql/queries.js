@@ -29,6 +29,7 @@ export const GET_PRODUCT = gql`
             model
             price
             rating
+            specification
             quantity
             image
             _id

@@ -42,6 +42,7 @@ type Product {
     model: String
     category: String
     description: String
+    specification: [[String]]
     price: Float
     rating: Int
     votes: Int

@@ -16,25 +16,27 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useAuth } from '../../contexts/AuthCtx';
 import useAddRemoveToCart from '../../hooks/productsHooks/useAddRemoveToCart';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product }: any) => {
     const theme = useTheme();
     const navigate = useNavigate();
 
-    const { firebaseUser } = useAuth();
+    const { firebaseUser } = useAuth()!;
     const userId = localStorage.getItem('userInfo');
 
     const { addRemoveToCart, addRemoveToFavorites } = useAddRemoveToCart(
-        userId,
+        userId!,
         product._id,
         firebaseUser?.accessToken
     );
 
     const isAddedToFavorites = product.favoriteTo.find(
-        (user) => user._id === userId
+        (user: any) => user._id === userId
     )
         ? true
         : false;
-    const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
+    const isAddedToCart = product.inCartTo.find(
+        (user: any) => user._id === userId
+    )
         ? true
         : false;
 

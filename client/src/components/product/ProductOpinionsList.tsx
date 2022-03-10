@@ -8,7 +8,11 @@ import ProductOpinionsListItem from './ProductOpinionsListItem';
 import Spinner from '../common/Spinner';
 import { GET_PRODUCT_OPINIONS } from '../../graphql/queries';
 
-const ProductOpinionsList = ({ productId }) => {
+type Props = {
+    productId: string;
+};
+
+const ProductOpinionsList = ({ productId }: Props) => {
     const { data, loading } = useQuery(GET_PRODUCT_OPINIONS, {
         variables: {
             id: productId,
@@ -22,9 +26,9 @@ const ProductOpinionsList = ({ productId }) => {
     const opinions = product.opinions;
     const userRatings = product.ratingScore;
     const opinionsAndRatings = opinions
-        .map((opinion) => {
+        .map((opinion: any) => {
             const userRating = userRatings.find(
-                (ur) => opinion.user === ur.user
+                (ur: any) => opinion.user === ur.user
             );
             if (userRating) {
                 return {
@@ -40,7 +44,7 @@ const ProductOpinionsList = ({ productId }) => {
                 };
             }
         })
-        .filter((opinion) => opinion);
+        .filter((opinion: any) => opinion);
 
     return (
         <Box sx={{ mt: 5 }}>
@@ -55,7 +59,7 @@ const ProductOpinionsList = ({ productId }) => {
                         direction="column"
                         spacing={3}
                     >
-                        {opinionsAndRatings.map((or) => (
+                        {opinionsAndRatings.map((or: any) => (
                             <ProductOpinionsListItem
                                 opinion={or.opinion}
                                 rating={or.rating}

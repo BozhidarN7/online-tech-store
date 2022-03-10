@@ -29,7 +29,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-const ProductSpecification = ({ product }) => {
+const ProductSpecification = ({ product }: any) => {
     console.log(product);
     return (
         <Box>
@@ -47,7 +47,7 @@ const ProductSpecification = ({ product }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {product.specification.map((spec) => (
+                        {product.specification.map((spec: any) => (
                             <StyledTableRow key={spec[0]}>
                                 <StyledTableCell component="th" scope="row">
                                     {spec[0]}

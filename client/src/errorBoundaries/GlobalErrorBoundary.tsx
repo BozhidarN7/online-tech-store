@@ -9,11 +9,11 @@ type State = {
 class GlobalErrorBoundary extends React.Component {
     state: State = { hasError: false };
 
-    static getDerivedStateFromError(error) {
+    static getDerivedStateFromError(error: Error) {
         return { hasError: true };
     }
 
-    async componentDidCatch(error, errorInfo) {
+    async componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
         await fetch('http://localhost:5000/errors', {
             method: 'POST',
             headers: {

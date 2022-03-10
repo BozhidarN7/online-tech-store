@@ -12,11 +12,11 @@ const PriceRangeMenu = () => {
         (state) => state.filterings.price
     );
 
-    const valuetext = (value) => {
+    const valuetext = (value: number) => {
         return `${value}lv.`;
     };
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (event: Event, newValue: number[] | number) => {
         dispatch(priceValueChanged({ newValue }));
     };
 

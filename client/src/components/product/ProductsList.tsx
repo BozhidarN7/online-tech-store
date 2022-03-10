@@ -27,44 +27,46 @@ const ProductsList = () => {
     }
 
     let products = data.products.filter(
-        (product) =>
+        (product: any) =>
             product.price >= price.value[0] && product.price <= price.value[1]
     );
 
     if (category !== 'all') {
-        products = products.filter((product) => product.category === category);
+        products = products.filter(
+            (product: any) => product.category === category
+        );
     }
 
     if (brands.length) {
-        products = products.filter((product) =>
+        products = products.filter((product: any) =>
             brands.includes(product.brand.toLowerCase())
         );
     }
 
     if (sorting === '') {
         products.sort(
-            (a, b) =>
+            (a: any, b: any) =>
                 new Date(+a.createdAt).getTime() -
                 new Date(+b.createdAt).getTime()
         );
     }
     if (sorting === 'newest') {
         products.sort(
-            (a, b) =>
+            (a: any, b: any) =>
                 new Date(+b.createdAt).getTime() -
                 new Date(+a.createdAt).getTime()
         );
     }
     if (sorting === 'lowest') {
-        products.sort((a, b) => a.price - b.price);
+        products.sort((a: any, b: any) => a.price - b.price);
     }
     if (sorting === 'highest') {
-        products.sort((a, b) => b.price - a.price);
+        products.sort((a: any, b: any) => b.price - a.price);
     }
 
     return (
         <>
-            {products.map((product) => (
+            {products.map((product: any) => (
                 <Grid key={product._id} item xs={4}>
                     <ProductCard product={product} />
                 </Grid>

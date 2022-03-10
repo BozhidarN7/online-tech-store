@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../../app/hook';
 import FormControl from '@mui/material/FormControl';
@@ -9,6 +9,10 @@ import Box from '@mui/material/Box';
 
 import { sortingChanged, viewChanged } from '../../../features/filteringsSlice';
 
+type Props = {
+    type: string;
+};
+
 const sortingOptions = {
     oldest: '',
     newest: 'Newest',
@@ -17,13 +21,13 @@ const sortingOptions = {
 };
 const viewOptions = [10, 25, 50, 100];
 
-const SelectMenu = ({ type }) => {
+const SelectMenu = ({ type }: Props) => {
     const dispatch = useAppDispatch();
     const option = useAppSelector((state) => state.filterings[type]);
 
     const [open, setOpen] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         type === 'sorting'
             ? dispatch(sortingChanged({ sorting: value }))

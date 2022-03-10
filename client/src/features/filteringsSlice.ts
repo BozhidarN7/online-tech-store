@@ -1,6 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+type Brand = {
+    name: string;
+    category: string;
+    id: number;
+};
+
+type Price = {
+    minPrice: number;
+    maxPrice: number;
+    value: number[];
+};
+export interface filteringsState {
+    allCategories: string[];
+    allBrands: Brand[];
+    category: string;
+    view: string;
+    sorting: string;
+    brands: string[];
+    price: Price;
+}
+
+const initialState: filteringsState = {
     allCategories: ['All', 'Laptops', 'Monitors', 'Drones'],
     allBrands: [
         {
@@ -77,8 +98,8 @@ const filteringsSlice = createSlice({
         categoryChanged(state, action) {
             state.category = action.payload.category;
         },
-        brandAdded(state, action) {
-            state.brands.push(action.payload.brand);
+        brandAdded(state, action: PayloadAction<string>) {
+            state.brands.push(action.payload);
         },
         brandRemoved(state, action) {
             state.brands = state.brands.filter(

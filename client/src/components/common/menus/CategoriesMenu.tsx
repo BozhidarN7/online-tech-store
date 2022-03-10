@@ -17,7 +17,7 @@ const CategoriesMenu = () => {
         (state) => state.filterings.category
     );
 
-    const changeCategoryHandler = (e) => {
+    const changeCategoryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(categoryChanged({ category: e.target.value }));
     };
 

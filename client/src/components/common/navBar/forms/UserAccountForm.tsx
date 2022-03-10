@@ -15,6 +15,11 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { FirebaseError } from 'firebase/app';
+import React from 'react';
+
+type Props = {
+    formType: string;
+};
 
 const Copyright = () => {
     return (
@@ -34,24 +39,32 @@ const Copyright = () => {
     );
 };
 
-const UserAccountForm = ({ formType }) => {
-    const { signUp, signIn } = useAuth();
+const UserAccountForm = ({ formType }: Props) => {
+    const { signUp, signIn } = useAuth()!;
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+        const target = e.target as typeof e.target & {
+            email: { value: string };
+            password: { value: string };
+            firstName: { value: string };
+            lastName: { value: string };
+            rePassword: { value: string };
+        };
+
+        const email = target.email.value;
+        const password = target.password.value;
 
         let firstName = '';
         let lastName = '';
         let rePassword = '';
 
         if (formType === 'register') {
-            firstName = e.target.firstName.value;
-            lastName = e.target.lastName.value;
-            rePassword = e.target.rePassword.value;
+            firstName = target.firstName.value;
+            lastName = target.lastName.value;
+            rePassword = target.rePassword.value;
         }
 
         if (

@@ -10,7 +10,11 @@ import DoneIcon from '@mui/icons-material/Done';
 
 import ProductQauntity from './ProductQuatity';
 
-const ProductSummary = ({ product, page }) => {
+type Props = {
+    page: string;
+};
+
+const ProductSummary = ({ product, page }: any) => {
     return (
         <>
             <Typography sx={{ mb: 2 }} variant="h6" component="div">

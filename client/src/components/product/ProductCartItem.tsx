@@ -14,23 +14,29 @@ import { useAuth } from '../../contexts/AuthCtx';
 import ProductSummary from './ProductSummary';
 import useAddRemoveToCartAndFavorites from '../../hooks/productsHooks/useAddRemoveToCart';
 
-const ProductCartItem = ({ product, page }) => {
+type Props = {
+    page: string;
+};
+
+const ProductCartItem = ({ product, page }: any) => {
     const theme = useTheme();
-    const { firebaseUser } = useAuth();
+    const { firebaseUser } = useAuth()!;
     const userId = localStorage.getItem('userInfo');
     const { addRemoveToFavorites, addRemoveToCart } =
         useAddRemoveToCartAndFavorites(
-            userId,
+            userId!,
             product._id,
             firebaseUser?.accessToken
         );
 
     const isAddedToFavorites = product.favoriteTo.find(
-        (user) => user._id === userId
+        (user: any) => user._id === userId
     )
         ? true
         : false;
-    const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
+    const isAddedToCart = product.inCartTo.find(
+        (user: any) => user._id === userId
+    )
         ? true
         : false;
 

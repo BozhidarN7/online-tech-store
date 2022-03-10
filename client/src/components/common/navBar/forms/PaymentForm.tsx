@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
     PaymentElement,
     useStripe,
@@ -25,7 +25,7 @@ const PaymentForm = () => {
         }
 
         stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-            switch (paymentIntent.status) {
+            switch (paymentIntent?.status) {
                 case 'succeeded':
                     console.log('Payment succeeded!');
                     break;
@@ -44,7 +44,7 @@ const PaymentForm = () => {
         });
     }, [stripe]);
 
-    const payHandler = async (e) => {
+    const payHandler = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!stripe || !elements) {

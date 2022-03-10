@@ -3,7 +3,12 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
 
-const ProductOpinionsListItem = ({ opinion, rating }) => {
+type Props = {
+    opinion: string;
+    rating: number;
+};
+
+const ProductOpinionsListItem = ({ opinion, rating }: Props) => {
     return (
         <Grid
             sx={{

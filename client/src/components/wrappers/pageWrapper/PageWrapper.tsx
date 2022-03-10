@@ -3,7 +3,11 @@ import Box from '@mui/material/Box';
 import NavBar from '../../common/navBar/NavBar';
 import Footer from '../../common/Footer';
 
-const PageWrapper = ({ children }) => {
+type Props = {
+    children: React.ReactNode;
+};
+
+const PageWrapper = ({ children }: Props) => {
     return (
         <>
             <NavBar />

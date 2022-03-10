@@ -26,8 +26,9 @@ const useAddRemoveToCartAndFavorites = (
     });
 
     return {
-        addRemoveToCart: (props: any) => addRemoveToCart(props),
-        addRemoveToFavorites: (props: any) => addRemoveToFavorites(props),
+        addRemoveToCart: (props: any = undefined) => addRemoveToCart(props),
+        addRemoveToFavorites: (props: any = undefined) =>
+            addRemoveToFavorites(props),
     };
 };
 

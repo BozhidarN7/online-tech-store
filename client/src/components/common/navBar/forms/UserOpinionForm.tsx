@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import Box from '@mui/material/Box';
@@ -8,14 +8,18 @@ import SendIcon from '@mui/icons-material/Send';
 
 import { ADD_OPPINION } from '../../../../graphql/mutations';
 
-const UserOpinionForm = ({ productId }) => {
+type Props = {
+    productId: string;
+};
+
+const UserOpinionForm = ({ productId }: Props) => {
     const [opinion, setOpinion] = useState('');
     const [addOpinion] = useMutation(ADD_OPPINION);
-    const addOpinionHandler = (e) => {
+    const addOpinionHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setOpinion(e.target.value);
     };
 
-    const submitOpinionHandler = (e) => {
+    const submitOpinionHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
         addOpinion({

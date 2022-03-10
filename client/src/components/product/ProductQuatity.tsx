@@ -8,10 +8,10 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { useAppSelector, useAppDispatch } from '../../app/hook';
 import { productQauntityUpdated } from '../../features/usersSlice';
 
-const ProductQuantity = ({ product }) => {
+const ProductQuantity = ({ product }: any) => {
     const dispatch = useAppDispatch();
-    const productQuantity = useAppSelector((state) =>
-        state.users.productsQauntity.find((pr) => pr._id === product._id)
+    const productQuantity: any = useAppSelector((state) =>
+        state.users.productsQauntity.find((pr: any) => pr._id === product._id)
     );
     const quantity = productQuantity ? productQuantity.quantity : 1;
 

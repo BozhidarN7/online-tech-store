@@ -4,7 +4,11 @@ import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-const MoreFilteringOptionsMenu = ({ children }) => {
+type Props = {
+    children: React.ReactNode[];
+};
+
+const MoreFilteringOptionsMenu = ({ children }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const showMoreFilteringOptionsHandler = () => {

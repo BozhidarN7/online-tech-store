@@ -28,7 +28,7 @@ const BrandMenu = () => {
         const isChecked = e.target.checked;
 
         if (isChecked) {
-            dispatch(brandAdded({ brand }));
+            dispatch(brandAdded(brand));
         } else {
             dispatch(brandRemoved({ brand }));
         }

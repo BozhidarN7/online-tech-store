@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { useSelector } from 'react-redux';
 
+import { useAppSelector } from '../../app/hook';
 import Grid from '@mui/material/Grid';
 
 import * as queries from '../../graphql/queries';
@@ -8,18 +8,18 @@ import ProductCard from './ProductCard';
 import Spinner from '../common/Spinner';
 
 const ProductsList = () => {
-    const category = useSelector((state) => state.filterings.category);
-    const brands = useSelector((state) => state.filterings.brands);
-    const sorting = useSelector((state) => state.filterings.sorting);
-    const price = useSelector((state) => state.filterings.price);
-    let view = useSelector((state) => state.filterings.view);
+    const category = useAppSelector((state) => state.filterings.category);
+    const brands = useAppSelector((state) => state.filterings.brands);
+    const sorting = useAppSelector((state) => state.filterings.sorting);
+    const price = useAppSelector((state) => state.filterings.price);
+    let view = useAppSelector((state) => state.filterings.view);
 
     if (view === '') {
-        view = 10;
+        view = 10 + '';
     }
 
     const { loading, data } = useQuery(queries.GET_All_PRODUCTS, {
-        variables: { limit: view },
+        variables: { limit: Number(view) },
     });
 
     if (loading) {
@@ -43,12 +43,16 @@ const ProductsList = () => {
 
     if (sorting === '') {
         products.sort(
-            (a, b) => new Date(+a.createdAt) - new Date(+b.createdAt)
+            (a, b) =>
+                new Date(+a.createdAt).getTime() -
+                new Date(+b.createdAt).getTime()
         );
     }
     if (sorting === 'newest') {
         products.sort(
-            (a, b) => new Date(+b.createdAt) - new Date(+a.createdAt)
+            (a, b) =>
+                new Date(+b.createdAt).getTime() -
+                new Date(+a.createdAt).getTime()
         );
     }
     if (sorting === 'lowest') {

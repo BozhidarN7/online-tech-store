@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -7,11 +5,12 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
+import { useAppSelector, useAppDispatch } from '../../app/hook';
 import { productQauntityUpdated } from '../../features/usersSlice';
 
 const ProductQuantity = ({ product }) => {
-    const dispatch = useDispatch();
-    const productQuantity = useSelector((state) =>
+    const dispatch = useAppDispatch();
+    const productQuantity = useAppSelector((state) =>
         state.users.productsQauntity.find((pr) => pr._id === product._id)
     );
     const quantity = productQuantity ? productQuantity.quantity : 1;

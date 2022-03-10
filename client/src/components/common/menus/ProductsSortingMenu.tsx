@@ -1,16 +1,13 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useAppSelector, useAppDispatch } from '../../../app/hook';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 
-import {
-    sortingChanged,
-    viewChanged,
-} from '../../../features/filteringsSlice.js';
+import { sortingChanged, viewChanged } from '../../../features/filteringsSlice';
 
 const sortingOptions = {
     oldest: '',
@@ -21,8 +18,8 @@ const sortingOptions = {
 const viewOptions = [10, 25, 50, 100];
 
 const SelectMenu = ({ type }) => {
-    const dispatch = useDispatch();
-    const option = useSelector((state) => state.filterings[type]);
+    const dispatch = useAppDispatch();
+    const option = useAppSelector((state) => state.filterings[type]);
 
     const [open, setOpen] = useState(false);
 

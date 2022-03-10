@@ -18,7 +18,12 @@ import { FirebaseError } from 'firebase/app';
 
 const Copyright = () => {
     return (
-        <Typography variant="body2" color="text.secondary" align="center">
+        <Typography
+            sx={{ mt: 5 }}
+            variant="body2"
+            color="text.secondary"
+            align="center"
+        >
             {'Copyright © '}
             <Link color="inherit" component={RouterLink} to="/">
                 Your Website
@@ -220,7 +225,7 @@ const UserAccountForm = ({ formType }) => {
                         )}
                     </Grid>
 
-                    <Copyright sx={{ mt: 5 }} />
+                    <Copyright />
                 </Box>
             </Box>
         </Grid>

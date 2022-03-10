@@ -3,13 +3,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
 import DoneIcon from '@mui/icons-material/Done';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import ProductQauntity from './ProductQuatity';
 

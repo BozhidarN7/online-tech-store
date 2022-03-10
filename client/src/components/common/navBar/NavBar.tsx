@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
@@ -20,7 +20,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 
 import { useAuth } from '../../../contexts/AuthCtx';
-import { GET_USER_BY_ID } from '../../../graphql/queries.js';
+import { GET_USER_BY_ID } from '../../../graphql/queries';
 
 const pages = ['Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard'];
@@ -35,20 +35,21 @@ const NavBar = () => {
     });
 
     const navigate = useNavigate();
-    const { firebaseUser, logout } = useAuth();
+    const { firebaseUser, logout } = useAuth()!;
 
-    const [anchorElNav, setAnchorElNav] = useState(null);
-    const [anchorElUser, setAnchorElUser] = useState(null);
+    const [anchorElNav, setAnchorElNav] = useState<Element | null>(null);
+    const [anchorElUser, setAnchorElUser] = useState<Element | null>(null);
 
     if (loading) {
         return null;
     }
     const currentUser = data.user;
 
-    const handleOpenNavMenu = (event) => {
+    const handleOpenNavMenu = (event: React.SyntheticEvent) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
+
+    const handleOpenUserMenu = (event: React.SyntheticEvent) => {
         setAnchorElUser(event.currentTarget);
     };
 

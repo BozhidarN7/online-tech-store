@@ -33,6 +33,7 @@ import ProductOpinionsList from '../components/product/ProductOpinionsList';
 import ProductSpecification from '../components/product/ProductSpecification';
 import UserOpinionForm from '../components/common/navBar/forms/UserOpinionForm';
 import useAddRemoveToCartAndFavorites from '../hooks/productsHooks/useAddRemoveToCart';
+import React from 'react';
 
 const ProductInfoPage = () => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ const ProductInfoPage = () => {
     const { id } = useParams();
 
     const userId = localStorage.getItem('userInfo');
-    const { firebaseUser } = useAuth();
+    const { firebaseUser } = useAuth()!;
     const {
         data: userData,
         loading: loadingUser,
@@ -62,7 +63,11 @@ const ProductInfoPage = () => {
     });
 
     const { addRemoveToCart, addRemoveToFavorites } =
-        useAddRemoveToCartAndFavorites();
+        useAddRemoveToCartAndFavorites(
+            userId!,
+            productData?._id,
+            firebaseUser?.accessToken
+        );
     const [rate] = useMutation(RATE_PRODUCT);
 
     if (loadingUser || loadingProduct) {
@@ -71,17 +76,19 @@ const ProductInfoPage = () => {
 
     const product = productData.product;
     const isAddedToFavorites = product.favoriteTo.find(
-        (user) => user._id === userId
+        (user: any) => user._id === userId
     )
         ? true
         : false;
 
-    const isAddedToCart = product.inCartTo.find((user) => user._id === userId)
+    const isAddedToCart = product.inCartTo.find(
+        (user: any) => user._id === userId
+    )
         ? true
         : false;
 
     const productRating = userData.user.ratings.find(
-        (pr) => pr.product === product._id
+        (pr: any) => pr.product === product._id
     );
     const isRated = productRating ? true : false;
     const rating = productRating ? productRating.rating : 0;
@@ -109,7 +116,7 @@ const ProductInfoPage = () => {
         });
     };
 
-    const rateHandler = (e) => {
+    const rateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const rating = Number(e.target.value);
         rate({
             variables: {

@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
@@ -8,9 +6,9 @@ import FormLabel from '@mui/material/FormLabel';
 import { priceValueChanged } from '../../../features/filteringsSlice';
 
 const PriceRangeMenu = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const { minPrice, maxPrice, value } = useSelector(
+    const { minPrice, maxPrice, value } = useAppSelector(
         (state) => state.filterings.price
     );
 

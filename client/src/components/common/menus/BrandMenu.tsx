@@ -1,5 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useAppSelector, useAppDispatch } from '../../../app/hook';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
@@ -7,13 +6,16 @@ import Checkbox from '@mui/material/Checkbox';
 
 import { brandAdded, brandRemoved } from '../../../features/filteringsSlice';
 import MoreFilteringOptionsMenu from './MoreFilteringOptionsMenu';
+import React from 'react';
 
 const BrandMenu = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    let allBrands = useSelector((state) => state.filterings.allBrands);
-    const selectedBrands = useSelector((state) => state.filterings.brands);
-    const selectedCategory = useSelector((state) => state.filterings.category);
+    let allBrands = useAppSelector((state) => state.filterings.allBrands);
+    const selectedBrands = useAppSelector((state) => state.filterings.brands);
+    const selectedCategory = useAppSelector(
+        (state) => state.filterings.category
+    );
 
     if (selectedCategory !== 'all') {
         allBrands = allBrands.filter(
@@ -21,7 +23,7 @@ const BrandMenu = () => {
         );
     }
 
-    const toggleBrandHandler = (e) => {
+    const toggleBrandHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const brand = e.target.value;
         const isChecked = e.target.checked;
 

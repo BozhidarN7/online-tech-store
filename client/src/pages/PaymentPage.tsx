@@ -21,9 +21,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PaymentForm from '../components/common/navBar/forms/PaymentForm';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
-import ProductCard from '../components/product/ProductCard';
 import { BUY_PRODUCTS } from '../graphql/mutations';
-import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 
 const stripePromise = loadStripe(
     'pk_test_51KMwuhCMtBKRRxdEknJZbAvHcpa3EieAk3r9qefohnBxEx5g7dXrBAzcQEeNvHrTsRcXFN1r5gYnWbrZlb4T3sVN00U9sQ17Td'

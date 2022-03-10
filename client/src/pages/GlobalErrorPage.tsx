@@ -24,7 +24,7 @@ const GlobalErroPage = () => {
                 </Typography>
                 <Button
                     variant="contained"
-                    onClick={() => window.location.reload(true)}
+                    onClick={() => window.location.reload()}
                     sx={{ mt: 2 }}
                 >
                     Reload Page

@@ -107,7 +107,6 @@ export const {
     brandRemoved,
     viewChanged,
     sortingChanged,
-    priceChanged,
     priceValueChanged,
 } = filteringsSlice.actions;
 

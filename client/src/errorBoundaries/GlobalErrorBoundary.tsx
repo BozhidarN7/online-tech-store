@@ -2,11 +2,12 @@ import React from 'react';
 
 import GlobalErrorPage from '../pages/GlobalErrorPage';
 
+type State = {
+    hasError: boolean; // like this
+};
+
 class GlobalErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false };
-    }
+    state: State = { hasError: false };
 
     static getDerivedStateFromError(error) {
         return { hasError: true };

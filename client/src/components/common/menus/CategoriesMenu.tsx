@@ -1,5 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useAppSelector, useAppDispatch } from '../../../app/hook';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
@@ -9,12 +8,14 @@ import Radio from '@mui/material/Radio';
 import { categoryChanged } from '../../../features/filteringsSlice';
 
 const CategoriesMenu = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const allCategories = useSelector(
+    const allCategories = useAppSelector(
         (state) => state.filterings.allCategories
     );
-    const selectedCategory = useSelector((state) => state.filterings.category);
+    const selectedCategory = useAppSelector(
+        (state) => state.filterings.category
+    );
 
     const changeCategoryHandler = (e) => {
         dispatch(categoryChanged({ category: e.target.value }));

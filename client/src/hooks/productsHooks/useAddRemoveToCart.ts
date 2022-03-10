@@ -2,7 +2,11 @@ import { useMutation } from '@apollo/client';
 
 import { ADD_TO_CART, ADD_TO_FAVORITES } from '../../graphql/mutations';
 
-const useAddRemoveToCartAndFavorites = (userId, productId, accessToken) => {
+const useAddRemoveToCartAndFavorites = (
+    userId: string,
+    productId: string,
+    accessToken: string
+) => {
     const [addRemoveToCart] = useMutation(ADD_TO_CART, {
         context: {
             headers: { 'x-authorization': accessToken },
@@ -22,9 +26,8 @@ const useAddRemoveToCartAndFavorites = (userId, productId, accessToken) => {
     });
 
     return {
-        addRemoveToCart: (props = undefined) => addRemoveToCart(props),
-        addRemoveToFavorites: (props = undefined) =>
-            addRemoveToFavorites(props),
+        addRemoveToCart: (props: any) => addRemoveToCart(props),
+        addRemoveToFavorites: (props: any) => addRemoveToFavorites(props),
     };
 };
 

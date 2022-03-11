@@ -2,9 +2,9 @@ import { Navigate } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthCtx';
 
-const isLogged = (WrapperComponent) => {
-    const ComponentWrapper = (props) => {
-        const { firebaseUser } = useAuth();
+const isLogged = (WrapperComponent: () => JSX.Element) => {
+    const ComponentWrapper = (props: any) => {
+        const { firebaseUser } = useAuth()!;
 
         if (!firebaseUser) {
             return <Navigate to="/login" replace={true} />;

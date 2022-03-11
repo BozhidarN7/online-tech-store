@@ -48,7 +48,7 @@ const PaymentPage = () => {
     useEffect(() => {
         buyProducts({
             variables: {
-                products: cart.map((product) => {
+                products: cart.map((product: any) => {
                     return { _id: product._id, price: product.price };
                 }),
             },

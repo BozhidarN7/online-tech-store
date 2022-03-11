@@ -11,7 +11,7 @@ import { productQauntityUpdated } from '../../features/usersSlice';
 const ProductQuantity = ({ product }: any) => {
     const dispatch = useAppDispatch();
     const productQuantity: any = useAppSelector((state) =>
-        state.users.productsQauntity.find((pr: any) => pr._id === product._id)
+        state.users.productsQuantity.find((pr: any) => pr._id === product._id)
     );
     const quantity = productQuantity ? productQuantity.quantity : 1;
 

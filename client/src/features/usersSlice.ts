@@ -1,8 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export interface UsersState {
+    currentUser: any;
+    productsQuantity: any;
+}
+
+const initialState: UsersState = {
     currentUser: null,
-    productsQauntity: [],
+    productsQuantity: [],
 };
 
 const usersSlice = createSlice({
@@ -19,14 +24,14 @@ const usersSlice = createSlice({
             const productId = action.payload.productId;
             const quantity = action.payload.quantity;
 
-            const product = state.productsQauntity.find(
-                (product) => product._id === productId
+            const product = state.productsQuantity.find(
+                (product: any) => product._id === productId
             );
 
             if (product) {
                 product.quantity = quantity;
             } else {
-                state.productsQauntity.push({ _id: productId, quantity });
+                state.productsQuantity.push({ _id: productId, quantity });
             }
         },
     },
@@ -35,6 +40,6 @@ const usersSlice = createSlice({
 export const { currentUserAdded, currentUserLogout, productQauntityUpdated } =
     usersSlice.actions;
 
-export const selectCurrentUser = (state) => state.users.currentUser;
+export const selectCurrentUser = (state: any) => state.users.currentUser;
 
 export default usersSlice.reducer;

@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import { sortingChanged, viewChanged } from '../../../features/filteringsSlice';
 
 type Props = {
-    type: string;
+    type: 'sorting' | 'view';
 };
 
 const sortingOptions = {

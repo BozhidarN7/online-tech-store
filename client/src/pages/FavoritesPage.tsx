@@ -31,7 +31,7 @@ const FavoritesPage = () => {
                 <Typography sx={{ mb: 2 }} variant="h4" component="h1">
                     Shopping Cart
                 </Typography>
-                {products.map((product) => (
+                {products.map((product: any) => (
                     <ProductCartItem
                         key={product._id}
                         product={product}

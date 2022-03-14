@@ -11,6 +11,7 @@ import {
     GetProductOpinionsData,
     GetProductOpinionsVars,
 } from '../../interfaces/gqlQueriesInterfaces';
+import { Opinion, RatingScore } from '../../interfaces/coreInterfaces';
 
 type Props = {
     productId: string;
@@ -33,9 +34,9 @@ const ProductOpinionsList = ({ productId }: Props) => {
     const opinions = product.opinions;
     const userRatings = product.ratingScore;
     const opinionsAndRatings = opinions
-        .map((opinion: any) => {
+        .map((opinion: Opinion) => {
             const userRating = userRatings.find(
-                (ur: any) => opinion.user === ur.user
+                (ur: RatingScore) => opinion.user === ur.user
             );
             if (userRating) {
                 return {

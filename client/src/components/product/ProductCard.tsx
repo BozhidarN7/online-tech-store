@@ -14,9 +14,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { useAuth } from '../../contexts/AuthCtx';
+import { Product, User } from '../../interfaces/coreInterfaces';
 import useAddRemoveToCart from '../../hooks/productsHooks/useAddRemoveToCart';
 
-const ProductCard = ({ product }: any) => {
+type Props = {
+    product: Product;
+};
+
+const ProductCard = ({ product }: Props) => {
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -30,12 +35,12 @@ const ProductCard = ({ product }: any) => {
     );
 
     const isAddedToFavorites = product.favoriteTo.find(
-        (user: any) => user._id === userId
+        (user: User) => user._id === userId
     )
         ? true
         : false;
     const isAddedToCart = product.inCartTo.find(
-        (user: any) => user._id === userId
+        (user: User) => user._id === userId
     )
         ? true
         : false;

@@ -7,8 +7,13 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import { useAppSelector, useAppDispatch } from '../../app/hook';
 import { productQauntityUpdated } from '../../features/usersSlice';
+import { Product } from '../../interfaces/coreInterfaces';
 
-const ProductQuantity = ({ product }: any) => {
+type Props = {
+    product: Product;
+};
+
+const ProductQuantity = ({ product }: Props) => {
     const dispatch = useAppDispatch();
     const productQuantity: any = useAppSelector((state) =>
         state.users.productsQuantity.find((pr: any) => pr._id === product._id)

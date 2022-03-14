@@ -23,6 +23,7 @@ import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 import { BUY_PRODUCTS } from '../graphql/mutations';
 import { BuyProducts } from '../interfaces/gqlMutationsInterfaces';
+import { Product } from '../interfaces/coreInterfaces';
 
 const stripePromise = loadStripe(
     'pk_test_51KMwuhCMtBKRRxdEknJZbAvHcpa3EieAk3r9qefohnBxEx5g7dXrBAzcQEeNvHrTsRcXFN1r5gYnWbrZlb4T3sVN00U9sQ17Td'
@@ -49,7 +50,7 @@ const PaymentPage = () => {
     useEffect(() => {
         buyProducts({
             variables: {
-                products: cart.map((product: any) => {
+                products: cart.map((product: Product) => {
                     return { _id: product._id, price: product.price };
                 }),
             },

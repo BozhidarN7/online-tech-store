@@ -12,6 +12,7 @@ import {
     GetUserFavoritesProductsData,
     GetUserFavoritesProductsVars,
 } from '../interfaces/gqlQueriesInterfaces';
+import { Product } from '../interfaces/coreInterfaces';
 
 const FavoritesPage = () => {
     const theme = useTheme();
@@ -46,7 +47,7 @@ const FavoritesPage = () => {
                 <Typography sx={{ mb: 2 }} variant="h4" component="h1">
                     Shopping Cart
                 </Typography>
-                {products.map((product: any) => (
+                {products.map((product: Product) => (
                     <ProductCartItem
                         key={product._id}
                         product={product}

@@ -13,12 +13,14 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import { useAuth } from '../../contexts/AuthCtx';
 import ProductSummary from './ProductSummary';
 import useAddRemoveToCartAndFavorites from '../../hooks/productsHooks/useAddRemoveToCart';
+import { Product, User } from '../../interfaces/coreInterfaces';
 
 type Props = {
     page: string;
+    product: Product;
 };
 
-const ProductCartItem = ({ product, page }: any) => {
+const ProductCartItem = ({ product, page }: Props) => {
     const theme = useTheme();
     const { firebaseUser } = useAuth()!;
     const userId = localStorage.getItem('userInfo');
@@ -30,12 +32,12 @@ const ProductCartItem = ({ product, page }: any) => {
         );
 
     const isAddedToFavorites = product.favoriteTo.find(
-        (user: any) => user._id === userId
+        (user: User) => user._id === userId
     )
         ? true
         : false;
     const isAddedToCart = product.inCartTo.find(
-        (user: any) => user._id === userId
+        (user: User) => user._id === userId
     )
         ? true
         : false;

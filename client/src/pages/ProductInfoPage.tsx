@@ -40,6 +40,7 @@ import {
     GetUserData,
     GetUserVars,
 } from '../interfaces/gqlQueriesInterfaces';
+import { Rating as ProductRating, User } from '../interfaces/coreInterfaces';
 
 const ProductInfoPage = () => {
     const navigate = useNavigate();
@@ -82,19 +83,19 @@ const ProductInfoPage = () => {
 
     const product = productData!.product;
     const isAddedToFavorites = product.favoriteTo.find(
-        (user: any) => user._id === userId
+        (user: User) => user._id === userId
     )
         ? true
         : false;
 
     const isAddedToCart = product.inCartTo.find(
-        (user: any) => user._id === userId
+        (user: User) => user._id === userId
     )
         ? true
         : false;
 
     const productRating = userData!.user.ratings.find(
-        (pr: any) => pr.product === product._id
+        (pr: ProductRating) => pr.product === product._id
     );
     const isRated = productRating ? true : false;
     const rating = productRating ? productRating.rating : 0;

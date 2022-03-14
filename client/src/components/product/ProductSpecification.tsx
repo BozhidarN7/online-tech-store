@@ -9,6 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import { Product } from '../../interfaces/coreInterfaces';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -29,7 +31,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-const ProductSpecification = ({ product }: any) => {
+type Props = {
+    product: Product;
+};
+
+const ProductSpecification = ({ product }: Props) => {
     console.log(product);
     return (
         <Box>
@@ -47,7 +53,7 @@ const ProductSpecification = ({ product }: any) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {product.specification.map((spec: any) => (
+                        {product.specification.map((spec: string[]) => (
                             <StyledTableRow key={spec[0]}>
                                 <StyledTableCell component="th" scope="row">
                                     {spec[0]}

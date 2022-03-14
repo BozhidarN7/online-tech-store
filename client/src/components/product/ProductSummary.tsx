@@ -1,3 +1,5 @@
+import { useTheme } from '@mui/material/styles';
+
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -15,6 +17,7 @@ type Props = {
 };
 
 const ProductSummary = ({ product, page }: any) => {
+    const theme = useTheme();
     return (
         <>
             <Typography sx={{ mb: 2 }} variant="h6" component="div">
@@ -23,19 +26,40 @@ const ProductSummary = ({ product, page }: any) => {
             <List>
                 <ListItem sx={{ m: 0, p: 0 }}>
                     <ListItemIcon>
-                        <DoneIcon sx={{ color: 'blue' }} />
+                        <DoneIcon
+                            sx={{
+                                color:
+                                    theme.palette.mode === 'dark'
+                                        ? theme.palette.secondary.main
+                                        : 'blue',
+                            }}
+                        />
                     </ListItemIcon>
                     <ListItemText primary="Fast" />
                 </ListItem>
                 <ListItem sx={{ m: 0, p: 0 }}>
                     <ListItemIcon>
-                        <DoneIcon sx={{ color: 'blue' }} />
+                        <DoneIcon
+                            sx={{
+                                color:
+                                    theme.palette.mode === 'dark'
+                                        ? theme.palette.secondary.main
+                                        : 'blue',
+                            }}
+                        />
                     </ListItemIcon>
                     <ListItemText primary="Long distance" />
                 </ListItem>
                 <ListItem sx={{ m: 0, p: 0 }}>
                     <ListItemIcon>
-                        <DoneIcon sx={{ color: 'blue' }} />
+                        <DoneIcon
+                            sx={{
+                                color:
+                                    theme.palette.mode === 'dark'
+                                        ? theme.palette.secondary.main
+                                        : 'blue',
+                            }}
+                        />
                     </ListItemIcon>
                     <ListItemText primary="Higher attitude" />
                 </ListItem>

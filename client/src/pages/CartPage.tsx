@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -19,6 +20,7 @@ import {
 } from '../interfaces/gqlQueriesInterfaces';
 
 const CartPage = () => {
+    const theme = useTheme();
     const navigate = useNavigate();
     const { data, loading } = useQuery<
         GetUserCartProductsData,
@@ -44,7 +46,14 @@ const CartPage = () => {
             <Grid container>
                 {products.length ? (
                     <Grid
-                        sx={{ bgcolor: 'lightblue', p: 2, mr: 2 }}
+                        sx={{
+                            bgcolor:
+                                theme.palette.mode === 'dark'
+                                    ? theme.palette.divider
+                                    : 'lightblue',
+                            p: 2,
+                            mr: 2,
+                        }}
                         item
                         xs={8}
                     >

@@ -20,7 +20,10 @@ const Footer = () => {
         <Grid
             container
             sx={{
-                bgcolor: `${theme.palette.primary.main}`,
+                bgcolor:
+                    theme.palette.mode === 'dark'
+                        ? theme.palette.divider
+                        : theme.palette.primary.main,
                 color: 'white',
                 p: 3,
             }}

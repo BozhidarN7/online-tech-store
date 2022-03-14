@@ -168,19 +168,40 @@ const ProductInfoPage = () => {
                     <List>
                         <ListItem sx={{ m: 0, p: 0 }}>
                             <ListItemIcon>
-                                <DoneIcon sx={{ color: 'blue' }} />
+                                <DoneIcon
+                                    sx={{
+                                        color:
+                                            theme.palette.mode === 'dark'
+                                                ? theme.palette.secondary.main
+                                                : 'blue',
+                                    }}
+                                />
                             </ListItemIcon>
                             <ListItemText primary="Fast" />
                         </ListItem>
                         <ListItem sx={{ m: 0, p: 0 }}>
                             <ListItemIcon>
-                                <DoneIcon sx={{ color: 'blue' }} />
+                                <DoneIcon
+                                    sx={{
+                                        color:
+                                            theme.palette.mode === 'dark'
+                                                ? theme.palette.secondary.main
+                                                : 'blue',
+                                    }}
+                                />
                             </ListItemIcon>
                             <ListItemText primary="Long distance" />
                         </ListItem>
                         <ListItem sx={{ m: 0, p: 0 }}>
                             <ListItemIcon>
-                                <DoneIcon sx={{ color: 'blue' }} />
+                                <DoneIcon
+                                    sx={{
+                                        color:
+                                            theme.palette.mode === 'dark'
+                                                ? theme.palette.secondary.main
+                                                : 'blue',
+                                    }}
+                                />
                             </ListItemIcon>
                             <ListItemText primary="Higher attitude" />
                         </ListItem>

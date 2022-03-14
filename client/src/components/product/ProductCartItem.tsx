@@ -57,14 +57,31 @@ const ProductCartItem = ({ product, page }: any) => {
     };
 
     return (
-        <Grid sx={{ bgcolor: 'white', p: 2, mb: 1 }} item container>
+        <Grid
+            sx={{
+                bgcolor: theme.palette.mode === 'dark' ? '#213852' : 'white',
+                p: 2,
+                mb: 1,
+            }}
+            item
+            container
+        >
             <Grid item container spacing={3}>
                 <Grid item xs={3}>
                     <Image src={product.image} height="10rem" duration={1000} />
                 </Grid>
                 <Grid item xs={3}>
                     <Link to={`/products/${product._id}`}>
-                        <Typography variant="h5" component="h2">
+                        <Typography
+                            sx={{
+                                color:
+                                    theme.palette.mode === 'dark'
+                                        ? theme.palette.secondary.main
+                                        : 'black',
+                            }}
+                            variant="h5"
+                            component="h2"
+                        >
                             {`${product.brand} ${product.model}`}
                         </Typography>
                     </Link>

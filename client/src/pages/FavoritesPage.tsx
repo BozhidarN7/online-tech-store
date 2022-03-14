@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { useTheme } from '@mui/material/styles';
 
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -13,6 +14,7 @@ import {
 } from '../interfaces/gqlQueriesInterfaces';
 
 const FavoritesPage = () => {
+    const theme = useTheme();
     const { data, loading } = useQuery<
         GetUserFavoritesProductsData,
         GetUserFavoritesProductsVars
@@ -31,7 +33,13 @@ const FavoritesPage = () => {
     return (
         <PageWrapper>
             <Grid
-                sx={{ bgcolor: 'lightblue', p: 2 }}
+                sx={{
+                    bgcolor:
+                        theme.palette.mode === 'dark'
+                            ? theme.palette.divider
+                            : 'lightblue',
+                    p: 2,
+                }}
                 container
                 justifyContent={'center'}
             >

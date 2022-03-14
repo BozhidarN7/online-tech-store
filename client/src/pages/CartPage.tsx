@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 
 import ShopIcon from '@mui/icons-material/Shop';
 
+import { useAppSelector } from '../app/hook';
 import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import ProductCartItem from '../components/product/ProductCartItem';
@@ -18,6 +19,7 @@ import {
     GetUserCartProductsData,
     GetUserCartProductsVars,
 } from '../interfaces/gqlQueriesInterfaces';
+import { Product } from '../interfaces/coreInterfaces';
 
 const CartPage = () => {
     const theme = useTheme();
@@ -31,6 +33,10 @@ const CartPage = () => {
         },
     });
 
+    const productsQuantity = useAppSelector(
+        (state) => state.users.productsQuantity
+    );
+
     if (loading) {
         return <Spinner />;
     }
@@ -38,7 +44,15 @@ const CartPage = () => {
     const products = data!.user.cart;
 
     const totalPrice = products
-        .reduce((sum: number, product: any) => (sum += product.price), 0)
+        .reduce((sum: number, product: Product) => {
+            const productQuantity = productsQuantity.find(
+                (pq: any) => pq._id === product._id
+            );
+            if (productQuantity) {
+                return (sum += productQuantity.quantity * product.price);
+            }
+            return (sum += product.price);
+        }, 0)
         .toFixed(2);
 
     return (
@@ -60,7 +74,7 @@ const CartPage = () => {
                         <Typography sx={{ mb: 2 }} variant="h4" component="h1">
                             Shopping Cart
                         </Typography>
-                        {products.map((product: any) => (
+                        {products.map((product: Product) => (
                             <ProductCartItem
                                 key={product._id}
                                 product={product}

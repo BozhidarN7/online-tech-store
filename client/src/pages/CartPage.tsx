@@ -13,12 +13,19 @@ import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import ProductCartItem from '../components/product/ProductCartItem';
 import Spinner from '../components/common/Spinner';
+import {
+    GetUserCartProductsData,
+    GetUserCartProductsVars,
+} from '../interfaces/gqlQueriesInterfaces';
 
 const CartPage = () => {
     const navigate = useNavigate();
-    const { data, loading } = useQuery(GET_USER_CART_PRODUCTS, {
+    const { data, loading } = useQuery<
+        GetUserCartProductsData,
+        GetUserCartProductsVars
+    >(GET_USER_CART_PRODUCTS, {
         variables: {
-            id: localStorage.getItem('userInfo'),
+            id: localStorage.getItem('userInfo')!,
         },
     });
 
@@ -26,7 +33,8 @@ const CartPage = () => {
         return <Spinner />;
     }
 
-    const products = data.user.cart;
+    const products = data!.user.cart;
+
     const totalPrice = products
         .reduce((sum: number, product: any) => (sum += product.price), 0)
         .toFixed(2);

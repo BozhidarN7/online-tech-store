@@ -21,18 +21,24 @@ import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 
 import { useAuth } from '../../../contexts/AuthCtx';
 import { GET_USER_BY_ID } from '../../../graphql/queries';
+import {
+    GetUserData,
+    GetUserVars,
+} from '../../../interfaces/gqlQueriesInterfaces';
 
 const pages = ['Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard'];
 
 const NavBar = () => {
     const userId = localStorage.getItem('userInfo');
-
-    const { data, loading } = useQuery(GET_USER_BY_ID, {
-        variables: {
-            id: userId || undefined,
-        },
-    });
+    const { data, loading } = useQuery<GetUserData, GetUserVars>(
+        GET_USER_BY_ID,
+        {
+            variables: {
+                id: userId || undefined,
+            },
+        }
+    );
 
     const navigate = useNavigate();
     const { firebaseUser, logout } = useAuth()!;
@@ -43,7 +49,8 @@ const NavBar = () => {
     if (loading) {
         return null;
     }
-    const currentUser = data.user;
+
+    const currentUser = data!.user;
 
     const handleOpenNavMenu = (event: React.SyntheticEvent) => {
         setAnchorElNav(event.currentTarget);

@@ -88,7 +88,7 @@ const UserAccountForm = ({ formType }: Props) => {
                 navigate('/products');
                 toast.success('Your registration is successful!');
                 toast.info('A verification email was sent to you!');
-            } catch (err) {
+            } catch (err: any) {
                 if (err.message.includes('email-already-in-use')) {
                     toast.error('Email is already in use!');
                 } else if (err.message.includes('weak-password')) {

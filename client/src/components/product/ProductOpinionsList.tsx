@@ -7,13 +7,20 @@ import Typography from '@mui/material/Typography';
 import ProductOpinionsListItem from './ProductOpinionsListItem';
 import Spinner from '../common/Spinner';
 import { GET_PRODUCT_OPINIONS } from '../../graphql/queries';
+import {
+    GetProductOpinionsData,
+    GetProductOpinionsVars,
+} from '../../interfaces/gqlQueriesInterfaces';
 
 type Props = {
     productId: string;
 };
 
 const ProductOpinionsList = ({ productId }: Props) => {
-    const { data, loading } = useQuery(GET_PRODUCT_OPINIONS, {
+    const { data, loading } = useQuery<
+        GetProductOpinionsData,
+        GetProductOpinionsVars
+    >(GET_PRODUCT_OPINIONS, {
         variables: {
             id: productId,
         },
@@ -22,7 +29,7 @@ const ProductOpinionsList = ({ productId }: Props) => {
     if (loading) {
         return <Spinner />;
     }
-    const product = data.product;
+    const product = data!.product;
     const opinions = product.opinions;
     const userRatings = product.ratingScore;
     const opinionsAndRatings = opinions

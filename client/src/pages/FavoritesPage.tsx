@@ -7,11 +7,18 @@ import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 import ProductCartItem from '../components/product/ProductCartItem';
 import { GET_USER_FAVORITES_PRODUCTS } from '../graphql/queries';
+import {
+    GetUserFavoritesProductsData,
+    GetUserFavoritesProductsVars,
+} from '../interfaces/gqlQueriesInterfaces';
 
 const FavoritesPage = () => {
-    const { data, loading } = useQuery(GET_USER_FAVORITES_PRODUCTS, {
+    const { data, loading } = useQuery<
+        GetUserFavoritesProductsData,
+        GetUserFavoritesProductsVars
+    >(GET_USER_FAVORITES_PRODUCTS, {
         variables: {
-            id: localStorage.getItem('userInfo'),
+            id: localStorage.getItem('userInfo')!,
         },
     });
 
@@ -19,7 +26,7 @@ const FavoritesPage = () => {
         return <Spinner />;
     }
 
-    const products = data.user.favorites;
+    const products = data!.user.favorites;
 
     return (
         <PageWrapper>

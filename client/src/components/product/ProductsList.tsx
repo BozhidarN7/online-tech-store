@@ -3,6 +3,10 @@ import { useQuery } from '@apollo/client';
 import { useAppSelector } from '../../app/hook';
 import Grid from '@mui/material/Grid';
 
+import {
+    GetAllProductsData,
+    GetAllProductsVars,
+} from '../../interfaces/gqlQueriesInterfaces';
 import * as queries from '../../graphql/queries';
 import ProductCard from './ProductCard';
 import Spinner from '../common/Spinner';
@@ -18,15 +22,18 @@ const ProductsList = () => {
         view = 10 + '';
     }
 
-    const { loading, data } = useQuery(queries.GET_All_PRODUCTS, {
-        variables: { limit: Number(view) },
-    });
+    const { loading, data } = useQuery<GetAllProductsData, GetAllProductsVars>(
+        queries.GET_All_PRODUCTS,
+        {
+            variables: { limit: Number(view) },
+        }
+    );
 
     if (loading) {
         return <Spinner />;
     }
 
-    let products = data.products.filter(
+    let products = data!.products.filter(
         (product: any) =>
             product.price >= price.value[0] && product.price <= price.value[1]
     );

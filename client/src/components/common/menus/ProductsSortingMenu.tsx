@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SelectChangeEvent } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../../../app/hook';
 import FormControl from '@mui/material/FormControl';
@@ -27,7 +28,7 @@ const SelectMenu = ({ type }: Props) => {
 
     const [open, setOpen] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: SelectChangeEvent<string>) => {
         const value = e.target.value;
         type === 'sorting'
             ? dispatch(sortingChanged({ sorting: value }))

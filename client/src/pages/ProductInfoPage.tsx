@@ -34,6 +34,12 @@ import ProductSpecification from '../components/product/ProductSpecification';
 import UserOpinionForm from '../components/common/navBar/forms/UserOpinionForm';
 import useAddRemoveToCartAndFavorites from '../hooks/productsHooks/useAddRemoveToCart';
 import React from 'react';
+import {
+    GetProductData,
+    GetProductVars,
+    GetUserData,
+    GetUserVars,
+} from '../interfaces/gqlQueriesInterfaces';
 
 const ProductInfoPage = () => {
     const navigate = useNavigate();
@@ -46,7 +52,7 @@ const ProductInfoPage = () => {
         data: userData,
         loading: loadingUser,
         refetch: refetchUser,
-    } = useQuery(GET_USER_BY_ID, {
+    } = useQuery<GetUserData, GetUserVars>(GET_USER_BY_ID, {
         variables: {
             id: userId,
         },
@@ -56,7 +62,7 @@ const ProductInfoPage = () => {
         data: productData,
         loading: loadingProduct,
         refetch: refetchProduct,
-    } = useQuery(GET_PRODUCT, {
+    } = useQuery<GetProductData, GetProductVars>(GET_PRODUCT, {
         variables: {
             id,
         },
@@ -65,7 +71,7 @@ const ProductInfoPage = () => {
     const { addRemoveToCart, addRemoveToFavorites } =
         useAddRemoveToCartAndFavorites(
             userId!,
-            productData?._id,
+            productData ? productData.product._id : '',
             firebaseUser?.accessToken
         );
     const [rate] = useMutation(RATE_PRODUCT);
@@ -74,7 +80,7 @@ const ProductInfoPage = () => {
         return <Spinner />;
     }
 
-    const product = productData.product;
+    const product = productData!.product;
     const isAddedToFavorites = product.favoriteTo.find(
         (user: any) => user._id === userId
     )
@@ -87,7 +93,7 @@ const ProductInfoPage = () => {
         ? true
         : false;
 
-    const productRating = userData.user.ratings.find(
+    const productRating = userData!.user.ratings.find(
         (pr: any) => pr.product === product._id
     );
     const isRated = productRating ? true : false;
@@ -116,8 +122,8 @@ const ProductInfoPage = () => {
         });
     };
 
-    const rateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const rating = Number(e.target.value);
+    const rateHandler = (e: React.SyntheticEvent, rating: number | null) => {
+        // const rating = Number(e.target.value);
         rate({
             variables: {
                 userId,

@@ -11,7 +11,7 @@ import AppRouter from './routes/AppRouter';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-    const prefersDarkMode = useMediaQuery('(prefers-color-schema: dark)');
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const theme = useMemo(
         () =>

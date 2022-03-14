@@ -91,6 +91,8 @@ const CartPage = () => {
                 )}
                 <Grid
                     sx={{
+                        bgcolor:
+                            theme.palette.mode === 'dark' ? '#213852' : 'white',
                         boxShadow: 3,
                         borderRadius: 3,
                         minHeight: 350,
@@ -128,7 +130,12 @@ const CartPage = () => {
                             variant="standard"
                         />
                         <Button
-                            sx={{ width: 182, mt: 1 }}
+                            sx={{
+                                width: 182,
+                                mt: 1,
+                                display: 'block',
+                                mx: 'auto',
+                            }}
                             variant="outlined"
                             disabled={products.length ? false : true}
                         >

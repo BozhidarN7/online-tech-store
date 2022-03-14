@@ -22,6 +22,7 @@ import PaymentForm from '../components/common/navBar/forms/PaymentForm';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
 import { BUY_PRODUCTS } from '../graphql/mutations';
+import { BuyProducts } from '../interfaces/gqlMutationsInterfaces';
 
 const stripePromise = loadStripe(
     'pk_test_51KMwuhCMtBKRRxdEknJZbAvHcpa3EieAk3r9qefohnBxEx5g7dXrBAzcQEeNvHrTsRcXFN1r5gYnWbrZlb4T3sVN00U9sQ17Td'
@@ -43,7 +44,7 @@ const PaymentPage = () => {
             }
         `,
     });
-    const [buyProducts, { data }] = useMutation(BUY_PRODUCTS);
+    const [buyProducts, { data }] = useMutation<BuyProducts>(BUY_PRODUCTS);
 
     useEffect(() => {
         buyProducts({

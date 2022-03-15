@@ -43,11 +43,6 @@ export const GET_PRODUCT = gql`
             inCartTo {
                 _id
             }
-            opinions {
-                user
-                opinion
-                _id
-            }
         }
     }
 `;

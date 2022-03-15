@@ -25,6 +25,7 @@ const ProductOpinionsList = ({ productId }: Props) => {
         variables: {
             id: productId,
         },
+        nextFetchPolicy: 'network-only',
     });
 
     if (loading) {

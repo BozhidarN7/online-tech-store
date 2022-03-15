@@ -84,7 +84,6 @@ const ProductInfoPage = () => {
     }
 
     const product = productData!.product;
-    console.log(product);
     const isAddedToFavorites = product.favoriteTo.find(
         (user: User) => user._id === userId
     )

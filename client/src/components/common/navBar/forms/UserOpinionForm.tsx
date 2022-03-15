@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
 import { ADD_OPPINION } from '../../../../graphql/mutations';
+import { GET_PRODUCT_OPINIONS } from '../../../../graphql/queries';
 
 type Props = {
     productId: string;
@@ -14,7 +15,9 @@ type Props = {
 
 const UserOpinionForm = ({ productId }: Props) => {
     const [opinion, setOpinion] = useState('');
-    const [addOpinion] = useMutation(ADD_OPPINION);
+    const [addOpinion] = useMutation(ADD_OPPINION, {
+        refetchQueries: [GET_PRODUCT_OPINIONS],
+    });
     const addOpinionHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setOpinion(e.target.value);
     };

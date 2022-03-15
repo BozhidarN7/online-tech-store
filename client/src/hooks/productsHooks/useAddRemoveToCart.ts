@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 
 import { ADD_TO_CART, ADD_TO_FAVORITES } from '../../graphql/mutations';
+import { GET_PRODUCT } from '../../graphql/queries';
 
 const useAddRemoveToCartAndFavorites = (
     userId: string,

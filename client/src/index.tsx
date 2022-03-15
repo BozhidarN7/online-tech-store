@@ -30,6 +30,11 @@ const client = new ApolloClient({
                             return incoming;
                         },
                     },
+                    ratingScore: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        },
+                    },
                 },
             },
             User: {
@@ -40,6 +45,11 @@ const client = new ApolloClient({
                         },
                     },
                     cart: {
+                        merge(existing, incoming) {
+                            return incoming;
+                        },
+                    },
+                    ratings: {
                         merge(existing, incoming) {
                             return incoming;
                         },

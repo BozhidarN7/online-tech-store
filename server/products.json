@@ -35,7 +35,7 @@
             ["Weight", "1kg"]
         ],
         "price": 1300,
-        "quantity": 3,
+        "quantity": 5,
         "image": "https://s13emagst.akamaized.net/products/9356/9355303/images/res_96dc5dea9778f7998bcd1d78391e0ac3.jpg",
         "favoriteTo": [],
         "inCartTo": [],
@@ -56,7 +56,7 @@
             ["Battery", "5000mah"]
         ],
         "price": 1500,
-        "quantity": 3,
+        "quantity": 2,
         "image": "https://media.ldlc.com/r1600/ld/products/00/05/89/86/LD0005898613_1_0005916008.jpg",
         "favoriteTo": [],
         "inCartTo": [],
@@ -75,7 +75,7 @@
             ["Matrix type", "IPS"]
         ],
         "price": 2000,
-        "quantity": 3,
+        "quantity": 1,
         "image": "https://p1.akcdn.net/full/510997041.dell-p2219h.jpg",
         "favoriteTo": [],
         "inCartTo": [],
@@ -96,7 +96,7 @@
             ["Weight", "1kg"]
         ],
         "price": 3000,
-        "quantity": 3,
+        "quantity": 7,
         "image": "https://media.wired.com/photos/59264bb5f3e2356fd8008c6e/master/pass/DroneHP_GettyImages-599365398.jpg",
         "favoriteTo": [],
         "inCartTo": [],

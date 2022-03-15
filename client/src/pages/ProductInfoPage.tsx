@@ -111,6 +111,7 @@ const ProductInfoPage = () => {
                 userId: userId,
                 productId: product._id,
             },
+            refetchQueries: [GET_PRODUCT],
         });
     };
     const addToCartHandler = () => {
@@ -122,6 +123,7 @@ const ProductInfoPage = () => {
                 userId: userId,
                 productId: product._id,
             },
+            refetchQueries: [GET_PRODUCT],
         });
     };
 

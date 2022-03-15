@@ -49,24 +49,24 @@ const ProductInfoPage = () => {
 
     const userId = localStorage.getItem('userInfo');
     const { firebaseUser } = useAuth()!;
-    const {
-        data: userData,
-        loading: loadingUser,
-        refetch: refetchUser,
-    } = useQuery<GetUserData, GetUserVars>(GET_USER_BY_ID, {
+    const { data: userData, loading: loadingUser } = useQuery<
+        GetUserData,
+        GetUserVars
+    >(GET_USER_BY_ID, {
         variables: {
             id: userId,
         },
+        nextFetchPolicy: 'network-only',
     });
 
-    const {
-        data: productData,
-        loading: loadingProduct,
-        refetch: refetchProduct,
-    } = useQuery<GetProductData, GetProductVars>(GET_PRODUCT, {
+    const { data: productData, loading: loadingProduct } = useQuery<
+        GetProductData,
+        GetProductVars
+    >(GET_PRODUCT, {
         variables: {
             id,
         },
+        nextFetchPolicy: 'network-only',
     });
 
     const { addRemoveToCart, addRemoveToFavorites } =
@@ -75,13 +75,16 @@ const ProductInfoPage = () => {
             productData ? productData.product._id : '',
             firebaseUser?.accessToken
         );
-    const [rate] = useMutation(RATE_PRODUCT);
+    const [rate] = useMutation(RATE_PRODUCT, {
+        refetchQueries: [GET_PRODUCT, GET_USER_BY_ID],
+    });
 
     if (loadingUser || loadingProduct) {
         return <Spinner />;
     }
 
     const product = productData!.product;
+    console.log(product);
     const isAddedToFavorites = product.favoriteTo.find(
         (user: User) => user._id === userId
     )
@@ -124,7 +127,6 @@ const ProductInfoPage = () => {
     };
 
     const rateHandler = (e: React.SyntheticEvent, rating: number | null) => {
-        // const rating = Number(e.target.value);
         rate({
             variables: {
                 userId,
@@ -132,8 +134,6 @@ const ProductInfoPage = () => {
                 rating,
             },
         });
-        refetchProduct();
-        refetchUser();
     };
 
     return (

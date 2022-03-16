@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../../../app/hook';
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';

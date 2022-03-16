@@ -177,6 +177,22 @@ const buyProducts = async (parent, args, context, info) => {
     }
 };
 
+const reduceQuantities = async (parent, args, context, info) => {
+    const productsIds = args.productsIds;
+    const quantities = args.quantities;
+    const products = productService.reduceQuantities(productsIds, quantities);
+    try {
+        return {
+            code: '200',
+            success: true,
+            message: 'Sucesss',
+            products,
+        };
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 const addOpinion = async (parent, args, context, info) => {
     const mongoProductId = mongoose.Types.ObjectId(args.productId);
     const mongoUserId = mongoose.Types.ObjectId(args.userId);
@@ -207,5 +223,6 @@ export default {
     addRemoveToCart,
     rate,
     buyProducts,
+    reduceQuantities,
     addOpinion,
 };

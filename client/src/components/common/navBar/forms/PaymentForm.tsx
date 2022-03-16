@@ -4,12 +4,66 @@ import {
     useStripe,
     useElements,
 } from '@stripe/react-stripe-js';
+import { useMutation } from '@apollo/client';
+
+import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
+import { REDUCE_QUANTITIES } from '../../../../graphql/mutations';
+import {
+    ReduceQauntitiesData,
+    ReduceQauntitiesVars,
+} from '../../../../interfaces/gqlMutationsInterfaces';
+import { productsQuantityRemove } from '../../../../features/usersSlice';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { Product } from '../../../../interfaces/coreInterfaces';
 
-const PaymentForm = () => {
+type Props = {
+    cart: Product[];
+};
+
+const PaymentForm = ({ cart }: Props) => {
     const stripe = useStripe();
     const elements = useElements();
+
+    const dispatch = useAppDispatch();
+
+    const productsQuantity = useAppSelector(
+        (state) => state.users.productsQuantity
+    );
+
+    const [reduceQuantities, { loading }] = useMutation<
+        { reduceQuantities: ReduceQauntitiesData },
+        ReduceQauntitiesVars
+    >(REDUCE_QUANTITIES, {
+        variables: {
+            productsIds: [
+                ...productsQuantity.map((product: Product) => product._id),
+                ...cart
+                    .map((product: Product) => {
+                        const find = productsQuantity.find(
+                            (pr: Product) => pr._id === product._id
+                        );
+
+                        if (find) return null;
+                        return product._id;
+                    })
+                    .filter((pr) => pr),
+            ],
+            quantities: [
+                ...productsQuantity.map((product: Product) => product.quantity),
+                ...cart
+                    .map((product: Product) => {
+                        const find = productsQuantity.find(
+                            (pr: Product) => pr._id === product._id
+                        );
+
+                        if (find) return null;
+                        return 1;
+                    })
+                    .filter((pr) => pr),
+            ],
+        },
+    });
 
     useEffect(() => {
         if (!stripe) {
@@ -50,6 +104,9 @@ const PaymentForm = () => {
         if (!stripe || !elements) {
             return;
         }
+
+        reduceQuantities();
+        dispatch(productsQuantityRemove);
 
         await stripe.confirmPayment({
             elements,

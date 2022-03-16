@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Product } from '../interfaces/coreInterfaces';
 
 export interface UsersState {
     currentUser: any;
@@ -20,12 +21,12 @@ const usersSlice = createSlice({
         currentUserLogout(state, action) {
             state.currentUser = {};
         },
-        productQauntityUpdated(state, action) {
+        productsQuantityAdd(state, action) {
             const productId = action.payload.productId;
             const quantity = action.payload.quantity;
 
             const product = state.productsQuantity.find(
-                (product: any) => product._id === productId
+                (product: Product) => product._id === productId
             );
 
             if (product) {
@@ -34,11 +35,18 @@ const usersSlice = createSlice({
                 state.productsQuantity.push({ _id: productId, quantity });
             }
         },
+        productsQuantityRemove(state, action) {
+            state.productsQuantity = [];
+        },
     },
 });
 
-export const { currentUserAdded, currentUserLogout, productQauntityUpdated } =
-    usersSlice.actions;
+export const {
+    currentUserAdded,
+    currentUserLogout,
+    productsQuantityAdd,
+    productsQuantityRemove,
+} = usersSlice.actions;
 
 export const selectCurrentUser = (state: any) => state.users.currentUser;
 

@@ -66,3 +66,14 @@ export const addOpinion = async (userId, productId, opinion) => {
         { new: true }
     );
 };
+
+export const reduceQuantities = async (productsIds, quantities) => {
+    const products = await Product.find({ _id: { $in: productsIds } });
+    products.forEach(async (product, i) => {
+        // TODO Check should be done to ensure that the quantity is in stock
+        product.quantity -= quantities[i];
+        await product.save();
+    });
+
+    return products;
+};

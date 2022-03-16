@@ -41,6 +41,7 @@ const PaymentPage = () => {
                 cart {
                     _id
                     price
+                    quantity
                 }
             }
         `,
@@ -161,7 +162,7 @@ const PaymentPage = () => {
                 </Grid>
                 <Grid item>
                     <Elements stripe={stripePromise} options={options}>
-                        <PaymentForm></PaymentForm>
+                        <PaymentForm cart={cart}></PaymentForm>
                     </Elements>
                 </Grid>
             </Grid>

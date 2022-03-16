@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 
 import ShopIcon from '@mui/icons-material/Shop';
 
-import { useAppSelector } from '../app/hook';
+import { useAppSelector } from '../app/hooks';
 import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import ProductCartItem from '../components/product/ProductCartItem';

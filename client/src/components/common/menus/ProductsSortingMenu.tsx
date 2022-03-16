@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 
-import { useAppSelector, useAppDispatch } from '../../../app/hook';
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';

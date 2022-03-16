@@ -5,8 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-import { useAppSelector, useAppDispatch } from '../../app/hook';
-import { productQauntityUpdated } from '../../features/usersSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { productsQuantityAdd } from '../../features/usersSlice';
 import { Product } from '../../interfaces/coreInterfaces';
 
 type Props = {
@@ -25,7 +25,7 @@ const ProductQuantity = ({ product }: Props) => {
             return;
         }
         dispatch(
-            productQauntityUpdated({
+            productsQuantityAdd({
                 productId: product._id,
                 quantity: quantity + 1,
             })
@@ -36,7 +36,7 @@ const ProductQuantity = ({ product }: Props) => {
             return;
         }
         dispatch(
-            productQauntityUpdated({
+            productsQuantityAdd({
                 productId: product._id,
                 quantity: quantity - 1,
             })

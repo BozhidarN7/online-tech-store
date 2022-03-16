@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../../app/hook';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';

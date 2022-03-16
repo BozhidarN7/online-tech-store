@@ -107,3 +107,13 @@ export const ADD_OPPINION = gql`
         }
     }
 `;
+
+export const REDUCE_QUANTITIES = gql`
+    mutation reduceQuantities($productsIds: [String!], $quantities: [Int!]) {
+        reduceQuantities(productsIds: $productsIds, quantities: $quantities) {
+            products {
+                _id
+            }
+        }
+    }
+`;

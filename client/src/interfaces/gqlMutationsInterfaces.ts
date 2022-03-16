@@ -1,3 +1,5 @@
+import { Product } from './coreInterfaces';
+
 interface Response {
     code: string;
     sucess: boolean;
@@ -9,4 +11,13 @@ interface PaymentResponse extends Response {
 
 export interface BuyProducts {
     buyProducts: PaymentResponse;
+}
+
+export interface ReduceQauntitiesData extends Response {
+    products: Product[];
+}
+
+export interface ReduceQauntitiesVars {
+    productsIds: string[];
+    quantities: number[];
 }

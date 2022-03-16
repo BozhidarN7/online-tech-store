@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 
-import { useAppSelector } from '../../app/hook';
+import { useAppSelector } from '../../app/hooks';
 import Grid from '@mui/material/Grid';
 
 import {

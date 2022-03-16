@@ -24,6 +24,11 @@ type Mutation {
 
     buyProducts(products: [OrderContent!]): PaymentResponse!
 
+    reduceQuantities(
+        productsIds: [String!]
+        quantities: [Int!]
+    ): ProductsUpdateMutationResponse!
+
     addOpinion(
         userId: ID!
         productId: ID!
@@ -119,4 +124,11 @@ type addOpinionResponse implements MutationResponse {
     success: Boolean!
     message: String!
     product: Product
+}
+
+type ProductsUpdateMutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    products: [Product]
 }

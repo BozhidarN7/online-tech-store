@@ -22,7 +22,7 @@ type Mutation {
 
     rate(userId: ID!, productId: ID!, rating: Int!): RateMutationResponse!
 
-    buyProducts(products: [OrderContent!]): PaymentResponse!
+    buyProducts(products: [OrderContent!], userId: ID): PaymentResponse!
 
     reduceQuantities(
         productsIds: [String!]

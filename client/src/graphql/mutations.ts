@@ -89,8 +89,8 @@ export const RATE_PRODUCT = gql`
 `;
 
 export const BUY_PRODUCTS = gql`
-    mutation BuyProducts($products: [OrderContent!]) {
-        buyProducts(products: $products) {
+    mutation BuyProducts($products: [OrderContent!], $userId: ID) {
+        buyProducts(products: $products, userId: $userId) {
             clientSecret
         }
     }

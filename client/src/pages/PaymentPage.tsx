@@ -32,9 +32,11 @@ const stripePromise = loadStripe(
 const PaymentPage = () => {
     const [deliveryMethod, setDeliveryMethod] = useState('toAddress');
 
+    const userId = localStorage.getItem('userInfo');
+
     const client = useApolloClient();
     const { cart } = client.readFragment({
-        id: `User:${localStorage.getItem('userInfo')}`,
+        id: `User:${userId}`,
         fragment: gql`
             fragment LoggedUser on User {
                 _id
@@ -49,22 +51,26 @@ const PaymentPage = () => {
     const [buyProducts, { data }] = useMutation<BuyProducts>(BUY_PRODUCTS);
 
     useEffect(() => {
-        buyProducts({
-            variables: {
-                products: cart.map((product: Product) => {
-                    return { _id: product._id, price: product.price };
-                }),
-            },
-        });
+        // buyProducts({
+        //     variables: {
+        //         products: cart.map((product: Product) => {
+        //             return { _id: product._id, price: product.price };
+        //         }),
+        //         userId,
+        //     },
+        // });
     }, [buyProducts, cart]);
 
-    if (!data) {
-        return <Spinner />;
-    }
+    // if (!data) {
+    //     return <Spinner />;
+    // }
 
-    const options = {
-        clientSecret: data.buyProducts.clientSecret,
-    };
+    // const options = {
+    //     clientSecret: data.buyProducts.clientSecret,
+    //     // appearance: {
+    //     //     theme: 'stripe',
+    //     // },
+    // };
 
     return (
         <PageWrapper>
@@ -161,7 +167,7 @@ const PaymentPage = () => {
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Elements stripe={stripePromise} options={options}>
+                    <Elements stripe={stripePromise} options={{}}>
                         <PaymentForm cart={cart}></PaymentForm>
                     </Elements>
                 </Grid>

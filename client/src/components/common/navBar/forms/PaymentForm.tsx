@@ -108,19 +108,25 @@ const PaymentForm = ({ cart }: Props) => {
         reduceQuantities();
         dispatch(productsQuantityRemove);
 
-        await stripe.confirmPayment({
+        const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
                 return_url: 'http://localhost:3000/products',
             },
         });
+
+        if (error.type === 'card_error' || error.type === 'validation_error') {
+            console.log(error.message);
+        } else {
+            console.log('An unexpected error occured.');
+        }
     };
 
     return (
         <>
             {stripe && elements && (
                 <Box component="form" onSubmit={payHandler}>
-                    <PaymentElement />
+                    {/* <PaymentElement /> */}
                     <Button type="submit">Pay</Button>
                 </Box>
             )}

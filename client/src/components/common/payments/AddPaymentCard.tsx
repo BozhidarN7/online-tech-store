@@ -4,6 +4,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/Button';
 
 const AddPaymentCard = () => {
+    const addCardHandler = () => {};
+
     return (
         <Card
             sx={{
@@ -13,7 +15,7 @@ const AddPaymentCard = () => {
                 height: 136,
             }}
         >
-            <IconButton>
+            <IconButton onClick={addCardHandler}>
                 <AddCircleIcon sx={{ fontSize: 40 }} />
             </IconButton>
         </Card>

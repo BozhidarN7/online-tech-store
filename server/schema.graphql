@@ -3,6 +3,7 @@ type Query {
     products(limit: Int): [Product]
     product(id: ID!): Product
     user(id: ID): User
+    userPaymentCards(userId: ID): [PaymentCard]
 }
 
 type Mutation {
@@ -69,6 +70,13 @@ type User {
     favorites: [Product!]
     ratings: [Rating]
     cart: [Product!]
+}
+
+type PaymentCard {
+    _id: String!
+    lastFourDigits: String!
+    expYear: String!
+    expMonth: String!
 }
 
 type RatingScore {

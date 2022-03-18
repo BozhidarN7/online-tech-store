@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useMutation } from '@apollo/client';
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -13,6 +13,12 @@ import PaymentForm from '../forms/PaymentForm';
 import Spinner from '../Spinner';
 import PaymentCard from './PaymentCard';
 import AddPaymentCard from './AddPaymentCard';
+import {
+    GetUserPaymentCardsData,
+    GetUserPaymentCardsVars,
+} from '../../../interfaces/gqlQueriesInterfaces';
+import { GET_USER_PAYMENT_CARDS } from '../../../graphql/queries';
+import ConfirmPaymentModal from '../modals/ConfirmPaymentModal';
 
 type Props = {
     cart: Product[];
@@ -23,21 +29,22 @@ const stripePromise = loadStripe(
 );
 
 const OnlinePayment = ({ cart }: Props) => {
-    const userId = localStorage.getItem('userInfo');
-    const [buyProducts, { data }] = useMutation<BuyProducts>(BUY_PRODUCTS);
+    const [isOpenConfirmPaymentModal, setIsOpenConfirmPaymentModal] =
+        useState(false);
+    const [finishPayment, setFinishPayment] = useState(false);
 
-    useEffect(() => {
-        buyProducts({
-            variables: {
-                products: cart.map((product: Product) => {
-                    return { _id: product._id, price: product.price };
-                }),
-                userId,
-            },
-        });
-    }, [buyProducts, cart, userId]);
+    const userId = localStorage.getItem('userInfo')!;
 
-    if (!data) {
+    const { data, loading } = useQuery<
+        GetUserPaymentCardsData,
+        GetUserPaymentCardsVars
+    >(GET_USER_PAYMENT_CARDS, {
+        variables: {
+            userId: userId,
+        },
+    });
+
+    if (loading) {
         return (
             <Box sx={{ m: 2 }}>
                 <Spinner only={true} />
@@ -45,40 +52,37 @@ const OnlinePayment = ({ cart }: Props) => {
         );
     }
 
-    const options = {
-        clientSecret: data!.buyProducts.clientSecret,
-        // appearance: {
-        //     theme: 'stripe',
-        // },
-    };
+    const cards = data!.userPaymentCards;
 
     return (
         // <Elements stripe={stripePromise} options={options}>
         //     <PaymentForm cart={cart}></PaymentForm>
         // </Elements>
-        <Grid container spacing={3} wrap="wrap">
-            <Grid item xs={3}>
-                <PaymentCard />
+        <>
+            <Grid container spacing={3} wrap="wrap">
+                {cards.map((card) => (
+                    <Grid item xs={3} key={card._id}>
+                        <PaymentCard
+                            card={card}
+                            cart={cart}
+                            setIsOpenConfirmPaymentModal={
+                                setIsOpenConfirmPaymentModal
+                            }
+                            finishPayment={finishPayment}
+                        />
+                    </Grid>
+                ))}
+
+                <Grid item xs={3}>
+                    <AddPaymentCard />
+                </Grid>
             </Grid>
-            <Grid item xs={3}>
-                <PaymentCard />
-            </Grid>
-            <Grid item xs={3}>
-                <PaymentCard />
-            </Grid>
-            <Grid item xs={3}>
-                <PaymentCard />
-            </Grid>
-            <Grid item xs={3}>
-                <PaymentCard />
-            </Grid>
-            <Grid item xs={3}>
-                <PaymentCard />
-            </Grid>
-            <Grid item xs={3}>
-                <AddPaymentCard />
-            </Grid>
-        </Grid>
+            <ConfirmPaymentModal
+                isOpenConfirmPaymentModal={isOpenConfirmPaymentModal}
+                setIsOpenConfirmPaymentModal={setIsOpenConfirmPaymentModal}
+                setFinishPayment={setFinishPayment}
+            />
+        </>
     );
 };
 

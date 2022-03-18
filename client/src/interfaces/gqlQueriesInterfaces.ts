@@ -1,4 +1,4 @@
-import { User } from './coreInterfaces';
+import { User, UserPaymentCards } from './coreInterfaces';
 import { Product } from './coreInterfaces';
 
 export interface GetAllProductsData {
@@ -45,4 +45,12 @@ export interface GetUserFavoritesProductsData {
 
 export interface GetUserFavoritesProductsVars {
     id: string;
+}
+
+export interface GetUserPaymentCardsData {
+    userPaymentCards: UserPaymentCards[];
+}
+
+export interface GetUserPaymentCardsVars {
+    userId: string;
 }

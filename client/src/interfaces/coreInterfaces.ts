@@ -46,3 +46,10 @@ export interface Opinion {
     userInfo: User;
     opinion: String;
 }
+
+export interface UserPaymentCards {
+    _id: string;
+    lastFourDigits: string;
+    expMonth: string;
+    expYear: string;
+}

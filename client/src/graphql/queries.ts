@@ -125,3 +125,14 @@ export const GET_USER_FAVORITES_PRODUCTS = gql`
         }
     }
 `;
+
+export const GET_USER_PAYMENT_CARDS = gql`
+    query getUserPaymentCards($userId: ID) {
+        userPaymentCards(userId: $userId) {
+            _id
+            lastFourDigits
+            expMonth
+            expYear
+        }
+    }
+`;

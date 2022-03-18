@@ -1,12 +1,10 @@
 import mongoose from 'mongoose';
-import Stripe from 'stripe';
 
 import * as userService from '../services/userService.js';
 import * as productService from '../services/productService.js';
 import { setUserRole } from '../utils/setUserRole.js';
 import buildError from '../utils/buildError.js';
-
-const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
+import { stripe } from '../config/stripeConfig.js';
 
 const signUp = async (parent, args, context, info) => {
     try {
@@ -210,22 +208,20 @@ const buyProducts = async (parent, args, context, info) => {
                 type: 'card',
             });
 
-            // const paymentIntent = await stripe.paymentIntents.create({
-            //     customer: 'cus_LKzrTm8PfzIPe0',
-            //     amount: totalPrice * 100,
-            //     currency: 'bgn',
-            //     payment_method: paymentMethods.data[0].id,
-            //     off_session: true,
-            //     confirm: true,
-            // });
-
-            console.log(paymentMethods.data[0].card);
+            const paymentIntent = await stripe.paymentIntents.create({
+                customer: 'cus_LKzrTm8PfzIPe0',
+                amount: totalPrice * 100,
+                currency: 'bgn',
+                payment_method: paymentMethods.data[0].id,
+                off_session: true,
+                confirm: true,
+            });
 
             return {
                 code: '200',
                 success: true,
                 message: 'Success',
-                clientSecret: '', //paymentIntent.client_secret,
+                clientSecret: paymentIntent.client_secret,
             };
         } catch (err) {
             console.log('Error code is: ', err.code);

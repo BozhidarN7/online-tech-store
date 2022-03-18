@@ -159,68 +159,83 @@ const buyProducts = async (parent, args, context, info) => {
     const products = args.products;
     const userId = args.userId;
 
+    let user = undefined;
+
+    try {
+        user = await userService.getUserById(userId);
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+
     const totalPrice = products
         .reduce((sum, product) => (sum += product.price), 0)
         .toFixed(2);
 
-    try {
-        const paymentMethods = await stripe.paymentMethods.list({
-            customer: 'cus_LKzrTm8PfzIPe0',
-            type: 'card',
-        });
+    if (!user.stripeCustomerId) {
+        try {
+            const customer = await stripe.customers.create({
+                email: user.email,
+                name: `${user.firstName} ${user.lastName}`,
+                metadata: {
+                    userId,
+                },
+            });
+            user.stripeCustomerId = customer.id;
+            user = await user.save();
 
-        const paymentIntent = await stripe.paymentIntents.create({
-            customer: 'cus_LKzrTm8PfzIPe0',
-            amount: totalPrice * 100,
-            currency: 'bgn',
-            payment_method: paymentMethods.data[0].id,
-            off_session: true,
-            confirm: true,
-        });
+            const paymentIntent = await stripe.paymentIntents.create({
+                customer: customer.id,
+                setup_future_usage: 'off_session',
+                amount: totalPrice * 100,
+                currency: 'bgn',
+                automatic_payment_methods: {
+                    enabled: true,
+                },
+            });
 
-        return {
-            code: '200',
-            success: true,
-            message: 'Success',
-            clientSecret: paymentIntent.client_secret,
-        };
-    } catch (err) {
-        console.log('Error code is: ', err.code);
-        console.log(err.message);
-        // const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(
-        //     err.raw.payment_intent.id
-        // );
-        // console.log('PI retrieved', paymentIntentRetrieved.id);
-        return;
-    }
-    try {
-        const localUser = await userService.getUserById(userId);
-        const customer = await stripe.customers.create({
-            email: localUser.email,
-            name: `${localUser.firstName} ${localUser.lastName}`,
-            metadata: {
-                userId,
-            },
-        });
+            return {
+                code: '200',
+                success: true,
+                message: 'Success',
+                clientSecret: paymentIntent.client_secret,
+            };
+        } catch (err) {
+            throw buildError(err);
+        }
+    } else {
+        try {
+            const paymentMethods = await stripe.paymentMethods.list({
+                customer: 'cus_LKzrTm8PfzIPe0',
+                type: 'card',
+            });
 
-        const paymentIntent = await stripe.paymentIntents.create({
-            customer: customer.id,
-            setup_future_usage: 'off_session',
-            amount: totalPrice * 100,
-            currency: 'bgn',
-            automatic_payment_methods: {
-                enabled: true,
-            },
-        });
+            // const paymentIntent = await stripe.paymentIntents.create({
+            //     customer: 'cus_LKzrTm8PfzIPe0',
+            //     amount: totalPrice * 100,
+            //     currency: 'bgn',
+            //     payment_method: paymentMethods.data[0].id,
+            //     off_session: true,
+            //     confirm: true,
+            // });
 
-        return {
-            code: '200',
-            success: true,
-            message: 'Success',
-            clientSecret: paymentIntent.client_secret,
-        };
-    } catch (err) {
-        throw buildError(err);
+            console.log(paymentMethods.data[0].card);
+
+            return {
+                code: '200',
+                success: true,
+                message: 'Success',
+                clientSecret: '', //paymentIntent.client_secret,
+            };
+        } catch (err) {
+            console.log('Error code is: ', err.code);
+            console.log(err.message);
+            // const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(
+            //     err.raw.payment_intent.id
+            // );
+            // console.log('PI retrieved', paymentIntentRetrieved.id);
+            return;
+        }
     }
 };
 

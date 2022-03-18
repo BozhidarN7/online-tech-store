@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
-import { useApolloClient } from '@apollo/client';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
 
 import Grid from '@mui/material/Grid';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -14,63 +11,40 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
 
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 
-import PaymentForm from '../components/common/navBar/forms/PaymentForm';
 import PageWrapper from '../components/wrappers/pageWrapper/PageWrapper';
 import Spinner from '../components/common/Spinner';
-import { BUY_PRODUCTS } from '../graphql/mutations';
-import { BuyProducts } from '../interfaces/gqlMutationsInterfaces';
-import { Product } from '../interfaces/coreInterfaces';
-
-const stripePromise = loadStripe(
-    'pk_test_51KMwuhCMtBKRRxdEknJZbAvHcpa3EieAk3r9qefohnBxEx5g7dXrBAzcQEeNvHrTsRcXFN1r5gYnWbrZlb4T3sVN00U9sQ17Td'
-);
+import { GET_USER_CART_PRODUCTS } from '../graphql/queries';
+import {
+    GetUserCartProductsData,
+    GetUserCartProductsVars,
+} from '../interfaces/gqlQueriesInterfaces';
+import OnlinePayment from '../components/common/payments/OnlinePayment';
 
 const PaymentPage = () => {
     const [deliveryMethod, setDeliveryMethod] = useState('toAddress');
+    const [paymentWay, setPaymentWay] = useState('cache');
 
-    const userId = localStorage.getItem('userInfo');
+    const userId = localStorage.getItem('userInfo')!;
 
-    const client = useApolloClient();
-    const { cart } = client.readFragment({
-        id: `User:${userId}`,
-        fragment: gql`
-            fragment LoggedUser on User {
-                _id
-                cart {
-                    _id
-                    price
-                    quantity
-                }
-            }
-        `,
+    const { data: userData, loading } = useQuery<
+        GetUserCartProductsData,
+        GetUserCartProductsVars
+    >(GET_USER_CART_PRODUCTS, {
+        variables: {
+            id: userId,
+        },
     });
-    const [buyProducts, { data }] = useMutation<BuyProducts>(BUY_PRODUCTS);
 
-    useEffect(() => {
-        // buyProducts({
-        //     variables: {
-        //         products: cart.map((product: Product) => {
-        //             return { _id: product._id, price: product.price };
-        //         }),
-        //         userId,
-        //     },
-        // });
-    }, [buyProducts, cart]);
+    if (loading) {
+        return <Spinner only={false} />;
+    }
 
-    // if (!data) {
-    //     return <Spinner />;
-    // }
-
-    // const options = {
-    //     clientSecret: data.buyProducts.clientSecret,
-    //     // appearance: {
-    //     //     theme: 'stripe',
-    //     // },
-    // };
+    const cart = userData!.user.cart;
 
     return (
         <PageWrapper>
@@ -79,7 +53,7 @@ const PaymentPage = () => {
                     sx={{ boxShadow: 1, borderRadius: 3, p: 2 }}
                     item
                     container
-                    xs={8}
+                    xs={6}
                     direction="column"
                 >
                     <Grid item>
@@ -166,10 +140,40 @@ const PaymentPage = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item>
-                    <Elements stripe={stripePromise} options={{}}>
-                        <PaymentForm cart={cart}></PaymentForm>
-                    </Elements>
+                <Grid item xs={6}>
+                    <FormControl>
+                        <FormLabel id="payment-way-radio-buttons-group-label">
+                            Payment method
+                        </FormLabel>
+                        <RadioGroup
+                            aria-labelledby="payment-way-radio-buttons-group-label"
+                            defaultValue="cache"
+                            name="radio-buttons-group"
+                            onChange={(e) => setPaymentWay(e.target.value)}
+                        >
+                            <FormControlLabel
+                                value="cache"
+                                control={<Radio />}
+                                label="Cache"
+                            />
+                            <FormControlLabel
+                                value="online"
+                                control={<Radio />}
+                                label="Online"
+                            />
+                        </RadioGroup>
+                    </FormControl>
+                    {paymentWay === 'cache' ? (
+                        <Button
+                            variant="contained"
+                            sx={{ display: 'block', m: 0 }}
+                            type="submit"
+                        >
+                            Pay
+                        </Button>
+                    ) : (
+                        <OnlinePayment cart={cart} />
+                    )}
                 </Grid>
             </Grid>
         </PageWrapper>

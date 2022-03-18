@@ -6,16 +6,17 @@ import {
 } from '@stripe/react-stripe-js';
 import { useMutation } from '@apollo/client';
 
-import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
-import { REDUCE_QUANTITIES } from '../../../../graphql/mutations';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import { REDUCE_QUANTITIES } from '../../../graphql/mutations';
 import {
     ReduceQauntitiesData,
     ReduceQauntitiesVars,
-} from '../../../../interfaces/gqlMutationsInterfaces';
-import { productsQuantityRemove } from '../../../../features/usersSlice';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { Product } from '../../../../interfaces/coreInterfaces';
+} from '../../../interfaces/gqlMutationsInterfaces';
+import { productsQuantityRemove } from '../../../features/usersSlice';
+import { Product } from '../../../interfaces/coreInterfaces';
 
 type Props = {
     cart: Product[];
@@ -31,7 +32,7 @@ const PaymentForm = ({ cart }: Props) => {
         (state) => state.users.productsQuantity
     );
 
-    const [reduceQuantities, { loading }] = useMutation<
+    const [reduceQuantities] = useMutation<
         { reduceQuantities: ReduceQauntitiesData },
         ReduceQauntitiesVars
     >(REDUCE_QUANTITIES, {
@@ -126,7 +127,7 @@ const PaymentForm = ({ cart }: Props) => {
         <>
             {stripe && elements && (
                 <Box component="form" onSubmit={payHandler}>
-                    {/* <PaymentElement /> */}
+                    <PaymentElement />
                     <Button type="submit">Pay</Button>
                 </Box>
             )}

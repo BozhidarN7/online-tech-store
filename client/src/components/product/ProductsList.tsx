@@ -31,7 +31,7 @@ const ProductsList = () => {
     );
 
     if (loading) {
-        return <Spinner />;
+        return <Spinner only={false} />;
     }
 
     let products = data!.products.filter(

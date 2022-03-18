@@ -43,6 +43,9 @@ const UserSchema = new mongoose.Schema({
             ref: 'Product',
         },
     ],
+    stripeCustomerId: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

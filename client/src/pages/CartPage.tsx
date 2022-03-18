@@ -38,7 +38,7 @@ const CartPage = () => {
     );
 
     if (loading) {
-        return <Spinner />;
+        return <Spinner only={false} />;
     }
 
     const products = data!.user.cart;

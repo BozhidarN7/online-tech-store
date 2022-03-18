@@ -4,7 +4,15 @@ import Grid from '@mui/material/Grid';
 
 import PageWrapper from '../wrappers/pageWrapper/PageWrapper';
 
-const Spinner = () => {
+type Props = {
+    only: boolean;
+};
+
+const Spinner = ({ only }: Props) => {
+    if (only) {
+        return <CircularProgress />;
+    }
+
     return (
         <PageWrapper>
             <Grid container justifyContent={'center'}>

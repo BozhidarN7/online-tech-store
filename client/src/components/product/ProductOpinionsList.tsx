@@ -29,7 +29,7 @@ const ProductOpinionsList = ({ productId }: Props) => {
     });
 
     if (loading) {
-        return <Spinner />;
+        return <Spinner only={true} />;
     }
     const product = data!.product;
     const opinions = product.opinions;

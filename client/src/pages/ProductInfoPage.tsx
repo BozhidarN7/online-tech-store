@@ -31,7 +31,7 @@ import Spinner from '../components/common/Spinner';
 import ProductQuantity from '../components/product/ProductQuatity';
 import ProductOpinionsList from '../components/product/ProductOpinionsList';
 import ProductSpecification from '../components/product/ProductSpecification';
-import UserOpinionForm from '../components/common/navBar/forms/UserOpinionForm';
+import UserOpinionForm from '../components/common/forms/UserOpinionForm';
 import useAddRemoveToCartAndFavorites from '../hooks/productsHooks/useAddRemoveToCart';
 import React from 'react';
 import {
@@ -80,7 +80,7 @@ const ProductInfoPage = () => {
     });
 
     if (loadingUser || loadingProduct) {
-        return <Spinner />;
+        return <Spinner only={false} />;
     }
 
     const product = productData!.product;

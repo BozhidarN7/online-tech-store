@@ -6,8 +6,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
-import { ADD_OPPINION } from '../../../../graphql/mutations';
-import { GET_PRODUCT_OPINIONS } from '../../../../graphql/queries';
+import { ADD_OPPINION } from '../../../graphql/mutations';
+import { GET_PRODUCT_OPINIONS } from '../../../graphql/queries';
 
 type Props = {
     productId: string;

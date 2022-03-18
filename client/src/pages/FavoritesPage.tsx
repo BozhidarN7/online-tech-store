@@ -26,7 +26,7 @@ const FavoritesPage = () => {
     });
 
     if (loading) {
-        return <Spinner />;
+        return <Spinner only={false} />;
     }
 
     const products = data!.user.favorites;

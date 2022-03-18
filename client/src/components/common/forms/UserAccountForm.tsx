@@ -1,7 +1,7 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { useAuth } from '../../../../contexts/AuthCtx';
+import { useAuth } from '../../../contexts/AuthCtx';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';

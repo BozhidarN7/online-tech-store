@@ -7,7 +7,9 @@ import {
 import { useMutation } from '@apollo/client';
 
 import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { REDUCE_QUANTITIES } from '../../../graphql/mutations';
@@ -126,9 +128,21 @@ const PaymentForm = ({ cart }: Props) => {
     return (
         <>
             {stripe && elements && (
-                <Box component="form" onSubmit={payHandler}>
+                <Box component="form" onSubmit={payHandler} sx={{ my: 3 }}>
                     <PaymentElement />
-                    <Button type="submit">Pay</Button>
+
+                    <Button
+                        variant="contained"
+                        sx={{ mt: 1, mr: 1 }}
+                        type="submit"
+                    >
+                        Pay
+                    </Button>
+                    <FormControlLabel
+                        sx={{ mt: 1.2 }}
+                        control={<Checkbox />}
+                        label="Remember my card"
+                    />
                 </Box>
             )}
         </>

@@ -34,16 +34,8 @@ const PaymentCard = ({
 
     const [buyProducts] = useMutation<BuyProducts>(BUY_PRODUCTS);
 
-    // const options = {
-    //     clientSecret: data!.buyProducts.clientSecret,
-    //     // appearance: {
-    //     //     theme: 'stripe',
-    //     // },
-    // };
-
     useEffect(() => {
         if (finishPayment) {
-            console.log('here');
             buyProducts({
                 variables: {
                     products: cart.map((product: Product) => {

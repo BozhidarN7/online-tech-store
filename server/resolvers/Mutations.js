@@ -156,6 +156,7 @@ const rate = async (parent, args, context, info) => {
 const buyProducts = async (parent, args, context, info) => {
     const products = args.products;
     const userId = args.userId;
+    const newCard = args.newCard;
 
     let user = undefined;
 
@@ -181,9 +182,15 @@ const buyProducts = async (parent, args, context, info) => {
             });
             user.stripeCustomerId = customer.id;
             user = await user.save();
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
+    if (newCard) {
+        try {
             const paymentIntent = await stripe.paymentIntents.create({
-                customer: customer.id,
+                customer: user.stripeCustomerId,
                 setup_future_usage: 'off_session',
                 amount: totalPrice * 100,
                 currency: 'bgn',
@@ -204,12 +211,12 @@ const buyProducts = async (parent, args, context, info) => {
     } else {
         try {
             const paymentMethods = await stripe.paymentMethods.list({
-                customer: 'cus_LKzrTm8PfzIPe0',
+                customer: user.stripeCustomerId,
                 type: 'card',
             });
 
             const paymentIntent = await stripe.paymentIntents.create({
-                customer: 'cus_LKzrTm8PfzIPe0',
+                customer: user.stripeCustomerId,
                 amount: totalPrice * 100,
                 currency: 'bgn',
                 payment_method: paymentMethods.data[0].id,

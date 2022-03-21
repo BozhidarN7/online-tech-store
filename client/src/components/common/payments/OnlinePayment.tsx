@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -24,6 +24,10 @@ type Props = {
     cart: Product[];
 };
 
+type stripeOptions = {
+    clientSecret: string;
+};
+
 const stripePromise = loadStripe(
     'pk_test_51KMwuhCMtBKRRxdEknJZbAvHcpa3EieAk3r9qefohnBxEx5g7dXrBAzcQEeNvHrTsRcXFN1r5gYnWbrZlb4T3sVN00U9sQ17Td'
 );
@@ -32,8 +36,13 @@ const OnlinePayment = ({ cart }: Props) => {
     const [isOpenConfirmPaymentModal, setIsOpenConfirmPaymentModal] =
         useState(false);
     const [finishPayment, setFinishPayment] = useState(false);
+    const [showPaymentForm, setShowPaymentForm] = useState(false);
 
     const userId = localStorage.getItem('userInfo')!;
+
+    let options: stripeOptions = {
+        clientSecret: '',
+    };
 
     const { data, loading } = useQuery<
         GetUserPaymentCardsData,
@@ -44,6 +53,22 @@ const OnlinePayment = ({ cart }: Props) => {
         },
     });
 
+    const [buyProducts, { data: buyProductsData }] =
+        useMutation<BuyProducts>(BUY_PRODUCTS);
+
+    const addPaymentCardHandler = () => {
+        setShowPaymentForm(true);
+        buyProducts({
+            variables: {
+                products: cart.map((product: Product) => {
+                    return { _id: product._id, price: product.price };
+                }),
+                userId,
+                newCard: true,
+            },
+        });
+    };
+
     if (loading) {
         return (
             <Box sx={{ m: 2 }}>
@@ -51,14 +76,25 @@ const OnlinePayment = ({ cart }: Props) => {
             </Box>
         );
     }
-
     const cards = data!.userPaymentCards;
 
+    if (buyProductsData) {
+        options = {
+            clientSecret: buyProductsData!.buyProducts.clientSecret,
+            // appearance: {
+            //     theme: 'stripe',
+            // },
+        };
+    }
+
     return (
-        // <Elements stripe={stripePromise} options={options}>
-        //     <PaymentForm cart={cart}></PaymentForm>
-        // </Elements>
         <>
+            {showPaymentForm && options.clientSecret ? (
+                <Elements stripe={stripePromise} options={options}>
+                    <PaymentForm cart={cart}></PaymentForm>
+                </Elements>
+            ) : null}
+
             <Grid container spacing={3} wrap="wrap">
                 {cards.map((card) => (
                     <Grid item xs={3} key={card._id}>
@@ -74,7 +110,9 @@ const OnlinePayment = ({ cart }: Props) => {
                 ))}
 
                 <Grid item xs={3}>
-                    <AddPaymentCard />
+                    <AddPaymentCard
+                        addPaymentCardHandler={addPaymentCardHandler}
+                    />
                 </Grid>
             </Grid>
             <ConfirmPaymentModal

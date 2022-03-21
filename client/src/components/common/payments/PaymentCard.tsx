@@ -50,7 +50,7 @@ const PaymentCard = ({
                 },
             });
         }
-    }, [finishPayment, buyProducts, cart, userId, card._id]);
+    }, [finishPayment, buyProducts, cart, userId, card._id, paymentMethodId]);
 
     const finishPaymentHandler = () => {
         setIsOpenConfirmPaymentModal(true);

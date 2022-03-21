@@ -92,9 +92,15 @@ export const BUY_PRODUCTS = gql`
     mutation BuyProducts(
         $products: [OrderContent!]
         $userId: ID
+        $paymentMethodId: String
         $newCard: Boolean
     ) {
-        buyProducts(products: $products, userId: $userId, newCard: $newCard) {
+        buyProducts(
+            products: $products
+            userId: $userId
+            paymentMethodId: $paymentMethodId
+            newCard: $newCard
+        ) {
             clientSecret
         }
     }

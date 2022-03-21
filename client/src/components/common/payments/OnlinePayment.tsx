@@ -37,6 +37,7 @@ const OnlinePayment = ({ cart }: Props) => {
         useState(false);
     const [finishPayment, setFinishPayment] = useState(false);
     const [showPaymentForm, setShowPaymentForm] = useState(false);
+    const [paymentMethodId, setPaymentMethodId] = useState('');
 
     const userId = localStorage.getItem('userInfo')!;
 
@@ -101,10 +102,12 @@ const OnlinePayment = ({ cart }: Props) => {
                         <PaymentCard
                             card={card}
                             cart={cart}
+                            finishPayment={finishPayment}
+                            paymentMethodId={paymentMethodId}
                             setIsOpenConfirmPaymentModal={
                                 setIsOpenConfirmPaymentModal
                             }
-                            finishPayment={finishPayment}
+                            setPaymentMethodId={setPaymentMethodId}
                         />
                     </Grid>
                 ))}
@@ -118,6 +121,7 @@ const OnlinePayment = ({ cart }: Props) => {
             <ConfirmPaymentModal
                 isOpenConfirmPaymentModal={isOpenConfirmPaymentModal}
                 setIsOpenConfirmPaymentModal={setIsOpenConfirmPaymentModal}
+                setPaymentMethodId={setPaymentMethodId}
                 setFinishPayment={setFinishPayment}
             />
         </>

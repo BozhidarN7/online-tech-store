@@ -21,34 +21,40 @@ type Props = {
     card: UserPaymentCards;
     cart: Product[];
     finishPayment: boolean;
+    paymentMethodId: string;
     setIsOpenConfirmPaymentModal: React.Dispatch<SetStateAction<boolean>>;
+    setPaymentMethodId: React.Dispatch<SetStateAction<string>>;
 };
 
 const PaymentCard = ({
     card,
     cart,
     finishPayment,
+    paymentMethodId,
     setIsOpenConfirmPaymentModal,
+    setPaymentMethodId,
 }: Props) => {
     const userId = localStorage.getItem('userInfo');
 
     const [buyProducts] = useMutation<BuyProducts>(BUY_PRODUCTS);
 
     useEffect(() => {
-        if (finishPayment) {
+        if (finishPayment && paymentMethodId === card._id) {
             buyProducts({
                 variables: {
                     products: cart.map((product: Product) => {
                         return { _id: product._id, price: product.price };
                     }),
                     userId,
+                    paymentMethodId: card._id,
                 },
             });
         }
-    }, [finishPayment, buyProducts, cart, userId]);
+    }, [finishPayment, buyProducts, cart, userId, card._id]);
 
     const finishPaymentHandler = () => {
         setIsOpenConfirmPaymentModal(true);
+        setPaymentMethodId(card._id);
     };
 
     return (

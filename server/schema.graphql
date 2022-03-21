@@ -26,6 +26,7 @@ type Mutation {
     buyProducts(
         products: [OrderContent!]
         userId: ID
+        paymentMethodId: String
         newCard: Boolean
     ): PaymentResponse!
 

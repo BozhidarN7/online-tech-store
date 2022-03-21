@@ -156,6 +156,7 @@ const rate = async (parent, args, context, info) => {
 const buyProducts = async (parent, args, context, info) => {
     const products = args.products;
     const userId = args.userId;
+    const paymentMethodId = args.paymentMethodId;
     const newCard = args.newCard;
 
     let user = undefined;
@@ -219,7 +220,9 @@ const buyProducts = async (parent, args, context, info) => {
                 customer: user.stripeCustomerId,
                 amount: totalPrice * 100,
                 currency: 'bgn',
-                payment_method: paymentMethods.data[0].id,
+                payment_method: paymentMethods.data.find(
+                    (pm) => pm.id === paymentMethodId
+                ).id,
                 off_session: true,
                 confirm: true,
             });

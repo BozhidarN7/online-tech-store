@@ -140,7 +140,7 @@ const PaymentForm = ({ cart }: Props) => {
                     </Button>
                     <FormControlLabel
                         sx={{ mt: 1.2 }}
-                        control={<Checkbox />}
+                        control={<Checkbox defaultChecked />}
                         label="Remember my card"
                     />
                 </Box>

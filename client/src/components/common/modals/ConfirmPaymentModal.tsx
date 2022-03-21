@@ -11,20 +11,23 @@ type Props = {
     isOpenConfirmPaymentModal: boolean;
     setIsOpenConfirmPaymentModal: React.Dispatch<SetStateAction<boolean>>;
     setFinishPayment: React.Dispatch<SetStateAction<boolean>>;
+    setPaymentMethodId: React.Dispatch<SetStateAction<string>>;
 };
 
 const ConfirmPaymentModal = ({
     isOpenConfirmPaymentModal,
     setIsOpenConfirmPaymentModal,
     setFinishPayment,
+    setPaymentMethodId,
 }: Props) => {
     const handleCloseDisagree = () => {
         setIsOpenConfirmPaymentModal(false);
         setFinishPayment(false);
+        setPaymentMethodId('');
     };
     const handleCloseAgree = () => {
-        setIsOpenConfirmPaymentModal(false);
         setFinishPayment(true);
+        setIsOpenConfirmPaymentModal(false);
     };
 
     return (

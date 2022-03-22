@@ -1,3 +1,4 @@
+import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 import NavBar from '../../common/navBar/NavBar';
@@ -11,7 +12,9 @@ const PageWrapper = ({ children }: Props) => {
     return (
         <>
             <NavBar />
-            <Box sx={{ mx: { xl: 3, lg: 3 }, my: 10 }}>{children}</Box>
+            <Container maxWidth="xl">
+                <Box sx={{ mx: { xl: 0, lg: 0 }, my: 10 }}>{children}</Box>
+            </Container>
             <Footer />
         </>
     );

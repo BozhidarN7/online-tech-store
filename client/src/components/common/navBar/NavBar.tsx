@@ -84,7 +84,7 @@ const NavBar = () => {
                             component="div"
                             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                         >
-                            <IconButton aria-label="logo">
+                            <IconButton sx={{ p: 0 }} aria-label="logo">
                                 <DeviceHubIcon sx={{ fontSize: 40 }} />
                             </IconButton>
                         </Typography>

@@ -12,7 +12,7 @@ const ProductsPage = () => {
                 <Grid item xs={3}>
                     <ProductsFilteringMenu />
                 </Grid>
-                <Grid container item xs={9} rowSpacing={10}>
+                <Grid container item xs={9} rowSpacing={10} columnSpacing={5}>
                     <Grid container item xs={12}>
                         <ProductsSortingMenu />
                     </Grid>

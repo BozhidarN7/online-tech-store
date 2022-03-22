@@ -57,7 +57,7 @@ const ProductCard = ({ product }: Props) => {
     };
 
     return (
-        <Card sx={{ maxWidth: 345, minWidth: 345 }}>
+        <Card>
             <CardActionArea onClick={openProductInfoHandler}>
                 <CardMedia
                     component="img"

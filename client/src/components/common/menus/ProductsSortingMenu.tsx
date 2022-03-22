@@ -44,7 +44,7 @@ const SelectMenu = ({ type }: Props) => {
     };
     return (
         <Box>
-            <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <FormControl sx={{ mr: 1, minWidth: 200 }}>
                 <InputLabel id="demo-controlled-open-select-label">
                     {type === 'sorting' ? 'Sort' : 'View'}
                 </InputLabel>

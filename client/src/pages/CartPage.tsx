@@ -57,7 +57,7 @@ const CartPage = () => {
 
     return (
         <PageWrapper>
-            <Grid container>
+            <Grid container justifyContent="space-between">
                 {products.length ? (
                     <Grid
                         sx={{
@@ -66,7 +66,6 @@ const CartPage = () => {
                                     ? theme.palette.divider
                                     : 'lightblue',
                             p: 2,
-                            mr: 2,
                         }}
                         item
                         xs={8}
@@ -97,7 +96,7 @@ const CartPage = () => {
                         borderRadius: 3,
                         minHeight: 350,
                         maxHeight: 350,
-                        ml: 2,
+                        justifySelf: 'flex-end',
                     }}
                     item
                     xs={3}

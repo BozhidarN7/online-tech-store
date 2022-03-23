@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { sortingChanged, viewChanged } from '../../../features/filteringsSlice';
 
 type Props = {
@@ -25,6 +26,8 @@ const viewOptions = [10, 25, 50, 100];
 const SelectMenu = ({ type }: Props) => {
     const dispatch = useAppDispatch();
     const option = useAppSelector((state) => state.filterings[type]);
+
+    const moreThan600 = useMediaQuery('(min-width:600px)');
 
     const [open, setOpen] = useState(false);
 
@@ -44,7 +47,13 @@ const SelectMenu = ({ type }: Props) => {
     };
     return (
         <Box>
-            <FormControl sx={{ mr: 1, minWidth: { md: 200, sm: 170 } }}>
+            <FormControl
+                sx={{
+                    mt: moreThan600 ? 0 : 2,
+                    mr: 1,
+                    minWidth: { md: 200, sm: 170, xs: 170 },
+                }}
+            >
                 <InputLabel id="demo-controlled-open-select-label">
                     {type === 'sorting' ? 'Sort' : 'View'}
                 </InputLabel>

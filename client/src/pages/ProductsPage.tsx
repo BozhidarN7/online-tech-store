@@ -38,6 +38,7 @@ const ProductsPage = () => {
                             justifyContent: {
                                 sm: 'flex-end',
                                 md: 'flex-start',
+                                xs: 'center',
                             },
                         }}
                     >

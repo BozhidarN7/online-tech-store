@@ -160,7 +160,7 @@ const HomePage = () => {
                             place where you will find the best one suitable for
                             your goals.
                         </Typography>
-                        <Button variant="contained">Browse Monitros</Button>
+                        <Button variant="contained">Browse Monitors</Button>
                     </Grid>
                 </Grid>
             </Grid>

@@ -8,12 +8,39 @@ import ProductsList from '../components/product/ProductsList';
 const ProductsPage = () => {
     return (
         <PageWrapper>
-            <Grid container spacing={3}>
-                <Grid item xs={3}>
+            <Grid
+                container
+                spacing={3}
+                sx={{
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: { xs: 'center', sm: 'flex-start' },
+                }}
+            >
+                <Grid item lg={3} md={3} sm={4}>
                     <ProductsFilteringMenu />
                 </Grid>
-                <Grid container item xs={9} rowSpacing={10} columnSpacing={5}>
-                    <Grid container item xs={12}>
+                <Grid
+                    container
+                    item
+                    md={9}
+                    sm={8}
+                    rowSpacing={10}
+                    columnSpacing={5}
+                    sx={{
+                        justifyContent: { sm: 'flex-end', md: 'flex-start' },
+                    }}
+                >
+                    <Grid
+                        container
+                        item
+                        wrap="wrap"
+                        sx={{
+                            justifyContent: {
+                                sm: 'flex-end',
+                                md: 'flex-start',
+                            },
+                        }}
+                    >
                         <ProductsSortingMenu />
                     </Grid>
                     <ProductsList />

@@ -13,7 +13,7 @@ const PageWrapper = ({ children }: Props) => {
         <>
             <NavBar />
             <Container maxWidth="xl">
-                <Box sx={{ mx: { xl: 0, lg: 0 }, my: 10 }}>{children}</Box>
+                <Box sx={{ my: 10 }}>{children}</Box>
             </Container>
             <Footer />
         </>

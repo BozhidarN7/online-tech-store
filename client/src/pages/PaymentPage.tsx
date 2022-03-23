@@ -48,9 +48,9 @@ const PaymentPage = () => {
 
     return (
         <PageWrapper>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ pl: 3 }}>
                 <Grid
-                    sx={{ boxShadow: 1, borderRadius: 3, p: 2 }}
+                    sx={{ boxShadow: 3, borderRadius: 3, p: 2 }}
                     item
                     container
                     xs={6}

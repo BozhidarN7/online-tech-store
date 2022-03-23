@@ -21,7 +21,7 @@ const PriceRangeMenu = () => {
     };
 
     return (
-        <Box sx={{ width: 300 }}>
+        <Box sx={{ width: { xl: 300, lg: 250, md: 180 } }}>
             <FormLabel>Price</FormLabel>
             <Slider
                 getAriaLabel={() => 'Price range'}

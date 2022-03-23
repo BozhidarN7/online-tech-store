@@ -98,7 +98,21 @@ const OnlinePayment = ({ cart }: Props) => {
 
             <Grid container spacing={3} wrap="wrap">
                 {cards.map((card) => (
-                    <Grid item xs={3} key={card._id}>
+                    <Grid item xs={4} key={card._id}>
+                        <PaymentCard
+                            card={card}
+                            cart={cart}
+                            finishPayment={finishPayment}
+                            paymentMethodId={paymentMethodId}
+                            setIsOpenConfirmPaymentModal={
+                                setIsOpenConfirmPaymentModal
+                            }
+                            setPaymentMethodId={setPaymentMethodId}
+                        />
+                    </Grid>
+                ))}
+                {cards.map((card) => (
+                    <Grid item xs={4} key={card._id}>
                         <PaymentCard
                             card={card}
                             cart={cart}
@@ -112,7 +126,7 @@ const OnlinePayment = ({ cart }: Props) => {
                     </Grid>
                 ))}
 
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <AddPaymentCard
                         addPaymentCardHandler={addPaymentCardHandler}
                     />

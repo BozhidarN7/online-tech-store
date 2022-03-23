@@ -152,7 +152,9 @@ const NavBar = () => {
                             display: { xs: 'flex', md: 'none' },
                         }}
                     >
-                        LOGO
+                        <IconButton sx={{ p: 0 }} aria-label="logo">
+                            <DeviceHubIcon sx={{ fontSize: 40 }} />
+                        </IconButton>
                     </Typography>
                     <Box
                         sx={{
@@ -217,7 +219,8 @@ const NavBar = () => {
                             <IconButton
                                 onClick={() => navigate('/favorites')}
                                 arial-label="cart"
-                                sx={{ mr: 3, pb: 0 }}
+                                sx={{ mr: 1, pb: 0 }}
+                                size="small"
                             >
                                 <Badge
                                     badgeContent={currentUser?.favorites.length}
@@ -231,7 +234,8 @@ const NavBar = () => {
                             <IconButton
                                 onClick={() => navigate('/cart')}
                                 arial-label="cart"
-                                sx={{ mr: 3, pb: 0 }}
+                                sx={{ mr: 1, pb: 0 }}
+                                size="small"
                             >
                                 <Badge
                                     badgeContent={currentUser?.cart.length}

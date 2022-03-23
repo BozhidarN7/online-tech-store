@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -22,6 +23,8 @@ type Props = {
 };
 
 const ProductCard = ({ product }: Props) => {
+    const lessThan270 = useMediaQuery('(max-width:270px');
+
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -70,18 +73,26 @@ const ProductCard = ({ product }: Props) => {
                         {`${product.brand} ${product.model}`}
                     </Typography>
 
-                    <Grid container rowSpacing={2}>
-                        <Grid item xs={6}>
+                    <Grid
+                        container
+                        rowSpacing={2}
+                        flexDirection={lessThan270 ? 'column' : 'row'}
+                    >
+                        <Grid item xs={lessThan270 ? 'auto' : 6}>
                             <Typography variant="body2" component="span">
                                 Category: {product.category}
                             </Typography>
                         </Grid>
-                        <Grid sx={{ textAlign: 'right' }} item xs={6}>
+                        <Grid
+                            sx={{ textAlign: lessThan270 ? 'left' : 'right' }}
+                            item
+                            xs={lessThan270 ? 'auto' : 6}
+                        >
                             <Typography variant="body2" component="span">
                                 Price: {product.price} lv.
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={lessThan270 ? 'auto' : 6}>
                             <Typography variant="body2" component="span">
                                 <Rating
                                     name="read-only"
@@ -90,7 +101,11 @@ const ProductCard = ({ product }: Props) => {
                                 />
                             </Typography>
                         </Grid>
-                        <Grid sx={{ textAlign: 'right' }} item xs={6}>
+                        <Grid
+                            sx={{ textAlign: lessThan270 ? 'left' : 'right' }}
+                            item
+                            xs={lessThan270 ? 'auto' : 6}
+                        >
                             <Typography variant="body2" component="span">
                                 Quantity: {product.quantity}
                             </Typography>

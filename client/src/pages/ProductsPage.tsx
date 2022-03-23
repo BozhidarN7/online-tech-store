@@ -27,7 +27,11 @@ const ProductsPage = () => {
                     rowSpacing={10}
                     columnSpacing={5}
                     sx={{
-                        justifyContent: { sm: 'flex-end', md: 'flex-start' },
+                        justifyContent: {
+                            sm: 'flex-end',
+                            md: 'flex-start',
+                            xs: 'center',
+                        },
                     }}
                 >
                     <Grid

@@ -56,14 +56,17 @@ const ProductOpinionsList = ({ productId }: Props) => {
         .filter((opinion: any) => opinion);
 
     return (
-        <Box sx={{ mt: 5 }}>
+        <Box sx={{ mt: 5, boxShadow: 1 }}>
             {opinionsAndRatings.length ? (
                 <>
-                    <Typography sx={{ mb: 2 }} variant="h5" component="h2">
+                    <Typography sx={{ p: 2 }} variant="h5" component="h2">
                         Opinions
                     </Typography>
                     <Grid
-                        sx={{ boxShadow: 1, borderRadius: 2, p: 2 }}
+                        sx={{
+                            borderRadius: 2,
+                            p: 2,
+                        }}
                         container
                         direction="column"
                         spacing={3}
